@@ -15,7 +15,8 @@
                 {{ ucwords($checkjob->jobtitle)}}
               </div>
               <div class="card-content">
-                <p>{{ ucwords($checkjob->compnay_hiring)}} Location {{$details['city']}}, {{$details['country']}}</p>
+                <p>Company name: {{ ucwords($checkjob->compnay_hiring)}} 
+                <br/>Location: {{$details['city']}}, {{$details['country']}}</p>
                 <span>Posted 2 weeks ago </span> 
               </div>
             </div>
@@ -40,6 +41,15 @@
         @endif
         @endif
         <a class="waves-effect waves-light btn">Share</a>
+        <!--  <a class="waves-effect waves-light btn share-box">
+                  Share
+                </a>
+                <ul>
+                  <li><a onclick="window.open('https://www.facebook.com/sharer.php?u={{URL::to('jobdetail/'.$checkjob->id)}}', 'facebookShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/facebook-logo.png')}}"></a></li>
+                  <li><a onclick="window.open('https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url={{URL::to('jobdetail/'.$checkjob->id)}}', 'googleShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/google-plus.png')}}"></a></li>
+                  <li><a onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{URL::to('jobdetail/'.$checkjob->id)}}&summary={{$checkjob->jobtitle}}', 'linkedinShare', 'width=750,height=350'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/linkedin-logo.png')}}"></a></li>
+                  <li><a onclick="window.open('https://twitter.com/share?url={{URL::to('jobdetail/'.$checkjob->id)}}&text={{$checkjob->jobtitle}}', 'twitterShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/twitter.png')}}"></a></li>
+                </ul> -->
         @if($details['loginrequired']=='yes')
         <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="loginbox()">Follow</a>
         @else

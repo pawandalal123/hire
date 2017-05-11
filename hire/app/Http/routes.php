@@ -31,6 +31,7 @@ Route::any('/deletenews/{id}', 'UserController@deletenews');
 Route::any('/jobdetail/{pagename?}', 'JobController@jobdetail');
 Route::any('/compnaydetail/{id}', 'UserController@compnaydetail');
 Route::any('/see-all-connections-page', 'UserController@allconnections');
+Route::any('/see-all-saves', 'UserController@allsaves');
 
 /////////////////////////// profile//////////
 Route::any('/profile/{pagename?}', 'UserController@index');
@@ -55,6 +56,7 @@ Route::get('/ajaxauthnticate','Auth\AuthController@postLoginajax');
 
 Route::post('/statelist','ajaxRequestController@statelist');
 Route::post('/citylist','ajaxRequestController@citylist');
+Route::post('/userupdates','ajaxRequestController@userupdates');
 /*adding terms and policy page */
 Route::get('/terms', 'mainController@terms');
 Route::get('/privacy-policy', 'mainController@privacy');

@@ -51,7 +51,7 @@
                   <td>
                   {{$recomendedArray['extra_skills']}}
                   </td>
-                  <td><a href="URL::to('userdetail/'.$recomendedArray['userid'])" target="_blank">View Profile</a></td>
+                  <td><a href="{{URL::to('userdetail/'.$recomendedArray['userid'])}}" target="_blank">View Profile</a></td>
                 </tr>
                 {{--*/ $i++ /*--}}
                 @endforeach

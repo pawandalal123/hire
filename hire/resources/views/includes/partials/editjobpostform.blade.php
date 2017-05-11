@@ -151,12 +151,11 @@
             </div>
                <div class="input-field col s4">
               <select name="emplevel">
-
                         <option value="" disabled selected>Choose your option</option>
-                        <option value="1">Executive</option>
-                        <option value="2">Middel</option>
-                        <option value="3">Management</option>
-                        <option value="4">Higher management</option>
+                        <option value="1" @if($jobdetails->emp_level==1) selected @endif>Executive</option>
+                        <option value="2" @if($jobdetails->emp_level==2) selected @endif>Middel</option>
+                        <option value="3" @if($jobdetails->emp_level==3) selected @endif>Management</option>
+                        <option value="4" @if($jobdetails->emp_level==4) selected @endif>Higher management</option>
                       </select>
               <label>Level of Employment
 </label>

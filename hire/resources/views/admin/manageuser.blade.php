@@ -18,7 +18,7 @@
                     <div class="col-md-12">                    
                         <div class="head clearfix">
                             <div class="isw-grid"></div>
-                            <h1>Admin User List</h1>      
+                            <h1>All User List</h1>      
                         </div>
                         <div class="block-fluid">
                   <table class="table table-bordered">
@@ -28,6 +28,9 @@
                         Name</th>
                         <th>Email</th>
                         <th>Mobile</th>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>City</th>
                         <th>Social Login</th>
                         <th>Registered Date</th>
                         </tr>
@@ -40,6 +43,9 @@
 	                        {!! $dataUsers->name; !!}</td>                     
 						    <td>{!! $dataUsers->email; !!}</td>
 						    <td>{!! $dataUsers->mobile; !!}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
 						    <td>@if($dataUsers->login_type==1) Yes @else No @endif</td>
 						    <td>{!! $dataUsers->created_at; !!}</td>
 	                      </tr>

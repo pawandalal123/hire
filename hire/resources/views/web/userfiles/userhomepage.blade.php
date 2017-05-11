@@ -20,6 +20,8 @@
     @include('includes.web.userfiles.discussionjoin')
      @elseif($pagename=='editskills')
     @include('includes.web.userfiles.editskills')
+     @elseif($pagename=='all-saves')
+    @include('includes.web.userfiles.allsaves')
    @else
    @include('includes.web.userfiles.userhome')
    @endif

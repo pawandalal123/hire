@@ -1001,7 +1001,7 @@ footer h4{
 }
 
 .user-profile th, .user-profile td{
-  color: #fff;
+  /*color: #fff;*/
 }
 
 .status-percent{
@@ -1533,7 +1533,7 @@ span.tick {
 }
 
 .search-page .collection .collection-item.avatar{
-  padding-left: 72px;
+  padding-left: 33px;
   padding-right: 150px;
   padding-top: 15px;
 }

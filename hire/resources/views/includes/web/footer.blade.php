@@ -29,13 +29,13 @@
     <div class="row">
       <div class="col s12 m3 l3 left-align">
         <h4>POLICY INFO</h4>
-        <img src="{{URL::to('web/images/Logo_2.png')}}">
+        <img src="{{URL::to('web/images/Logo_2.png')}}" style="width: 150px;">
         <p>"I highly recommend agency as a professional and extremely competent consultant who helped me find the right position and identified the key criteria I was looking for in "I highly recommend.</p>
       </div>
       <div class="col s12 m6 l6 left-align">
         <h4>Quick Links</h4>
         <ul class="middle-content">
-            <li><a class="underLineOnHover" href="">Privacy Policy</a></li>
+            <li><a class="underLineOnHover" href="{{URL::to('/contactus')}}">Help & Support </a></li>
             <li><a class="underLineOnHover" href="">Terms of Sale</a></li>
             <li><a class="underLineOnHover" href="">Terms of Use</a></li>
             <li><a class="underLineOnHover" href="">Report Abuse &amp; Takedown Policy</a></li>

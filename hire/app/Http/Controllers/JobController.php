@@ -145,6 +145,7 @@ class JobController extends Controller
                          'function'=>'NA',
                          'country'=>'NA',
                          'city'=>'NA',
+                         'state'=>'NA',
                          'emp_type'=>'NA',
                          'job_type'=>'NA',
                          'viewcount'=>$viewcount,
@@ -186,6 +187,41 @@ class JobController extends Controller
           }
 
         }
+          ////// location////
+        if($checkjob->emp_level)
+        {
+          switch ($checkjob->emp_level) {
+            case '1':
+              $details['emp_type']='Executive';
+              break;
+              case '2':
+              $details['emp_type']='Middel';
+              break;
+              case '3':
+              $details['emp_type']='Management';
+              break;
+              case '4':
+              $details['emp_type']='Higher management';
+              break;
+            
+            default:
+              $details['emp_type']='Senior';
+              break;
+          }
+
+        }
+         $countryname = $this->country->getBy(array('id'=>$checkjob->country),array('id','country'));
+         if($countryname)
+         {
+          $details['country'] = ucwords($countryname->country);
+
+         }
+         $cityname = $this->city->getBy(array('id'=>$checkjob->city),array('id','city'));
+         if($countryname)
+         {
+          $details['city'] = ucwords($cityname->city);
+
+         }
         $industry = Industry::where(array('id'=>$checkjob->industry))->first();
         if($industry)
         {
@@ -539,14 +575,14 @@ class JobController extends Controller
         {
            ////////make recomemded array//////
           $recomendedArray = array();
-          $recomemdedCondition = "industry='".$checkjob->industry."' and skills like '%".$checkjob->skill."%'";
+          $recomemdedCondition = "profile_status=1 and industry='".$checkjob->industry."' and skills like '%".$checkjob->skill."%'";
           if($checkjob->experience_year)
           {
             $recomemdedCondition.= "and exp_year >='".$checkjob->experience_year."'";
 
            
           }
-          $getrecomndedlist = Jobprefrences::whereRaw($recomemdedCondition)->paginate(5);
+          $getrecomndedlist = Jobprefrences::join('users','users.id','=','jobprefrences.user_id')->whereRaw($recomemdedCondition)->paginate(5);
          
           if(count($getrecomndedlist)>0)
           {
@@ -555,34 +591,34 @@ class JobController extends Controller
             {
               $useridlist=$getrecomnded->user_id.',';
               $recomendedArray[$getrecomnded->id] = array('userid'=>$getrecomnded->user_id,
-                                                              'username'=>'',
-                                                              'skills'=>$getrecomnded->skills,
-                                                              'extra_skills'=>$getrecomnded->extra_skills,
-                                                              'exp'=>$getrecomnded->exp_year,
-                                                              'useremail'=>'');
+                                                          'username'=>$getrecomnded->name,
+                                                          'skills'=>$getrecomnded->skills,
+                                                          'extra_skills'=>$getrecomnded->extra_skills,
+                                                          'exp'=>$getrecomnded->exp_year,
+                                                          'useremail'=>$getrecomnded->email);
 
             }
 
-            $userArray = array();
-            $condition = "id in ".'('.substr($useridlist,0,-1).')'."";
-            $getuser = $this->usersInterface->getallByRaw($condition,array('id','email','name'));
-            foreach($getuser as $getuser)
-            {
-              $userArray[$getuser->id] = array('email'=>$getuser->email,
-                                               'name'=>$getuser->name);
-            }
+            // $userArray = array();
+            // $condition = "id in ".'('.substr($useridlist,0,-1).')'."";
+            // $getuser = $this->usersInterface->getallByRaw($condition,array('id','email','name'));
+            // foreach($getuser as $getuser)
+            // {
+            //   $userArray[$getuser->id] = array('email'=>$getuser->email,
+            //                                    'name'=>$getuser->name);
+            // }
 
-            array_walk($recomendedArray, function(&$value, $key, $sourceArray)
-            { 
+            // array_walk($recomendedArray, function(&$value, $key, $sourceArray)
+            // { 
                
                  
-                if(array_key_exists($value['userid'], $sourceArray))
-                {
-                     $value['username'] = $sourceArray[$value['userid']]['name'];
-                     $value['useremail'] = $sourceArray[$value['userid']]['email'];
-                }
+            //     if(array_key_exists($value['userid'], $sourceArray))
+            //     {
+            //          $value['username'] = $sourceArray[$value['userid']]['name'];
+            //          $value['useremail'] = $sourceArray[$value['userid']]['email'];
+            //     }
 
-            },$userArray);
+            // },$userArray);
 
           }
            // dd($recomendedArray);

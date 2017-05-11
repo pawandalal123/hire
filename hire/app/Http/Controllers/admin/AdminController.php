@@ -1879,9 +1879,19 @@ class AdminController extends Controller {
     }
     elseif($checkstatus['status']=='success')
     {
+      $userarray = array();
       $column = array('name','email','mobile','login_type','created_at','type','user_type','status','about','is_register','id');
       $dataUser = $this->usersInterface->allpaging($column); 
       $counter=1;
+      if(count($dataUser)>0)
+      {
+        forecah($dataUser as $datalist)
+        {
+          $userarray[$getuser->id] = array('email'=>$datalist->email,
+                                               'name'=>$datalist->name);
+        }
+
+      }
       return \View::make('admin.manageuser',compact('dataUser','counter'));
     }
     else

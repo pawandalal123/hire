@@ -237,9 +237,111 @@ class UserController extends Controller
 
         }
 
+        //////// list all saves////
+        $allylistArray = array();
+        $allbooklistArray = array();
+        $getapplyList='';
+        $getbookList='';
+        if($pagename=='all-saves')
+        {
+          
+          $jobid='';
+          $useridlist='';
+          $getapplyList= Apply_for_job::where(array('type'=>1,'apply_by_id'=>$user->id))->paginate(15);
+          if(count($getapplyList)>0)
+          {
+            foreach($getapplyList as $applylist)
+            {
+              $jobid=$applylist->job_id.',';
+              $useridlist=$applylist->apply_by_id.',';
+              $allylistArray[$applylist->id] = array('jobtitle'=>'',
+                                                     'jobid'=>$applylist->job_id,
+                                                     'skills'=>'',
+                                                     'extra_skills'=>'',
+                                                     'ipaddress'=>$applylist->ip_address,
+                                                     'date'=>$applylist->created_at);
+
+            }
+
+             //////////////////make job array////////
+            $jobArray= array();
+            $condition = "id in ".'('.substr($jobid,0,-1).')'."";
+            $getjob = Jobdetail::whereRaw($condition)->get(array('id','jobtitle','skill','job_quality'));
+            foreach($getjob as $getjob)
+            {
+              $jobArray[$getjob->id] = array('jobtitle'=>$getjob->jobtitle,
+                                             'skills'=>$getjob->skill,
+                                             'extra_skills'=>$getjob->job_quality) ;
+            }
+ 
+            array_walk($allylistArray, function(&$value, $key, $sourceArray)
+            { 
+               
+                if(array_key_exists($value['jobid'], $sourceArray))
+                {
+                     $value['jobtitle'] = $sourceArray[$value['jobid']]['jobtitle'];
+                     $value['skills'] = $sourceArray[$value['jobid']]['skills'];
+                     $value['extra_skills'] = $sourceArray[$value['jobid']]['extra_skills'];
+                    
+                }
+
+            },$jobArray);
+
+          }
+
+
+          //////// forbookmarks/////
+           $jobid='';
+          $getbookList= Apply_for_job::where(array('type'=>2,'apply_by_id'=>$user->id))->paginate(15);
+          if(count($getbookList)>0)
+          {
+            foreach($getbookList as $applylist)
+            {
+              $jobid=$applylist->job_id.',';
+              $allbooklistArray[$applylist->id] = array('jobtitle'=>'',
+                                                     'jobid'=>$applylist->job_id,
+                                                     'skills'=>'',
+                                                     'extra_skills'=>'',
+                                                     'ipaddress'=>$applylist->ip_address,
+                                                     'date'=>$applylist->created_at);
+
+            }
+    
+
+             //////////////////make job array////////
+            $jobArray= array();
+            $condition = "id in ".'('.substr($jobid,0,-1).')'."";
+            $getjob = Jobdetail::whereRaw($condition)->get(array('id','jobtitle','skill','job_quality'));
+            foreach($getjob as $getjob)
+            {
+              $jobArray[$getjob->id] = array('jobtitle'=>$getjob->jobtitle,
+                                             'skills'=>$getjob->skill,
+                                             'extra_skills'=>$getjob->job_quality) ;
+            }
+ 
+            array_walk($allbooklistArray, function(&$value, $key, $sourceArray)
+            { 
+               
+                if(array_key_exists($value['jobid'], $sourceArray))
+                {
+                     $value['jobtitle'] = $sourceArray[$value['jobid']]['jobtitle'];
+                     $value['skills'] = $sourceArray[$value['jobid']]['skills'];
+                     $value['extra_skills'] = $sourceArray[$value['jobid']]['extra_skills'];
+                    
+                }
+
+            },$jobArray);
+
+          }
+
+
+       
+
+        }
+
         // dd($usereducationArry);
 
-        return view('web/userfiles/userhomepage',compact('pagename','articlelist','articledetail','currenttab','catlist','subcatlist','duscussiondetail','duscussionlist','invitationlist','user','employmentdetails','jobprefrence','usereducationArry','projectlistarray','userdetails'));
+        return view('web/userfiles/userhomepage',compact('pagename','articlelist','articledetail','currenttab','catlist','subcatlist','duscussiondetail','duscussionlist','invitationlist','user','employmentdetails','jobprefrence','usereducationArry','projectlistarray','userdetails','allbooklistArray','allylistArray','getapplyList','getbookList'));
     }
   }
 

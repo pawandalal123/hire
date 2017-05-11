@@ -342,11 +342,35 @@ class AjaxRequestController extends Controller
 
       return json_encode($data);
    }
- public function eventviewcounter(Request $request)
+    public function eventviewcounter(Request $request)
     {
       $commonObj = new Common();
       $viewconter= $commonObj->eventviewcounter($request->eventid,$request->type);
       return $viewconter;
+
+    }
+
+    public function userupdates(Request $request)
+    {
+      if($request->ajax())
+      {
+        if($request->type=='changestatus')
+        {
+          if(Auth::check())
+          {
+            $user = Auth::user();
+            $update = $this->usersInterface->updateuser(array('profile_status'=>$request->profilestatus),array('id'=>$user->id));
+            echo 1;
+
+          }
+          else
+          {
+            echo 0;
+          }
+
+        }
+
+      }
 
     }
  

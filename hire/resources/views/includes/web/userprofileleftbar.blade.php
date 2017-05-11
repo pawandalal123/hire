@@ -42,14 +42,14 @@ $requestsegment = Request::segment(1);
             </div>
           </div>
 
-          <!-- <div class="switch">
+          <div class="switch">
             <label>
               Deactivate
-              <input type="checkbox" checked="">
+              <input class="makeprofileactive" type="checkbox" @if($userDetails->profile_status==1) value="1" checked  @else value="0" @endif>
               <span class="lever"></span>
                Activate Profile
             </label>
-          </div> -->
+          </div>
           
           <!-- <div class="status-box">
             Profile Status
@@ -68,6 +68,7 @@ $requestsegment = Request::segment(1);
            <a class="waves-effect waves-light btn @if($pagename=='articles') active @endif" href="{{URL::to('profile/articles')}}">Articles</a>
           <a class="waves-effect waves-light btn @if($pagename=='discussions') active @endif" href="{{URL::to('profile/discussions')}}">Discussion Forum</a>
           <a class="waves-effect waves-light btn @if($pagename=='see-all-connections-page') active @endif" href="{{URL::to('see-all-connections-page')}}">See all connections</a>
+          <a class="waves-effect waves-light btn @if($pagename=='all-saves') active @endif" href="{{URL::to('profile/all-saves')}}">See all Saves</a>
           <a class="waves-effect waves-light btn @if($pagename=='invitediscussion') active @endif" href="{{URL::to('profile/invitediscussion')}}">Invite to Join Discussion Forum</a>
           <a class="waves-effect waves-light btn" href="javascript:void(0)" onclick="connectmailbox()">Connect Via Mail</a>
             <!-- Modal Structure -->
@@ -75,3 +76,31 @@ $requestsegment = Request::segment(1);
         </div>
     </div>
     @endif
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+        $('.makeprofileactive').click(function()
+        {
+
+          alert($(this).val());
+          var profilestatus=0;
+          if($(this).is('checked'))
+          {
+            alert();
+            var profilestatus=1;
+          }
+             $.post(SITE_URL+'statelist',{'profilestatus':profilestatus,'type':'changestatus'},function(data,status)
+            {
+              
+        
+
+            }).fail(function(response) {
+                //alert('Error: ' + response.responseText);
+                swal({ title: "Error", text: "Some Technical Issue", type: "error" });
+                
+            });
+
+        });
+
+      });
+    </script>

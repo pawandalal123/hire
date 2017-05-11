@@ -4,7 +4,6 @@ $requestsegment = Request::segment(1);
 ?>
 <div class="col s12 m4 l3">
         <div class="sidebar card">
-          
           @if($become_job_owner==1)
           <a class="waves-effect waves-light btn" href="{{URL::to('postjob')}}">Post a Job</a>
           @else

@@ -71,7 +71,7 @@
           <li><a href="{{URL::to('auth/login')}}">Digital locker</a></li>
           @endif
           <li><a href="{{URL::to('/search/jobs')}}">Job search</a></li>
-          <li><a href="{{URL::to('/contactus')}}">Help & Support </a></li>
+          
           <li><a href="{{URL::to('/search/people')}}">Connect with users</a></li>
           @if (Auth::check())
           <li><a href="{{URL::to('/auth/logout')}}">Logout</a></li>
