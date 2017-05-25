@@ -35,7 +35,7 @@
                 {{$name}}
               </div>
               <div class="card-content">
-                <p>Web Designer</p>
+                <!-- <p>Web Designer</p> -->
                 <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i>
               </div>
             </div>

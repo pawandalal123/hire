@@ -1,9 +1,54 @@
-<?php
+@if (Auth::check())
+ <?php
+ $userDetails = Auth::user();
+ $imagePatah = URL::asset('web/images/profilePic.png');
+ if($userDetails->profile_image)
+ {
+   $imagePatah = URL::asset($_ENV['CF_LINK'].$userDetails->profile_image);
+   if($userDetails->login_type==1)
+   {
+      if(strpos($userDetails->profile_image, 'https')!==false)
+        {
+           $imagePatah = $userDetails->profile_image;
+        }
+      // $imagePatah = $userDetails->profile_image;
+   }
+   
+ }
+ $name = substr(substr($userDetails->email,0,strpos($userDetails->email,'@')),0,10);
+ if($userDetails->name)
+ {
+   $name = substr($userDetails->name,0,10);
+ }
+
 $requestsegment = Request::segment(1);
+// $requestsegment = Request::segment(1);
 // echo $requestsegment;
 ?>
 <div class="col s12 m4 l3">
         <div class="sidebar card">
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="{{$imagePatah}}" alt="">
+            </div>
+            <div class="card-stacked">
+              <div class="card-action">
+                {{ucwords($name)}}
+              </div>
+              <div class="card-content">
+                <!-- <p>Web Designer</p> -->
+                <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i>
+              </div>
+            </div>
+          </div>
+        <div class="switch">
+            <label>
+              Deactivate
+              <input class="makeprofileactive" type="checkbox" @if($user->profile_status==1) checked   @endif>
+              <span class="lever"></span>
+               Activate Profile
+            </label>
+          </div>
           @if($become_job_owner==1)
           <a class="waves-effect waves-light btn" href="{{URL::to('postjob')}}">Post a Job</a>
           @else
@@ -21,9 +66,10 @@ $requestsegment = Request::segment(1);
           <a target="_blank" title="Share on Google+" onclick="window.open('https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://hireme.slugcorner.com&text=hireme', 'googleShare', 'width=626,height=436'); return false;" href="#"  ><img src="{{URL::to('web/images/icons/Google-hover.svg')}}"></a> -->
          
         
-          Profile Status
+         <!--  Profile Status
           <div class="progress">
               <div class="determinate" style="width: 70%"></div>
-          </div>
+          </div> -->
         </div>
     </div>
+    @endif

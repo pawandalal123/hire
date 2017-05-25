@@ -209,7 +209,7 @@ class mainController extends Controller
 
             }
             
-            return view('web/index',compact('articlelist','getalljobs','jobarray','articleArrary','bmessage'));
+            return view('web/index',compact('articlelist','getalljobs','jobarray','articleArrary','bmessage','user'));
 
         }
         else

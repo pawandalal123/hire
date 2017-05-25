@@ -66,7 +66,7 @@ class ArticlesRepository implements ArticlesInterface
         $completeformData = Input::all();
         @extract($completeformData);
         $articleList = Articles::select($columns);
-        $pageData =6;
+        $pageData =5;
         $wherecondition = array('status'=>1);
          
         $articleList = $articleList->where($wherecondition);

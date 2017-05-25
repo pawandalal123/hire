@@ -350,25 +350,41 @@ class AjaxRequestController extends Controller
 
     }
 
+    /////// update userprofile//////
+
     public function userupdates(Request $request)
     {
       if($request->ajax())
       {
+        $return['status']='success';
         if($request->type=='changestatus')
         {
+
           if(Auth::check())
           {
+            // dd('pawan');
             $user = Auth::user();
-            $update = $this->usersInterface->updateuser(array('profile_status'=>$request->profilestatus),array('id'=>$user->id));
-            echo 1;
+            if($user->profile_status==1)
+            {
+              $status=0;
+
+            }
+            else
+            {
+              $status=0;
+            }
+            $update = $this->usersInterface->updateuser(array('profile_status'=>$status),array('id'=>$user->id));
+            $return['status']='success';
 
           }
           else
           {
-            echo 0;
+            $return['status']='error';
           }
 
         }
+
+        return json_encode($return);
 
       }
 

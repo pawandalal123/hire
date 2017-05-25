@@ -24,17 +24,7 @@ elseif($pagename=='article')
               <?php echo substr($article['description'],0,189);?> </p>
               <div class="row">
                 <div class="col s12 m12 l12">
-                <div class="fixed-action-btn">
-                <a class="share-box">
-                  Share
-                </a>
-                <ul>
-                  <li><a onclick="window.open('https://www.facebook.com/sharer.php?u={{URL::to($pageredirect.'/'.$article['article_url'])}}', 'facebookShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/facebook-logo.png')}}"></a></li>
-                  <li><a onclick="window.open('https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url={{URL::to($pageredirect.'/'.$article['article_url'])}}', 'googleShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/google-plus.png')}}"></a></li>
-                  <li><a onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{URL::to($pageredirect.'/'.$article['article_url'])}}&summary={{$article['title']}}', 'linkedinShare', 'width=750,height=350'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/linkedin-logo.png')}}"></a></li>
-                  <li><a onclick="window.open('https://twitter.com/share?url={{URL::to($pageredirect.'/'.$article['article_url'])}}&text={{$article['title']}}', 'twitterShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/twitter.png')}}"></a></li>
-                </ul>
-              </div>
+          
                 
                 @if($article['loginrequired']=='yes')
                 <a href="#" class="share-box" onclick="loginbox()">Read More</a>
@@ -49,6 +39,17 @@ elseif($pagename=='article')
                 @endif
 
                 <a href="" class="share-box">Comment {{$article['totalcount']}}</a> 
+                      <span class="fixed-action-btn">
+                <a class="share-box">
+                  Share
+                </a>
+                <ul>
+                  <li><a onclick="window.open('https://www.facebook.com/sharer.php?u={{URL::to($pageredirect.'/'.$article['article_url'])}}', 'facebookShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/facebook-logo.png')}}"></a></li>
+                  <li><a onclick="window.open('https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url={{URL::to($pageredirect.'/'.$article['article_url'])}}', 'googleShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/google-plus.png')}}"></a></li>
+                  <li><a onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{URL::to($pageredirect.'/'.$article['article_url'])}}&summary={{$article['title']}}', 'linkedinShare', 'width=750,height=350'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/linkedin-logo.png')}}"></a></li>
+                  <li><a onclick="window.open('https://twitter.com/share?url={{URL::to($pageredirect.'/'.$article['article_url'])}}&text={{$article['title']}}', 'twitterShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/twitter.png')}}"></a></li>
+                </ul>
+              </span>
                 </div>
               </div>
               </div>

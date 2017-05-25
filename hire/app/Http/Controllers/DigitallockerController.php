@@ -173,7 +173,7 @@ class DigitallockerController extends Controller
             // dd($sharelistArray);
             
            
-            return \View::make('web.digitallocker',compact('doctypelist','getdocumentList','sharelistArray','docArray'));
+            return \View::make('web.digitallocker',compact('doctypelist','getdocumentList','sharelistArray','docArray','user'));
 
         }
         else

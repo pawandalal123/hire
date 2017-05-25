@@ -71,6 +71,12 @@
       <div class="company-feedback-sidebanner waves-effect waves-block waves-light">
         <a href=""><img src="{{URL::to('web/site/images/compay-feedback-banner.jpg')}}" class="" alt=""></a>
       </div>
+      @if(@$bmessage!='')
+      <div class="sidebar-box">
+        <h6>Broadcast</h6>
+        <p>{{$bmessage->message}}</p>
+      </div>
+      @endif
       <div class="sidebar-box">
         <h6>Appointment History & Schedule</h6>
         <p>Comming soon.</p>

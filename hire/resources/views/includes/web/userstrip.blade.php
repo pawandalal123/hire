@@ -34,7 +34,7 @@
                {{ ucwords($name)}}
               </div>
               <div class="card-content">
-                <p>Web Designer</p>
+                <!-- <p>Web Designer</p> -->
                 <!-- <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> -->
               </div>
             </div>
@@ -60,7 +60,7 @@
           </ul>
         </div> -->
       </div>
-     
+  <!--    
       <div class="col s12 m4 l6 Broadcast">
         <h6>Broadcast</h6>
          @if($bmessage!='')
@@ -68,7 +68,7 @@
         @else
         <p>No Current Broadcasts</p>
         @endif
-      </div>
+      </div> -->
       
     </div>
   </div>

@@ -70,6 +70,30 @@
          
 
         })
+        $('.makeprofileactive').click(function()
+        {
+
+            $.post(SITE_URL+'userupdates',{'type':'changestatus'},function(data,status)
+            {
+              if(data.status=='success')
+              {
+                swal({ title: "Done", text: "Update Successfully", type: "success" });
+
+              }
+              else
+              {
+                swal({ title: "Error", text: "Please try later", type: "error" });
+
+              }
+        
+
+            },'json').fail(function(response) {
+                //alert('Error: ' + response.responseText);
+                swal({ title: "Error", text: "Some Technical Issue", type: "error" });
+                
+            });
+
+        });
         $('.countrychangeall').change(function()
         {
           var countryid = $(this).val();

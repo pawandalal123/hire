@@ -380,7 +380,7 @@ class SearchController extends Controller
                     }
                     if(array_key_exists($compnaydata->industry, $industrylist))
                     {
-                      $industry=$industrylist[$compnaydata->city];
+                      $industry=$industrylist[$compnaydata->industry];
 
                     }
                    
