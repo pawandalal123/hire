@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+ 'cache' => false,
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths
@@ -28,6 +28,6 @@ return [
     |
     */
 
-    'compiled' => realpath(storage_path().'/framework/views'),
+    'compiled' => realpath(storage_path('framework/views')),
 
 ];

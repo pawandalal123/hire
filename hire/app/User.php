@@ -3,26 +3,28 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Laravel\Cashier\Billable;
+use Laravel\Cashier\Contracts\Billable as BillableContract;
 
-class User extends Model implements AuthenticatableContract,
-    AuthorizableContract,
-    CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract,BillableContract 
 {
-    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+    use Authenticatable, CanResetPassword, Billable;
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
+        // use Billable;
+
+   
     protected $table = 'users';
+
+     // protected $dates = ['trial_ends_at', 'subscription_ends_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -38,23 +40,5 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function onePost()
-    {
-        return $this->hasOne(Post::class);
-    }
-
-    public function blogs()
-    {
-        return $this->belongsToMany(Post::class, 'user_post', 'user_id', 'post_id');
-    }
-
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+    // protected $dates = ['trial_ends_at', 'subscription_ends_at'];
 }

@@ -11,11 +11,11 @@ return [
     | sending of e-mail. You may specify which one you're using throughout
     | your application here. By default, Laravel is setup for SMTP mail.
     |
-    | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "log"
+    | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "ses", "log"
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'mandrill'),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,9 +27,7 @@ return [
     | the Mailgun mail service which will provide reliable deliveries.
     |
     */
-
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-
+    'host' => env('MAIL_HOST', 'smtp.mandrillapp.com'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -40,9 +38,7 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
-
     'port' => env('MAIL_PORT', 587),
-
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -54,7 +50,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'pawan.dalal123@gmail.com', 'name' =>'Hire Me'],
+    'from' => ['address' => 'admin@goeventz.com', 'name' => 'GoEventz'],
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +63,7 @@ return [
     |
     */
 
-    'encryption' => 'tls',
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /*
     |--------------------------------------------------------------------------
@@ -79,9 +75,7 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-
     'username' => env('MAIL_USERNAME'),
-
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Password
@@ -92,7 +86,6 @@ return [
     | connection so that the application will be able to send messages.
     |
     */
-
     'password' => env('MAIL_PASSWORD'),
 
     /*
@@ -105,9 +98,7 @@ return [
     | been provided here, which will work well on most of your systems.
     |
     */
-
     'sendmail' => '/usr/sbin/sendmail -bs',
-
     /*
     |--------------------------------------------------------------------------
     | Mail "Pretend"

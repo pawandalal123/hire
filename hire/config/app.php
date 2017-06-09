@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost/testold/',
+    'url' => 'http://localhost/goeventz/GEsite/',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'log' => 'daily',
+    'log' => 'single',
 
     /*
     |--------------------------------------------------------------------------
@@ -115,9 +115,9 @@ return [
          */
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
-        Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
+       Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
@@ -136,30 +136,30 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-         App\Providers\ViewComposerServiceProvider::class,
-         Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\BusServiceProvider::class,
-        App\Providers\ConfigServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class,
-         App\Providers\ViewComposerServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
+        Illuminate\Html\HtmlServiceProvider::class,
+       // Barryvdh\Debugbar\ServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
+         'Maatwebsite\Excel\ExcelServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
+        'Artesaos\SEOTools\Providers\SEOToolsServiceProvider',
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+       'Laravel\Cashier\CashierServiceProvider',
+         // 'Shift31\LaravelElasticsearch\ElasticsearchServiceProvider',
+         Yajra\Datatables\DatatablesServiceProvider::class,
+         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
-        /*
-         * Third Party Service Providers
-         */
-        // Yajra\Oci8\Oci8ServiceProvider::class,
-        // Yajra\Datatables\DatatablesServiceProvider::class,
-        Laracasts\Generators\GeneratorsServiceProvider::class,
-        Roumen\Sitemap\SitemapServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*
@@ -175,42 +175,54 @@ return [
 
     'aliases' => [
 
-        'App' => Illuminate\Support\Facades\App::class,
-        'Artisan' => Illuminate\Support\Facades\Artisan::class,
-        'Auth' => Illuminate\Support\Facades\Auth::class,
-        'Blade' => Illuminate\Support\Facades\Blade::class,
-        'Bus' => Illuminate\Support\Facades\Bus::class,
-        'Cache' => Illuminate\Support\Facades\Cache::class,
-        'Config' => Illuminate\Support\Facades\Config::class,
-        'Cookie' => Illuminate\Support\Facades\Cookie::class,
-        'Crypt' => Illuminate\Support\Facades\Crypt::class,
-        'DB' => Illuminate\Support\Facades\DB::class,
-        'Eloquent' => Illuminate\Database\Eloquent\Model::class,
-        'Event' => Illuminate\Support\Facades\Event::class,
-        'File' => Illuminate\Support\Facades\File::class,
-        'Gate' => Illuminate\Support\Facades\Gate::class,
-        'Hash' => Illuminate\Support\Facades\Hash::class,
-        'Input' => Illuminate\Support\Facades\Input::class,
+        'App'       => Illuminate\Support\Facades\App::class,
+        'Artisan'   => Illuminate\Support\Facades\Artisan::class,
+        'Auth'      => Illuminate\Support\Facades\Auth::class,
+        'Blade'     => Illuminate\Support\Facades\Blade::class,
+        'Bus'       => Illuminate\Support\Facades\Bus::class,
+        'Cache'     => Illuminate\Support\Facades\Cache::class,
+        'Config'    => Illuminate\Support\Facades\Config::class,
+        'Cookie'    => Illuminate\Support\Facades\Cookie::class,
+        'Crypt'     => Illuminate\Support\Facades\Crypt::class,
+        'DB'        => Illuminate\Support\Facades\DB::class,
+        'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
+        'Event'     => Illuminate\Support\Facades\Event::class,
+        'File'      => Illuminate\Support\Facades\File::class,
+        'Hash'      => Illuminate\Support\Facades\Hash::class,
+        'Input'     => Illuminate\Support\Facades\Input::class,
         'Inspiring' => Illuminate\Foundation\Inspiring::class,
-        'Lang' => Illuminate\Support\Facades\Lang::class,
-        'Log' => Illuminate\Support\Facades\Log::class,
-        'Mail' => Illuminate\Support\Facades\Mail::class,
-        'Password' => Illuminate\Support\Facades\Password::class,
-        'Queue' => Illuminate\Support\Facades\Queue::class,
-        'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        'Redis' => Illuminate\Support\Facades\Redis::class,
-        'Request' => Illuminate\Support\Facades\Request::class,
-        'Response' => Illuminate\Support\Facades\Response::class,
-        'Route' => Illuminate\Support\Facades\Route::class,
-        'Schema' => Illuminate\Support\Facades\Schema::class,
-        'Session' => Illuminate\Support\Facades\Session::class,
-        'Storage' => Illuminate\Support\Facades\Storage::class,
-        'URL' => Illuminate\Support\Facades\URL::class,
+        'Lang'      => Illuminate\Support\Facades\Lang::class,
+        'Log'       => Illuminate\Support\Facades\Log::class,
+        'Mail'      => Illuminate\Support\Facades\Mail::class,
+        'Password'  => Illuminate\Support\Facades\Password::class,
+        'Queue'     => Illuminate\Support\Facades\Queue::class,
+        'Redirect'  => Illuminate\Support\Facades\Redirect::class,
+        'Redis'     => Illuminate\Support\Facades\Redis::class,
+        'Request'   => Illuminate\Support\Facades\Request::class,
+        'Response'  => Illuminate\Support\Facades\Response::class,
+        'Route'     => Illuminate\Support\Facades\Route::class,
+        'Schema'    => Illuminate\Support\Facades\Schema::class,
+        'Session'   => Illuminate\Support\Facades\Session::class,
+        'Storage'   => Illuminate\Support\Facades\Storage::class,
+        'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'HTML' => Collective\Html\HtmlFacade::class,
+        'View'      => Illuminate\Support\Facades\View::class,
+        'Form'      => Illuminate\Html\FormFacade::class,
+        'Html'      => Illuminate\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
+         'AWS' => Aws\Laravel\AwsFacade::class,
+         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        //'Debugbar' => Barryvdh\Debugbar\Facade::class,
+       'SEOMeta'   => 'Artesaos\SEOTools\Facades\SEOMeta',
+        'OpenGraph' => 'Artesaos\SEOTools\Facades\OpenGraph',
+        'Twitter'   => 'Artesaos\SEOTools\Facades\TwitterCard',
+        'SEO' => 'Artesaos\SEOTools\Facades\SEOTools',
+        'Moloquent'       => 'Jenssegers\Mongodb\Model',
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+         // 'Es' =>'Elasticsearch\Client',
+         'Datatables'  => 'Yajra\Datatables\Facades\Datatables'
+
     ],
 
 ];
