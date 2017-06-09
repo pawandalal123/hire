@@ -1,7 +1,15 @@
 @extends('layout.default')
 @section('content')
-@include('includes.web.userstrip')
-<div class="container">
+<section class="top-blue-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m12 l12">
+          <h1>Welcome to corporate place</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container user-profile">
   <div class="row">
   <style type="text/css">
     a.anchorart

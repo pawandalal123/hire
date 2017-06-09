@@ -26,7 +26,7 @@
                    <button class="waves-effect waves-light btn jobapply" onclick="saveaction({{$key}},'applyjob')"> Apply</button>
                    @endif
                    @endif
-                   <a href="{{URL::to('jobdetail/'.$key)}}" class="waves-effect waves-light btn" onclick="saveaction({{$key}},'applyjob')"> Read More</a>
+                   <a href="{{URL::to('jobdetail/'.$key)}}" class="waves-effect waves-light btn"> Read More</a>
                 </li>
                  @endforeach()
                

@@ -25,24 +25,9 @@
 <section class="top-blue-sec">
   <div class="container">
     <div class="row">
-      <div class="col s12 m4 l3">
-          <div class="card horizontal">
-            <div class="card-image">
-              <img src="{{$imagePatah}}" alt="">
-            </div>
-            <div class="card-stacked">
-              <div class="card-action">
-                {{$name}}
-              </div>
-              <div class="card-content">
-                <!-- <p>Web Designer</p> -->
-                <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i>
-              </div>
-            </div>
-          </div>
+      <div class="col s12 m12 l12">
+          <h1>Digital Locker</h1>
       </div>
-
-    
     </div>
   </div>
 </section>

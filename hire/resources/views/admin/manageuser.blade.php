@@ -36,18 +36,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	@if(!empty($dataUser))
-                    	@foreach($dataUser as $dataUsers)
+                    	@if(!empty($userarray))
+                    	@foreach($userarray as $userarray)
 	                      <tr>
 	                        <td><!-- <span>{!! $counter++; !!}.</span> -->
-	                        {!! $dataUsers->name; !!}</td>                     
-						    <td>{!! $dataUsers->email; !!}</td>
-						    <td>{!! $dataUsers->mobile; !!}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-						    <td>@if($dataUsers->login_type==1) Yes @else No @endif</td>
-						    <td>{!! $dataUsers->created_at; !!}</td>
+	                        {!! $userarray['name']; !!}</td>                     
+						    <td>{!! $userarray['email']; !!}</td>
+						    <td>{!! $userarray['mobile']; !!}</td>
+                            <td>{{$userarray['country']}}</td>
+                            <td>{{$userarray['state']}}</td>
+                            <td>{{$userarray['city']}}</td>
+						    <td>@if($userarray['login_type']==1) Yes @else No @endif</td>
+						    <td>{!! $userarray['created_at']; !!}</td>
 	                      </tr>
 	                    @endforeach
 	                    @endif                           

@@ -1879,20 +1879,59 @@ class AdminController extends Controller {
     }
     elseif($checkstatus['status']=='success')
     {
+      ///////// getcity/////
+        $countryArray = array();
+        // $stateArray = array();
+        $dataCuntry = $this->country->getallBy(array('status'=>1),array('id','country'));
+        foreach($dataCuntry as $dataCuntrylist)
+        {
+          $countryArray[$dataCuntrylist->id] = $dataCuntrylist->country;
+
+        }
+        $stateArray = $this->state->getList(array(),'state','id');
+        $cityArray = $this->city->getListraw(array(),'city','id');
       $userarray = array();
-      $column = array('name','email','mobile','login_type','created_at','type','user_type','status','about','is_register','id');
+      $column = array('name','email','mobile','login_type','country','state','city','created_at','type','user_type','status','about','is_register','id');
       $dataUser = $this->usersInterface->allpaging($column); 
       $counter=1;
       if(count($dataUser)>0)
       {
-        forecah($dataUser as $datalist)
+        foreach($dataUser as $datalist)
         {
-          $userarray[$getuser->id] = array('email'=>$datalist->email,
-                                               'name'=>$datalist->name);
+          $country='';
+          if(array_key_exists($datalist->country, $countryArray))
+          {
+            $country=$countryArray[$datalist->country];
+
+          }
+
+          ////////// check state///
+          $state='';
+          if(array_key_exists($datalist->state, $stateArray))
+          {
+            $state=$stateArray[$datalist->state];
+
+          }
+          ////////// check city///
+          $city='';
+          if(array_key_exists($datalist->city, $cityArray))
+          {
+            $city=$cityArray[$datalist->city];
+
+          }
+          
+          $userarray[$datalist->id] = array('email'=>$datalist->email,
+                                            'name'=>$datalist->name,
+                                            'login_type'=>$datalist->login_type,
+                                            'created_at'=>$datalist->created_at,
+                                            'mobile'=>$datalist->mobile,
+                                            'country'=>$country,
+                                            'state'=>$state,
+                                            'city'=>$city);
         }
 
       }
-      return \View::make('admin.manageuser',compact('dataUser','counter'));
+      return \View::make('admin.manageuser',compact('dataUser','counter','userarray'));
     }
     else
     {

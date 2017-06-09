@@ -50,7 +50,7 @@
 								<button type="submit" class="btn btn-primary" >Login</button>
                 <a href="{{URL::to('password/email')}}" class="pull-right" style="color: #243344;">Forget Password?</a>
 
-								<!--<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>-->
+								<a class="btn btn-link" href="{{URL::to('sociallogin/facebook')}}">FB Login</a>
 							
 						</div>
 					</form>
