@@ -16,17 +16,17 @@
                     <p>New Delhi, Posted on {{ date(' M j, Y',strtotime($joblist['created_at']))}}<br>
                      @if($joblist['job_description']) {{ substr($joblist['job_description'],0,150)}}.. @endif
                     </p>
-                    </a><a href="">
+                    </a><a href="" class="share-box" style="margin-right: 5px;">
                     <img src="{{URL::to('web/images/eye.png')}}" alt=""> 8</a>
                   
                    @if($joblist['loginrequired']=='yes')
-                   <button class="waves-effect waves-light btn connect"  onclick="loginbox()"> Apply</button>
+                   <button class="share-box"  onclick="loginbox()" style="margin-right: 5px;"> Apply</button>
                    @else
                    @if($joblist['is_apply']=='no')
-                   <button class="waves-effect waves-light btn jobapply" onclick="saveaction({{$key}},'applyjob')"> Apply</button>
+                   <button class="share-box" style="margin-right: 5px;" onclick="saveaction({{$key}},'applyjob')"> Apply</button>
                    @endif
                    @endif
-                   <a href="{{URL::to('jobdetail/'.$key)}}" class="waves-effect waves-light btn"> Read More</a>
+                   <a href="{{URL::to('jobdetail/'.$key)}}" class="share-box" style="margin-right: 5px;"> Read More</a>
                 </li>
                  @endforeach()
                

@@ -91,4 +91,42 @@
     </div>
   </div>
 </div>
+<script type="application/javascript"   src="{{ URL::asset('web/js/locationpicker.jquery.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/editevent.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/addevent.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/build/js/intlTelInput.js')}}"></script> 
+ <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckeditor.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckfinder.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/jquery.validate.min.js')}}"></script>
+
+       <script type="text/javascript">
+
+
+var editor = CKEDITOR.replace( 'description', {
+    filebrowserBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html',
+    filebrowserImageBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html?type=Images',
+    filebrowserFlashBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html?type=Flash',
+    filebrowserUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserImageUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    filebrowserFlashUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+  toolbarGroups: [
+  { name: 'document',    groups: [ 'mode', 'document' ] },
+  
+  { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },  
+  { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+  { name: 'links' },
+  { name: 'tools' },
+  { name: 'insert' },
+  { name: 'styles' },
+  { name: 'colors' },
+  { name: 'insert' }
+  
+  ]
+});
+
+
+CKFinder.setupCKEditor( editor, '../../../../' );
+
+
+</script>
 @stop

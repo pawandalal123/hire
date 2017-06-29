@@ -39,21 +39,23 @@
                  <div class="alert alert-danger">{{ $errors->first('title') }}</div> 
                  @endif
             </div>
-            <div class="input-field">
-              <textarea class="materialize-textarea" name="description"><?php echo @$duscussiondetail->title?></textarea>
-              <label>Discussion Question/Subject Matter</label>
-              @if ($errors->has('description')) 
-                 <div class="alert alert-danger">{{ $errors->first('description') }}</div> 
-                 @endif
-            </div>
+         
             <div class="input-field">
               <input name="short_desc" type="text" class="validate" value="{{@$duscussiondetail->short_desc}}">
               <label>Your Views on the Subject</label>
             </div>
             <div class="input-field">
-              <input name="url" type="text" class="validate" value="{{@$duscussiondetail->short_desc}}">
-              <label>URL</label>
+              <input name="tags" type="text" class="validate" value="{{@$duscussiondetail->tags}}">
+              <label>Tags(comma seprated)</label>
             </div>
+               <div class="input-field">
+              <textarea class="materialize-textarea" name="description"><?php echo @$duscussiondetail->description?></textarea>
+              <!-- <label>Discussion Question/Subject Matter</label> -->
+              @if ($errors->has('description')) 
+                 <div class="alert alert-danger">{{ $errors->first('description') }}</div> 
+                 @endif
+            </div>
+            
               <div class="row">
               <div class="col s6 m6 l6">
                 <!-- <button class="waves-effect waves-light btn article-hire-button">Invite People</button> -->
@@ -69,3 +71,41 @@
         </div>  
       </div>
     </div>
+        <script type="application/javascript"   src="{{ URL::asset('web/js/locationpicker.jquery.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/editevent.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/addevent.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/build/js/intlTelInput.js')}}"></script> 
+ <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckeditor.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckfinder.js')}}"></script>
+ <script type="application/javascript"   src="{{ URL::asset('web/js/jquery.validate.min.js')}}"></script>
+
+       <script type="text/javascript">
+
+
+var editor = CKEDITOR.replace( 'description', {
+    filebrowserBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html',
+    filebrowserImageBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html?type=Images',
+    filebrowserFlashBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html?type=Flash',
+    filebrowserUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserImageUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    filebrowserFlashUploadUrl : '{!! url() !!}/web/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+  toolbarGroups: [
+  { name: 'document',    groups: [ 'mode', 'document' ] },
+  
+  { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },  
+  { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+  { name: 'links' },
+  { name: 'tools' },
+  { name: 'insert' },
+  { name: 'styles' },
+  { name: 'colors' },
+  { name: 'insert' }
+  
+  ]
+});
+
+
+CKFinder.setupCKEditor( editor, '../../../../' );
+
+
+</script>

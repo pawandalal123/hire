@@ -144,7 +144,7 @@
           </div>
 
           <div class="col s12">
-          <span class="add waves-effect waves-light btn addmoreemp">add more education</span>
+          <span class="add waves-effect waves-light btn addmoreemp">Add More Job Experience</span>
           </div>
           <span id="spin">
             

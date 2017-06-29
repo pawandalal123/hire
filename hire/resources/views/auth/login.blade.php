@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m12 l12">
-          <div class="col s6 offset-s6">
+          <div class="col s8 offset-s4">
             <div class="row">
 				<!-- 	@if (count($errors) > 0)
 						<div class="alert alert-danger">
@@ -28,17 +28,18 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 					
-<div class="input-field col s5">
-                <input name="email" id="Email-or-Phone" type="text" class="validate" value="{{ old('email') }}">
-                <label for="Email-or-Phone">Email or Phone</label>
+<div class="input-field col s4">
+                <input name="email" id="Email-or-Phone" placeholder="Email or Phone" type="text" class="validate" value="{{ old('email') }}">
+                <!-- <label for="Email-or-Phone">Email or Phone</label> -->
                  @if ($errors->has('email')) 
              <div class="alert alert-danger">{{ $errors->first('email') }}</div> 
              @endif
+             <a href="{{URL::to('password/email')}}" class="" style="color: #243344;">Forget Password?</a>
               </div>
 
-			   <div class="input-field col s5">
-                <input type="password" class="form-control" name='password' class="validate">
-                <label for="login-Password">Password</label>
+			   <div class="input-field col s4">
+                <input type="password" placeholder="Password" class="form-control" name='password' class="validate">
+                <!-- <label for="login-Password">Password</label> -->
                 @if ($errors->has('password')) 
               <div class="alert alert-danger">{{ $errors->first('password') }}</div> 
               @endif
@@ -46,11 +47,10 @@
 
 					
 
-						 <div class="input-field col s2">
-								<button type="submit" class="btn btn-primary" >Login</button>
-                <a href="{{URL::to('password/email')}}" class="pull-right" style="color: #243344;">Forget Password?</a>
-
-								<a class="btn btn-link" href="{{URL::to('sociallogin/facebook')}}">FB Login</a>
+						 <div class="input-field col s4">
+								<button type="submit" class="btn btn-primary red" >Login</button>
+                <a class="btn-floating waves-effect waves-light login-fb red" href="{{URL::to('sociallogin/facebook')}}"><img src="http://hiremedev.slugcorner.com/web/site/images/facebook-logo.png"></a>
+                <a class="btn-floating waves-effect waves-light login-fb red" ><img src="http://hiremedev.slugcorner.com/web/site/images/google-plus.png"></a>
 							
 						</div>
 					</form>

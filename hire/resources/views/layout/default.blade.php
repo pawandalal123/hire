@@ -13,6 +13,7 @@
  <link rel="stylesheet" type="text/css" href="{{ URL::asset('web/css/sweetalert2.css')}}" >
 <script type="text/javascript" src="{{ URL::asset('web/site/js/jquery-latest.js')}}"></script>
  <script type="application/javascript"   src="{{ URL::asset('web/js/sweetalert2.min.js')}}"></script>
+ <script type="text/javascript" src="{{ URL::asset('web/admin/js/plugins/jquery/jquery-ui-1.10.1.custom.min.js')}}"></script>
 </head>
 <style>
 

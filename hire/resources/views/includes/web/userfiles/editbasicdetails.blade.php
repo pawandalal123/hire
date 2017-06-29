@@ -55,7 +55,7 @@
               <label for="first_name" class="active">Mother Name</label>
             </div>
        
-            <div class="input-field col s4">
+            <div class="col s4">
               <div class="file-field input-field">
                 <div class="btn">
                   <span>Picture</span>

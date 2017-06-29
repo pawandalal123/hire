@@ -3,9 +3,13 @@
             @if(count($data)>0)
               <ul class="collection">
                   @foreach($datalistArray as $people)
-                  {{--*/ $imagepath='http://localhost/testold/web/images/org.jpg' /*--}}
+                  {{--*/ $imagepath=URL::to('web/images/org.jpg') /*--}}
                   @if($people['profile_image'])
+                  @if(strpos($people['profile_image'], 'https')!==false)
+                  {{--*/ $imagepath=$people['profile_image'] /*--}}
+                  @else
                   {{--*/ $imagepath=$_ENV['CF_LINK'].$people['profile_image'] /*--}}
+                  @endif
                   @endif
                 <li class="collection-item avatar">
                 @if($people['loginrequired']=='yes')

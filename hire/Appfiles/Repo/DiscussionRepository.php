@@ -123,7 +123,7 @@ class DiscussionRepository implements DiscussionsInterface
         $titleurl = $CommonObj->cleanURL($request->title);
         $dataArray = array('title'=>$request->title,
                            'short_desc'=>$request->short_desc,
-                           'url'=>$request->url,
+                           'tags'=>$request->tags,
                            'description'=>$request->description,
                            'discussion_url'=>$titleurl,
                            'status'=>1,

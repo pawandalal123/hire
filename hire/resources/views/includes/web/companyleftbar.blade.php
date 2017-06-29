@@ -3,7 +3,7 @@ $requestsegment = Request::segment(1);
 // echo $requestsegment;
 ?>
  <div class="col s12 m4 l3">
-      <div class="sidebar card">
+      <div class="sidebar card sidebar-profile">
         <div class="card horizontal">
           <div class="card-image">
           

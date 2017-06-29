@@ -362,7 +362,9 @@ class UserController extends Controller
         ////// save and update basicinformation////
       if(isset($request->editbasicdetails))
       {
+        //////userbasci_info in validation trait////
         $validator = $this->userbasci_info($request);
+        return redirect('editprofile');
       }
       ////////save and update social details///////
       if(isset($request->editsocial))
@@ -398,6 +400,7 @@ class UserController extends Controller
             Session::flash('alert-class', 'danger'); 
             Session::flash('alert-title', 'error');
         }
+        return redirect('editprofile');
         
       }
       ////////save and update employment///////
@@ -821,24 +824,41 @@ class UserController extends Controller
       $courselist='';
       $Schoolboardlist='';
       $schoolmedium='';
-      $Subcourselist='';
+      // $Subcourselist='';
       $usereducationArry = array();
       $indusrtylist='';
       $functionalarea='';
       $companywork='';
       $companyworklist='';
-      
+      $Subcourselist=array();
+        $postSubcourselist=array();
+      //////////////////////////// edit education details of user///////////
       if($pagename=='education')
       {
+        $draduactionid='';
+        $postgraduactionid='';
+        
         $courselist = Courselist::where(array('status'=>1))->get(array('id','course_name','course_for'));
         $schoolboardlist = Schoolboard::where(array('status'=>1))->get(array('id','board_name'));
         $schoolmedium = Schoolmedium::where(array('status'=>1))->get();
-        $Subcourselist = Subcourselist::where(array())->get();
+
+        
         $usereducation = Eductiondetails::where(array('user_id'=>$user->id))->get();
         if(count($usereducation)>0)
         {
           foreach($usereducation as $usereducation)
           {
+            switch ($usereducation->type)
+             {
+              case '1':
+                $draduactionid=$usereducation->course_name;
+                break;
+                case '2':
+                $postgraduactionid=$usereducation->course_name;
+                break;
+              
+              
+            }
             $usereducationArry[$usereducation->type] = array('course_name'=>$usereducation->course_name,
                                                              'course_spec'=>$usereducation->course_spec,
                                                              'educate_from'=>$usereducation->educate_from,
@@ -846,6 +866,18 @@ class UserController extends Controller
                                                              'passing_year'=>$usereducation->passing_year,
                                                              'borad'=>$usereducation->borad,
                                                              'marks'=>$usereducation->marks);
+
+          }
+          ////////////// ID USER ALREDY SET SPECLIZATION///////
+
+          if($draduactionid!='')
+          {
+            $Subcourselist = Subcourselist::where(array('course_id'=>$draduactionid))->get();
+
+          }
+          if($postgraduactionid!='')
+          {
+            $postSubcourselist = Subcourselist::where(array('course_id'=>$postgraduactionid))->get();
 
           }
 
@@ -917,7 +949,7 @@ class UserController extends Controller
       
       // dd($editempdata);
 
-      return view('web/userfiles/editprofile',compact('pagename','countryList','getuserdetails','user','courselist','schoolboardlist','schoolmedium','jobprefrence','educationdata','Subcourselist','usereducationArry','functionalarea','indusrtylist','companywork','companyworklist','statelist','editempdata'));
+      return view('web/userfiles/editprofile',compact('pagename','countryList','getuserdetails','user','courselist','schoolboardlist','schoolmedium','jobprefrence','educationdata','Subcourselist','usereducationArry','functionalarea','indusrtylist','companywork','companyworklist','statelist','editempdata','postSubcourselist'));
     }
 
   }
@@ -1124,13 +1156,28 @@ class UserController extends Controller
       // dd($dataArray);
       
       $condition = "id in ".'('.substr($useridlist,0,-1).')'."";
-      $getuser = $this->usersInterface->getallByRaw($condition,array('id','email','name','profile_image'));
+      $getuser = $this->usersInterface->getallByRaw($condition,array('id','email','name','profile_image','login_type'));
       foreach($getuser as $getuser)
       {
         $email = explode('@', $getuser->email);
+        $imagePatah = URL::asset('web/images/profilePic.png');
+        if($getuser->profile_image)
+        {
+          $imagePatah = $_ENV['CF_LINK'].$getuser->profile_image;
+         if($getuser->login_type==1)
+         {
+            if(strpos($getuser->profile_image, 'https')!==false)
+              {
+                 $imagePatah = $getuser->profile_image;
+              }
+            // $imagePatah = $userDetails->profile_image;
+         }
+
+        }
+    
         $userArray[$getuser->id] = array('email'=>$getuser->email,
                                          'name'=>$getuser->name ?  $getuser->name : $email[0],
-                                         'profile_image'=>$getuser->profile_image ? $_ENV['CF_LINK'].$getuser->profile_image : URL::asset('web/images/profilePic.png'));
+                                         'profile_image'=>$imagePatah);
       }
       // dd($userArray);
 
@@ -1173,9 +1220,31 @@ class UserController extends Controller
           // $userupadte['become_job_owner']=1;
           $this->usersInterface->updateuser(array('become_job_owner'=>1),array('id'=>$user->id));
       }
-      $checkcompnay->country='india';
-      $checkcompnay->city='city';
-      $checkcompnay->state='delhi';
+      
+      $countryname = $this->country->getBy(array('id'=>$checkcompnay->country),array('id','country'));
+      if($countryname)
+      {
+        $checkcompnay->country=$countryname->country;
+        $statename = State::where(array('id'=>$checkcompnay->state))->first();
+        if($statename)
+        {
+          $checkcompnay->state=$statename->state;
+        }
+
+        $checkcity  = City::where(array('id'=>$checkcompnay->city))->first();
+        if($checkcity)
+        {
+          $checkcompnay->city=$checkcity->city;
+
+        }
+        
+      }
+      else
+      {
+        $checkcompnay->country='NA';
+        $checkcompnay->city='NA';
+        $checkcompnay->state='NA';
+      }
       return view('web.userfiles.companyprofile',compact('checkcompnay','user'));
     }
     else

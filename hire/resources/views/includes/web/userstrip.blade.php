@@ -60,7 +60,7 @@
           </ul>
         </div> -->
       </div>
-  <!--    
+     
       <div class="col s12 m4 l6 Broadcast">
         <h6>Broadcast</h6>
          @if($bmessage!='')
@@ -68,7 +68,7 @@
         @else
         <p>No Current Broadcasts</p>
         @endif
-      </div> -->
+      </div>
       
     </div>
   </div>

@@ -11,6 +11,8 @@ use App\Model\Comments;
 use App\Model\User_followers;
 use App\Model\Apply_for_job;
 use App\Model\Jobdetail;
+use App\Model\Subcourselist;
+use App\Model\Schoolboard;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -91,7 +93,6 @@ class AjaxRequestController extends Controller
     // dd($allusers);
     foreach($allusers as $allusers)
     {
-           
         $datausers[$allusers->email] =  ucwords($allusers->email);
     }
         return response()->json($datausers);
@@ -234,6 +235,33 @@ class AjaxRequestController extends Controller
           return $html;
 
       }
+  }
+
+  /////////// specilization based on course/////
+  public function getsubcourselist(Request $request)
+  {
+
+      $getcourselist = Subcourselist::where(array('status'=>1,'course_id'=>$request->course_id))->get();
+      $html=' <select name="ugspec" class="subcourse"><option >Choose your option</option>';
+      if($request->type=='postgraduaction')
+      {
+        $html=' <select name="pgspec" class="pgsubcourse"><option >Choose your option</option>';
+
+      }
+      // dd($getstatelist);
+      if(count($getcourselist)>0)
+      {
+        foreach($getcourselist as $getcourselist)
+        {
+          
+             $html.='<option value='.$getcourselist->id.' id='.$getcourselist->id.'>'.$getcourselist->sub_course_name.'</option>';
+       
+        }
+      }
+
+    $html.='</select>';
+    return $html;
+
   }
 
   //////////// useraction ////////
@@ -388,6 +416,22 @@ class AjaxRequestController extends Controller
 
       }
 
+    }
+
+    public function getuniversity(Request $request)
+    {
+      $datauniversity = array();
+       $getuniversity = DB::select("(select * from universities where uni_college_name like '%".$request->term."%' and status=1  limit 20)");
+       if(count($getuniversity)>0)
+       {
+        foreach($getuniversity as $getuniversity)
+        {
+            $datauniversity[$getuniversity->uni_college_name] =  ucwords($getuniversity->uni_college_name);
+        }
+        
+
+       }
+       return response()->json($datauniversity);
     }
  
 }

@@ -4,6 +4,58 @@
         {
             closemodel();
         });
+        $( "#universirty_college" ).autocomplete({
+        source: SITE_URL+'getuniversity',
+        minlength: 1,
+        select: function( event, ui ){
+          
+         //$('.selectfrom').val('dropdown');
+        }
+      });
+
+        /////////// get subcourse ;list//////
+         $('.coursechange').change(function()
+        {
+          var countryid = $(this).val();
+           if($(this).val() != 0 || $(this).val() !='')
+          {
+           var countryid = $(this).find('option:selected').attr('id');
+          }
+          $.post(SITE_URL+'getsubcourselist',{'countryid':countryid},function(data,status)
+          {
+            $('.statechangediv').html(data);
+            // $('.statechange').material_select('destroy');
+            $('.subcourse').material_select();
+      
+
+          }).fail(function(response) {
+              //alert('Error: ' + response.responseText);
+              swal({ title: "Error", text: "Some Technical Issue", type: "error" });
+              
+          });
+
+        })
+        $('.postchange').change(function()
+        {
+          var countryid = $(this).val();
+           if($(this).val() != 0 || $(this).val() !='')
+          {
+           var countryid = $(this).find('option:selected').attr('id');
+          }
+          $.post(SITE_URL+'getsubcourselist',{'countryid':countryid,'type':''},function(data,status)
+          {
+            $('.postchangesubcourse').html(data);
+            // $('.statechange').material_select('destroy');
+            $('.pgsubcourse').material_select();
+      
+
+          }).fail(function(response) {
+              //alert('Error: ' + response.responseText);
+              swal({ title: "Error", text: "Some Technical Issue", type: "error" });
+              
+          });
+
+        })
         $('.countrychange').change(function()
         {
           var countryid = $(this).val();

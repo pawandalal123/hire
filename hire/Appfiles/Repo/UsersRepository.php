@@ -159,7 +159,7 @@ public function getpeoplelist($request,$columns = array('*'))
     {
         return User::destroy($id);
     }
-
+     //////// update basci details///////
     public function updateuserdetails($request)
     {
        

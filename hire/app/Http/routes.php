@@ -50,9 +50,11 @@ Route::get('/','mainController@index');
 /////////////////////////////// ajax login////
 Route::post('/subcatlistajax','ajaxRequestController@subcatlistajax');
 Route::any('/getuserlist','ajaxRequestController@getuserlist');
+Route::any('/getuniversity','ajaxRequestController@getuniversity');
 Route::any('/savedetails','ajaxRequestController@savedetails');
 Route::post('/ajaxlogin','ajaxRequestController@loginform');
 Route::get('/ajaxauthnticate','Auth\AuthController@postLoginajax');
+Route::post('/getsubcourselist','ajaxRequestController@getsubcourselist');
 
 Route::post('/statelist','ajaxRequestController@statelist');
 Route::post('/citylist','ajaxRequestController@citylist');

@@ -34,7 +34,7 @@ if(array_key_exists('functional', $parsed))
         </form>
 
     <div class="col s12 m12 l12">
-              <section class="top-blue-sec">
+              <section class="top-blue-sec" style="background-color: transparent;">
                   <ul>
                     <li><a href="{{URL::to('search/people/')}}" @if($pagename=='people') class="active" @endif>Users</a></li>
                     <li><a href="{{URL::to('search/jobs/')}}" @if($pagename=='jobs') class="active" @endif>Jobs</a></li>
@@ -51,7 +51,7 @@ if(array_key_exists('functional', $parsed))
           <div class="col s12 m4 l3">
                 <div class="sidebar">
                   <p><strong>Refine Results</strong></p>
-                    <div class="panel-group wrap" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                       <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                           <h4 class="panel-title">
@@ -113,7 +113,7 @@ if(array_key_exists('functional', $parsed))
                       </h4>
                         </div>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div class="panel-body">
+                          <div class="panel-body" style="max-height:240px; overflow: auto; ">
                            @if(count($industrylist)>0)
                               @foreach($industrylist as $industrylist=>$name)
                                 <p>
@@ -135,7 +135,7 @@ if(array_key_exists('functional', $parsed))
                       </h4>
                         </div>
                         <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                          <div class="panel-body">
+                          <div class="panel-body" style="max-height:240px; overflow: auto; ">
                             @if(count($functionarea)>0)
                       @foreach($functionarea as $functionarea)
                         <p>
@@ -260,9 +260,14 @@ if(array_key_exists('functional', $parsed))
                        @if($pagename=='article')
                
                     @if(Auth::check())
-                    @include('includes.partials.articleform')
+                   
+                    <div class="row">
+                    <div class="col l12">
+                  <a class="waves-effect waves-light btn search-btn" href="{{URL::to('profile/articles')}}" style="display: inline-block; color: #fff;">write Article</a>
+                  </div>
+                  </div>
                     @else
-                     <div class="sidebar">
+                     <div class="sidebar col l12">
                     @include('includes.partials.loginbox')
                     </div>
                     @endif
@@ -270,7 +275,11 @@ if(array_key_exists('functional', $parsed))
                   @if($pagename=='discussion')
                   @if(Auth::check())
                   <div>Start Discussion</div>
-                  @include('includes.partials.discussionform')
+                  <div class="row">
+                    <div class="col l12">
+                  <a class="waves-effect waves-light btn search-btn" href="{{URL::to('profile/discussions')}}" style="display: inline-block; color: #fff;">Start Discussion</a>
+                  </div>
+                  </div>
                   @else
                   @include('includes.partials.loginbox')
                   @endif

@@ -3,7 +3,7 @@
             @if(count($data)>0)
               <ul class="collection">
                   @foreach($datalistArray as $key=>$company)
-                  {{--*/ $imagepath='http://localhost/testold/web/images/org.jpg' /*--}}
+                  {{--*/ $imagepath=URL::to('web/images/org.jpg') /*--}}
                   @if($company['compnay_logo'])
                   {{--*/ $imagepath=$_ENV['CF_LINK'].$company['compnay_logo'] /*--}}
                   @endif

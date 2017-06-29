@@ -150,7 +150,7 @@
                 <option value="Panjabi">Panjabi</option>
               </select><label> Languages known</label>
             </div>
-            <div class="input-field col s4">
+            <div class="col s4">
               <div class="file-field input-field">
                 <div class="btn">
                   <span>File</span>

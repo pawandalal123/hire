@@ -1,8 +1,9 @@
 
+ <link rel="stylesheet" type="text/css" href="{{ URL::asset('web/css/jquery-ui.min.css')}}" >
  {{--*/ $postcourselist=$courselist /*--}}
   {{--*/ $xschoolboardlist=$schoolboardlist /*--}}
    {{--*/ $xschoolmedium=$schoolmedium /*--}}
-    {{--*/ $allSubcourselist=$Subcourselist /*--}}
+    {{--*/ $allSubcourselist=$postSubcourselist /*--}}
 
      {{--*/ $ugflag=0 /*--}}
   {{--*/ $pgflag=0 /*--}}
@@ -17,7 +18,7 @@
            <h6>Fill your Graduation detail</h6>
             <div class="row">
             <div class="input-field col s4">
-             <select class="initialized" name="ugcourse">
+             <select class="initialized coursechange" name="ugcourse">
                 <option value=""  selected="">Choose your option</option>
                @foreach($courselist as $courselist)
                @if($courselist->course_for==1)
@@ -27,8 +28,8 @@
               </select>
               <label>Qualification</label>
             </div>
-            <div class="input-field col s4">
-            <select class="initialized" name="ugspec">
+            <div class="input-field col s4 coursechnagediv">
+            <select class="initialized" class="subcourse" name="ugspec">
                 <option value="" >Choose your option</option>
                 @foreach($Subcourselist as $Subcourselist)
                <option value="{{$Subcourselist->id}}" @if($Subcourselist->id==$usereducationArry[1]['course_name'])  selected @endif>{{$Subcourselist->sub_course_name}}</option>
@@ -37,8 +38,8 @@
               <label>Specialization</label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="University/college" name="ugcollage" id="first_name" type="text" class="validate" value="{{@$usereducationArry[1]['educate_from']}}">
-              <label for="first_name" class="active">University/college</label>
+              <input placeholder="University/college" name="ugcollage" id="universirty_college" type="text" class="validate" value="{{@$usereducationArry[1]['educate_from']}}">
+              <label for="universirty_college" class="active">University/college</label>
             </div>
                  
           </div>
@@ -91,8 +92,8 @@
               <label>Specialization</label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="University/college" name="ugcollage" id="first_name" type="text" class="validate">
-              <label for="first_name" class="active">University/college</label>
+              <input placeholder="University/college" name="ugcollage" id="universirty_college" type="text" class="validate">
+              <label for="universirty_college" class="active">University/college</label>
             </div>
                  
           </div>
@@ -127,7 +128,7 @@
            <h6>Post Graduation</h6>
             <div class="row">
             <div class="input-field col s4">
-             <select class="initialized" name="postcourse">
+             <select class="initialized postchange" name="postcourse">
                 <option value="" >Choose your option</option>
                 @foreach($postcourselist as $postcourselist)
                @if($postcourselist->course_for==2)
@@ -137,8 +138,8 @@
               </select>
               <label>Qualification</label>
             </div>
-               <div class="input-field col s4">
-               <select class="initialized" name="pgspec">
+               <div class="input-field col s4 postchangesubcourse">
+               <select class="initialized pgsubcourse" name="pgspec">
                 <option value="" >Choose your option</option>
                 @foreach($allSubcourselist as $Subcourselist)
                <option value="{{$Subcourselist->id}}" @if($Subcourselist->id==$usereducationArry[2]['course_spec'])  selected @endif>{{$Subcourselist->sub_course_name}}</option>
@@ -147,8 +148,8 @@
               <label>Specialization</label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="University/college" name="pgcollege" id="first_name" type="text" class="validate" value="{{@$usereducationArry[2]['educate_from']}}">
-              <label for="first_name" class="active">University/college</label>
+              <input placeholder="University/college" name="pgcollege" id="universirty_college" type="text" class="validate" value="{{@$usereducationArry[2]['educate_from']}}">
+              <label for="universirty_college" class="active">University/college</label>
             </div>
            
           </div>
@@ -176,11 +177,11 @@
           </div>
           </div>
           @else
-           <div class="employment postgraduation">
+           <div class="employment postgraduation" style="display: none;">
            <h6>Post Graduation</h6>
             <div class="row">
             <div class="input-field col s4">
-             <select class="initialized" name="postcourse">
+             <select class="postchange" name="postcourse">
                 <option value="" >Choose your option</option>
                 @foreach($postcourselist as $postcourselist)
                @if($postcourselist->course_for==2)
@@ -190,8 +191,8 @@
               </select>
               <label>Qualification</label>
             </div>
-               <div class="input-field col s4">
-               <select class="initialized" name="pgspec">
+               <div class="input-field col s4 postchangesubcourse">
+               <select  name="pgspec" class="pgsubcourse">
                 <option value="" >Choose your option</option>
                 @foreach($allSubcourselist as $Subcourselist)
                <option value="{{$Subcourselist->id}}">{{$Subcourselist->sub_course_name}}</option>
@@ -200,8 +201,8 @@
               <label>Specialization</label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="University/college" name="pgcollege" id="first_name" type="text" class="validate">
-              <label for="first_name" class="active">University/college</label>
+              <input placeholder="University/college" name="pgcollege" id="universirty_college" type="text" class="validate">
+              <label for="universirty_college" class="active">University/college</label>
             </div>
            
           </div>
@@ -227,6 +228,11 @@
               <label for="first_name" class="active">Marks</label>
             </div>
           </div>
+          </div>
+          @endif
+          @if($pgflag==0)
+          <div class="col s12">
+          <span class="add waves-effect waves-light btn addpostgraduation">Add Post Graduation</span>
           </div>
           @endif
 
@@ -440,6 +446,13 @@ $(document).ready(function() {
                 
         }
     });
+$('.addpostgraduation').click(function()
+{
+  $('.postgraduation').show();
+  $('.addpostgraduation').hide();
+
+});
+
    });
 
 </script>
