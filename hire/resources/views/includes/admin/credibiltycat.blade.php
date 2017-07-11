@@ -30,6 +30,8 @@
                                  @endif
                             </div>                                                               
 
+                                                                       
+
                             <div class="footer tar">
                             @if(@$datatoedit->id)
                             <input class="btn btn-default" type="Submit" name="updatecatgeroy" value="Submit">
@@ -76,7 +78,7 @@
                                          <td>{{$dataCat->name}}</td>
                                         <td>{{$dataCat->created_at}}</td>
                                         <td>{{$status}}</td> 
-                                        <td><a href="{{URL::to('/admin/articles/'.$dataCat->id)}}">Edit</a>  
+                                        <td><a href="{{URL::to('/admin/credibiltycategory/'.$dataCat->id)}}">Edit</a>  
                                         <a href="{{URL::to('categorystatus/'.$dataCat->id)}}">{{$textdisplay}}</a></td>                                   
                                     </tr>
                                      {{--*/ $i++ /*--}}

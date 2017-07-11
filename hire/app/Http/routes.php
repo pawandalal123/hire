@@ -27,6 +27,8 @@ Route::any('/postjob', 'JobController@postjob');
 Route::any('/joblist/{pagename?}', 'JobController@userjobslist');
 Route::any('/applylist/{id}', 'JobController@applylist');
 Route::any('/makenews', 'UserController@makenews');
+Route::any('/companycredibility', 'UserController@companycredibility');
+
 Route::any('/deletenews/{id}', 'UserController@deletenews');
 Route::any('/jobdetail/{pagename?}', 'JobController@jobdetail');
 Route::any('/compnaydetail/{id}', 'UserController@compnaydetail');
@@ -126,6 +128,10 @@ Route::group(array('namespace'=>'admin'), function()
 			//////// broadcast message////
 			Route::any('/admin/broadcast/{id?}', 'AdminController@broadcastmsg');
 			Route::any('/admin/applylist', 'AdminController@applylistall');
+
+			/////// credibilty//////
+			Route::any('/admin/credibiltycategory/{type?}/{id?}', 'AdminController@credibiltycategory');
+			// Route::any('/admin/credibiltyfactors', 'AdminController@credibiltyfactors');
     
 });
 

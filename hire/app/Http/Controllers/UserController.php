@@ -35,6 +35,12 @@ use App\Model\Apply_for_job;
 use App\Model\View;
 use App\Model\State;
 use App\Model\City;
+use App\Model\Departments;
+use App\Model\Credibility_category;
+use App\Model\Credibility_factors;
+use App\Model\Employee_details;
+use App\Model\Employee_credibility;
+
 
 Use DB;
 use Validator;
@@ -1129,7 +1135,7 @@ class UserController extends Controller
     }
 
   }
-
+    //////// display user all connections//////
   public function allconnections(Request $request)
   {
     $userArray = array();
@@ -1139,7 +1145,7 @@ class UserController extends Controller
          return redirect('auth/login');
     }
     $dataArray=array();
-   
+   //////////// get list of all connected users/////
     $useridlist='';
     $getlist = User_followers::where(array('followed_by_id'=>$user->id,'type'=>1))->get();
     if(count($getlist)>0)
@@ -1198,7 +1204,7 @@ class UserController extends Controller
     return view('web/userfiles/allconnection',compact('dataArray'));
 
   }
-
+   //////////// function for company profile /////////////
   public function companyprofile(Request $request,$editid=false)
   {
     $user = Auth::user();
@@ -1212,6 +1218,7 @@ class UserController extends Controller
       $condition = array('user_id'=>$user->created_by);
 
     }
+    //////// get company details///////////
     $checkcompnay = Company_detail::where($condition)->first();
     if($checkcompnay)
     {
@@ -1380,6 +1387,7 @@ class UserController extends Controller
     
   }
   ///////////////////////makenews /////////
+  //////////// function for post new news and edit//////
   public function makenews(Request $request)
   {
     
@@ -1418,57 +1426,56 @@ class UserController extends Controller
     }
 
   }
-
    /////////////delete news function ////////
-   public function deletenews(Request $request,$id)
-    {
-        if(Auth::check())
-        {
-            $user = Auth::user();
-            if($id)
-            {
-                $check = $this->postjob->getBy(array('id'=>$id));
-                if($check)
-                {
-                    if($user->id==$check->user_id)
-                    {
-                        $this->articles->deletearticle($id);
-                        Session::flash('message','News delete successfully.'); 
-                        Session::flash('alert-class', 'success'); 
-                        Session::flash('alert-title', 'success');  
-                        return redirect('makenews');
+  public function deletenews(Request $request,$id)
+  {
+      if(Auth::check())
+      {
+          $user = Auth::user();
+          if($id)
+          {
+              $check = $this->postjob->getBy(array('id'=>$id));
+              if($check)
+              {
+                  if($user->id==$check->user_id)
+                  {
+                      $this->articles->deletearticle($id);
+                      Session::flash('message','News delete successfully.'); 
+                      Session::flash('alert-class', 'success'); 
+                      Session::flash('alert-title', 'success');  
+                      return redirect('makenews');
 
-                    }
-                    else
-                    {
-                        Session::flash('message','You have no permission to delete the news.'); 
-                        Session::flash('alert-class', 'danger'); 
-                        Session::flash('alert-title', 'error');  
-                        return redirect('makenews');
-                    }
+                  }
+                  else
+                  {
+                      Session::flash('message','You have no permission to delete the news.'); 
+                      Session::flash('alert-class', 'danger'); 
+                      Session::flash('alert-title', 'error');  
+                      return redirect('makenews');
+                  }
 
-                }
-                else
-                {
-                   return redirect('error404');
-                }
+              }
+              else
+              {
+                 return redirect('error404');
+              }
 
-            }
-            else
-            {
-                Session::flash('message','Please select news.'); 
-                Session::flash('alert-class', 'danger'); 
-                Session::flash('alert-title', 'error');  
-                return redirect('makenews');
-            }
+          }
+          else
+          {
+              Session::flash('message','Please select news.'); 
+              Session::flash('alert-class', 'danger'); 
+              Session::flash('alert-title', 'error');  
+              return redirect('makenews');
+          }
 
-        }
-        else
-        {
-            return redirect('auth/login');
+      }
+      else
+      {
+          return redirect('auth/login');
 
-        }
-    }
+      }
+  }
 
     /////////////// userdetail function //////
     public function userdetail(Request $request,$id)
@@ -1559,7 +1566,7 @@ class UserController extends Controller
 
     }
 
- public function createsubuser(Request $request)
+  public function createsubuser(Request $request)
   {
     
     if(Auth::check())
@@ -1652,7 +1659,34 @@ class UserController extends Controller
         }
         ////// get all news posted by company///////
         $newslist = $this->postnews->getallpaginate(array('company_id'=>$id,'status'=>1));
-        return view('web/compnaydetail',compact('checkcompnay','data','newslist','jobarary'));
+
+        //////////// compnay credibilyty///////////
+        $companyCreditArray = array();
+        $checkdepartment = Departments::where(array('status'=>1,'company_id'=>$id))->lists('name','id');
+        if(count($checkdepartment)>0)
+        {
+          $departmentId=array_keys($checkdepartment);
+          $selectRaw = "department_id,sum(points) as totalpoint";
+          $groupBy = "department_id,company_id";
+          $getcredibilty = Employee_credibility::selectRaw($selectRaw)->join('credibility_factors','employee_credibilities.factor_id'='credibility_factors.ponits')->whereIn()->groupBy($groupBy)->get();
+          if(count($getcredibilty)>0)
+          {
+            foreach($getcredibilty as $getcredibilty)
+            {
+              $departmentname=$getcredibilty->department_id;
+              if(array_key_exists($departmentname, $checkdepartment))
+              {
+                $departmentname=$checkdepartment[$getcredibilty->department_id];
+
+              }
+              $companyCreditArray[$departmentname] = $getcredibilty->totalpoint;
+
+            }
+
+          }
+
+        }
+        return view('web/compnaydetail',compact('checkcompnay','data','newslist','jobarary','companyCreditArray'));
       }
 
     }
@@ -1701,12 +1735,206 @@ class UserController extends Controller
 			$userData['password'] = bcrypt($requestData['password']);
 			$this->usersInterface->update($userData,$whereCondiyion1,$whereCondiyion);
             
-			Session::flash('message', 'Password has been updated.'); 
+			      Session::flash('message', 'Password has been updated.'); 
             Session::flash('alert-class', 'success'); 
             Session::flash('alert-title', 'Success'); 
             return redirect('user/changepassword');
 		
     }
+    ///////////////////////// company credibilty fucntion//////
+    ///////////// this is used for create department as well as add employee/////
+
+    public function companycredibility(Request $request)
+    {
+      $currenttab='';
+      $user = Auth::user();
+     if(empty($user->id))
+      {
+             return redirect('auth/login');
+      }
+      //////// get company details///////////
+      $condition = array('user_id'=>$user->id);
+    if($user->is_subuser)
+    {
+      $condition = array('user_id'=>$user->created_by);
+
+    }
+    $checkcompnay = Company_detail::where($condition)->first();
+    if($checkcompnay)
+    {
+
+      /////////// save and upadte the department//////
+      $datatoeditdet='';
+      $datatoeditemp='';
+      if(isset($request->submitdept))
+      {
+        $validator = $this->validatedept($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        $dataArry = array('name'=>$request->departmentname,
+                          'created_by'=>$user->id,
+                          'company_id'=>$checkcompnay->id,
+                          'created_at'=>date('Y-m-d H:i:s'));
+        if($request->editid)
+        {
+          $checkdepartment = Departments::where(array('id'=>$request->editid))->first();
+          if($checkdepartment)
+          {
+            unset($dataArry['created_at']);
+            Departments::where(array('id'=>$request->editid))->upadte($dataArry);
+            $currenttab='edittab';
+            Session::flash('message', 'Upadte Successfully'); 
+            Session::flash('alert-class', 'success'); 
+            Session::flash('alert-title', 'Success'); 
+          }
+          else
+          {
+            return redirect('error404');
+
+          }
+        }
+        else
+        {
+          $insert = Departments::insertGetId($dataArry);
+          Session::flash('message', 'Create Successfully'); 
+          Session::flash('alert-class', 'success'); 
+          Session::flash('alert-title', 'Success'); 
+        }
+      }
+      ///////// save and update employedetails//////
+      if(isset($request->saveemployee))
+      {
+        $validator = $this->validateemployee($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        $dataArry = array('employee_name'=>$request->employname,
+                          'created_by'=>$user->id,
+                          'department'=>$request->empdepartment,
+                          'company_id'=>$checkcompnay->id,
+                          'created_at'=>date('Y-m-d H:i:s'));
+        if($request->editemp)
+        {
+          $checkdepartment = Employee_details::where(array('id'=>$request->editemp))->first();
+          if($checkdepartment)
+          {
+            unset($dataArry['created_at']);
+            Employee_details::where(array('id'=>$request->editemp))->upadte($dataArry);
+            if(count($factorapont)>0)
+            {
+              foreach($factorapont as $factorapont)
+              {
+                $dataarray = array('factor_id'=>$factorapont,
+                                   'department_id'=>$request->empdepartment,
+                                   'employee_id'=>$request->editemp,
+                                   'company_id'=>$checkcompnay->id,
+                                   'created_by'=>$user->id,
+                                   'created_at'=>date('Y-m-d H:i:s'));
+                $conditionfactor=array('company_id'=>$checkcompnay->id,'employee_id'=>$request->editemp,'factor_id'=>$factorapont);
+                $checkfactor = Employee_credibility::where($conditionfactor)->first();
+                if($checkfactor)
+                {
+                  Employee_credibility::where($conditionfactor)->upadte($dataarray);
+
+                }
+                else
+                {
+                  Employee_credibility::insertGetId($dataarray);
+                }
+              }
+
+            }
+            $currenttab='edittab';
+            Session::flash('message', 'Upadte Successfully'); 
+            Session::flash('alert-class', 'success'); 
+            Session::flash('alert-title', 'Success'); 
+          }
+          else
+          {
+            return redirect('error404');
+
+          }
+        }
+        else
+        {
+          $insert = Employee_details::insertGetId($dataArry);
+          if(count($factorapont)>0)
+            {
+              foreach($factorapont as $factorapont)
+              {
+                $dataarray = array('factor_id'=>$factorapont,
+                               'department_id'=>$request->departmentname,
+                               'employee_id'=>$insert,
+                               'company_id'=>$checkcompnay->id,
+                               'created_by'=>$user->id,
+                               'created_at'=>date('Y-m-d H:i:s'));
+                $conditionfactor=array('company_id'=>$checkcompnay->id,'employee_id'=>$insert,'factor_id'=>$factorapont);
+                $checkfactor = Employee_credibility::where($conditionfactor)->first();
+                if($checkfactor)
+                {
+                  Employee_credibility::where($conditionfactor)->upadte($dataarray);
+
+                }
+                else
+                {
+                  Employee_credibility::insertGetId($dataarray);
+                }
+              }
+
+            }
+          Session::flash('message', 'Create Successfully'); 
+          Session::flash('alert-class', 'success'); 
+          Session::flash('alert-title', 'Success'); 
+        }
+
+      }
+      ////////// get department list//////
+      $getalldepartmetlist = Departments::where(array('company_id'=>$checkcompnay->id))->get();
+      $getdepartmetlist = Departments::where(array('status'=>1,'company_id'=>$checkcompnay->id))->get();
+      ////////////// get credibilty factors list//////
+      $factorslist = array();
+      $credibiltycatArray=array();
+      $getcredibilitycat = Credibility_category::where(array('status'=>1))->get();////////// all credibilty list////
+      if(count($getcredibilitycat)>0)
+      {
+        $getfactors = Credibility_factors::where(array('status'=>1))->get();
+        if(count($getfactors)>0)
+        {
+          foreach($getfactors as $getfactors)
+          {
+            $factorslist[$getfactors->category_id][$getfactors->id] = array('name'=>$getfactors->name,
+                                                                            'points'=>$getfactors->points);
+
+          }
+          foreach($getcredibilitycat as $getcredibilitycat)
+          {
+            
+            if(array_key_exists($getcredibilitycat->id, $factorslist))
+            {
+              $credibiltycatArray[$getcredibilitycat->id]=array('name'=>$getcredibilitycat->name,
+                                                                'factorsvalues'=>$factorslist[$getcredibilitycat->id]);
+
+            }
+
+          }
+        }
+      }
+
+      return view('web.userfiles.companycredibility',compact('user','currenttab','getdepartmetlist','datatoeditdet','datatoeditemp','credibiltycatArray','getalldepartmetlist'));
+    }
+    else
+    {
+      return redirect('error404');
+
+    }
+  }
 
   
 }

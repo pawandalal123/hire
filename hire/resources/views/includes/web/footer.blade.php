@@ -3,22 +3,22 @@
     <div class="row">
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">live_help</i>
-        <h4>FAQ</h4>
+        <h4>Super-Fast &amp; Accurate Recruiting</h4>
         <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">supervisor_account</i>
-        <h4>Help Support</h4>
+        <h4>Corporate Connections</h4>
         <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">person_pin</i>
-        <h4>Become a Job Owner</h4>
+        <h4>Digital Locker</h4>
         <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">surround_sound</i>
-        <h4>Help Center</h4>
+        <h4>Improve Your Professional Skill</h4>
         <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
       </div>
     </div>

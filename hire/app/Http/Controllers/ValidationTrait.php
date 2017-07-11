@@ -269,6 +269,7 @@ trait ValidationTrait {
     $rules = [
         'openings'=>'required|numeric',
         'description'=>'required',
+        'aboutcompnay'=>'required',
         'comphiring' => 'required',
         'projectskills'=>'required',
         'jobquality'=>'required',
@@ -312,6 +313,7 @@ trait ValidationTrait {
         return Validator::make($data, $rules,$messsages);
     }
 
+
       ///////////// validate project form/////
    
     protected function validateproject(array $data)
@@ -333,5 +335,91 @@ trait ValidationTrait {
         ];
         return Validator::make($data, $rules,$messsages);
     }
+
+    /////////// validation cradibilry////
+     ///////////// validation for cradibilry category////
+    protected function validatecredibiltycat(array $data)
+    {
+        $messsages = [
+        'name.required' => 'The field name is required'];
+       
+
+        $rules = [
+            'name' => 'required|unique:credibility_categories'
+
+        ];
+        return Validator::make($data, $rules,$messsages);
+    }
+
+    public function credibilitycat(Request $request)
+    {
+        $validator = $this->validatecredibiltycat($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        
+    }
+
+    ///////////// validation for cradibilry factor////
+    protected function validatecredibiltyfactor(array $data)
+    {
+        $messsages = [
+        'category.required' => 'The field name is required',
+        'point.required' => 'The point required',
+        'name.required' => 'The field name is required'];
+       
+
+        $rules = [
+            'category' => 'required|not_in:0',
+            'point'=>'required|numeric',
+            'name' => 'required|unique:credibility_categories'
+
+        ];
+        return Validator::make($data, $rules,$messsages);
+    }
+
+    public function credibiltyfactor(Request $request)
+    {
+        $validator = $this->validatecredibiltyfactor($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        
+    }
+
+
+    protected function validatedept(array $data)
+    {
+        $messsages = [
+        'departmentname.required'=>'Please enter designation'];
+       
+
+        $rules = [
+            'departmentname'=>'required'
+
+        ];
+        return Validator::make($data, $rules,$messsages);
+    }
+
+     protected function validateemployee(array $data)
+     {
+        $messsages = [
+        'empdepartment.required'=>'Please enter designation',
+        'employname.required'=>'Please enter employee name'];
+       
+
+        $rules = [
+            'empdepartment'=>'required|not_in:0',
+            'employname'=>'required'
+
+        ];
+        return Validator::make($data, $rules,$messsages);
+     }
     
 }

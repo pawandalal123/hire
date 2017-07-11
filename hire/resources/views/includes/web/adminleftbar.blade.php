@@ -238,7 +238,25 @@
                         </li>    
                                                                
                     </ul>                
-                </li>                        
+                </li>        
+                <li class="openable">
+                    <a href="#">
+                        <span class="isw-chat"></span><span class="text">Credibilty</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{URL::to('admin/credibiltycategory')}}">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span class="text">Add Category</span></a>
+                        </li> 
+                          <li>
+                            <a href="{{URL::to('admin/credibiltycategory/factors')}}">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span class="text">Credibilty Factors</span></a>
+                        </li>  
+                                                              
+                    </ul>                
+                </li>                
 
             </ul>
 

@@ -67,6 +67,13 @@
     <div class="col s12 m8 l8 center-align">
       <div class="row">
         <img src="{{URL::to('web/site/images/signup.jpg')}}" alt="">
+        “LET’S MAKE THIS INDIAN PLATFORM WORLD FAMOUS”
+      </div>
+    </div>
+     <div class="col s12 m4 l4 center-align">
+      <div class="row">
+        <img src="{{URL::to('web/site/images/Make_In_India.png')}}" alt="">
+        <!-- “LET’S MAKE THIS INDIAN PLATFORM WORLD FAMOUS” -->
       </div>
     </div>
     

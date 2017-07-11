@@ -28,6 +28,9 @@ use App\Model\Industry;
 use App\Model\Broadcast;
 use App\Model\Apply_for_job;
 
+use App\Model\Credibility_category;
+use App\Model\Credibility_factors;
+
 use Redirect;
 use Validator;
 use DB;
@@ -39,9 +42,11 @@ use Illuminate\Container\Container;
 use Appfiles\Common\Functions;
 use URL;
 use Illuminate\Support\Collection;
+use App\Http\Controllers\ValidationTrait;
 
 // use Url;
 class AdminController extends Controller {
+   use ValidationTrait;
 
    protected $functions;
    protected $s3;
@@ -146,7 +151,10 @@ class AdminController extends Controller {
     elseif($checkstatus['status']=='success')
     {
     $postData = $request->all();
-   
+    $request->paginate='all';
+    $articlelist= $this->articles->articleslist($request);
+    $adiscussionlist= $this->discussion->discussionlist($request)
+    $getnewslist= $this->postnews->getnewslist($request);;
     
     return \View::make('admin.admindashboard');
    }
@@ -2424,6 +2432,104 @@ class AdminController extends Controller {
 
           }
       return \View::make('admin.allapplylist',compact('allylistArray','getapplyList'));
+   }
+  }
+
+  /////////////////////// 
+  ////////////////////// crdedibilty management///////////////
+  public function credibiltycategory(Request $request,$type=false,$id=false)
+  {
+    $dataCat = array();
+    $datasubcat = array();
+    $datatoedit='';
+    $checkstatus = $this->checkpermission();
+    if($checkstatus['status']=='login')////////if login require
+    {
+      return redirect('auth/login');
+    }
+    else if($checkstatus['status']=='notfound')////////page not belong to user
+    {
+      return redirect('error404/');
+    }
+    elseif($checkstatus['status']=='success')
+    {
+      if(isset($request->submitcat))
+      {
+         $this->credibilitycat($request);
+          $data = array('name'=>$request->name,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>$checkstatus['loginid']);
+              Credibility_category::insertGetId($data);
+              Session::flash('message','Save Successfully.'); 
+              Session::flash('alert-class', 'success'); 
+              Session::flash('alert-title', 'Success');
+           
+
+      }
+      if(isset($request->submitsubcat))
+      {
+        $this->credibiltyfactor($request);
+        $data = array('name'=>$request->name,
+                        'category_id'=>$request->category,
+                        'status'=>1,
+                        'point'=>$request->point,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>$checkstatus['loginid']);
+         
+             Credibility_factors::insertGetId($data);
+              Session::flash('message','Save Successfully.'); 
+              Session::flash('alert-class', 'success'); 
+              Session::flash('alert-title', 'Success');
+          
+
+      }
+      
+      if(isset($request->updatecatgeroy))
+      {
+          $data = array('name'=>$request->name);
+          Credibility_category::where(array('id'=>$type))->update($data);
+          Session::flash('message','Update Successfully.'); 
+          Session::flash('alert-class', 'success'); 
+          Session::flash('alert-title', 'Success');
+
+      }
+      if(isset($request->updatesubcatgeroy))
+      {
+          $data = array('country_id'=>$request->country,
+                        'state'=>$request->state);
+          $this->state->update($data,array('id'=>$id));
+          Session::flash('message','Update Successfully.'); 
+          Session::flash('alert-class', 'success'); 
+          Session::flash('alert-title', 'Success');
+
+      }
+      if($type=='factors')
+      {
+        $dataCat = Credibility_category::where(array('status'=>1),array('id','name'))->get();
+        $datasubcat = Credibility_factors::where(array());
+        if($id)
+        {
+          $datatoedit = $this->subcat->getBy(array('id'=>$id))->first();
+          if(empty($datatoedit))
+          {
+            return redirect('error404/');
+          }
+        }
+
+      }
+      else
+      {
+        $dataCat = Credibility_category::where(array())->get();
+        if($type)
+        {
+          $datatoedit = Credibility_category::where(array('id'=>$type))->first();
+          if(empty($datatoedit))
+          {
+            return redirect('error404/');
+          }
+        }
+      }
+      return \View::make('admin.credibility_master',compact('dataCat','datasubcat','type','datatoedit'));
    }
   }
   

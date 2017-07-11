@@ -6,116 +6,13 @@
                     <li><a href="#">Simple Admin</a> <span class="divider">></span></li>                
                     <li class="active">Dashboard</li>
                 </ul>
-                <ul class="buttons">
-                    <li>
-                        <a href="#" class="link_bcPopupList"><span class="glyphicon glyphicon-user"></span><span class="text">Users list</span></a>
-
-                        <div id="bcPopupList" class="popup">
-                            <div class="head clearfix">
-                                <div class="arrow"></div>
-                                <span class="isw-users"></span>
-                                <span class="name">List users</span>
-                            </div>
-                            <div class="body-fluid users">
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/aqvatarius_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Aqvatarius</a>                                    
-                                        <span>online</span>
-                                    </div>
-                                </div>
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/olga_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Olga</a>                                
-                                        <span>online</span>
-                                    </div>
-                                </div>                        
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexey_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexey</a>  
-                                        <span>online</span>
-                                    </div>
-                                </div>                              
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/dmitry_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Dmitry</a>                                    
-                                        <span>online</span>
-                                    </div>
-                                </div>                         
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/helen_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Helen</a>                                                                        
-                                    </div>
-                                </div>                                  
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexander_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexander</a>                                                                        
-                                    </div>
-                                </div>                                  
-
-                            </div>
-                            <div class="footer">
-                                <button class="btn btn-default" type="button">Add new</button>
-                                <button class="btn btn-danger link_bcPopupList" type="button">Close</button>
-                            </div>
-                        </div>                    
-
-                    </li>                
-                    <li>
-                        <a href="#" class="link_bcPopupSearch"><span class="glyphicon glyphicon-search"></span><span class="text">Search</span></a>
-
-                        <div id="bcPopupSearch" class="popup">
-                            <div class="head clearfix">
-                                <div class="arrow"></div>
-                                <span class="isw-zoom"></span>
-                                <span class="name">Search</span>
-                            </div>
-                            <div class="body search">
-                                <input type="text" placeholder="Some text for search..." name="search"/>
-                            </div>
-                            <div class="footer">
-                                <button class="btn btn-default" type="button">Search</button>
-                                <button class="btn btn-danger link_bcPopupSearch" type="button">Close</button>
-                            </div>
-                        </div>                
-                    </li>
-                </ul>
+                
 
             </div>
 
             <div class="workplace">
 
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <div class="widgetButtons">                        
-                            <div class="bb"><a href="#" class="tipb" title="Edit"><span class="ibw-edit"></span></a></div>
-                            <div class="bb">
-                                <a href="#" class="tipb" title="Upload"><span class="ibw-folder"></span></a>
-                                <div class="caption red">31</div>
-                            </div>
-                            <div class="bb"><a href="#" class="tipb" title="Add new"><span class="ibw-plus"></span></a></div>
-                            <div class="bb"><a href="#" class="tipb" title="Add to favorite"><span class="ibw-favorite"></span></a></div>
-                            <div class="bb">
-                                <a href="#" class="tipb" title="Send mail"><span class="ibw-mail"></span></a>
-                                <div class="caption green">31</div>
-                            </div>
-                            <div class="bb"><a href="#" class="tipb" title="Settings"><span class="ibw-settings"></span></a></div>
-                        </div>
-
-                    </div>
-                </div>
+     
 
                 <div class="row">
 
@@ -175,125 +72,92 @@
 
                 <div class="row">
 
-                    <div class="col-md-4">
+                   <div class="col-md-4">
                         <div class="head clearfix">
-                            <div class="isw-archive"></div>
-                            <h1>Orders</h1>
+                            <div class="isw-edit"></div>
+                            <h1>Latest articles</h1>
                             <ul class="buttons">                            
+                                <li>
+                                    <a href="#" class="isw-text_document"></a>
+                                </li>                            
                                 <li>
                                     <a href="#" class="isw-settings"></a>
                                     <ul class="dd-list">
                                         <li><a href="#"><span class="isw-list"></span> Show all</a></li>
-                                        <li><a href="#"><span class="isw-ok"></span> Approved</a></li>
-                                        <li><a href="#"><span class="isw-minus"></span> Unapproved</a></li>
+                                        <li><a href="#"><span class="isw-edit"></span> Add new</a></li>
                                         <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li>
                                     </ul>
                                 </li>
-                            </ul>                         
+                            </ul>                        
                         </div>
-                        <div class="block-fluid accordion">
+                        <div class="block news scrollBox">
 
-                            <h3>November 2012</h3>
-                            <div>
-                                <table cellpadding="0" cellspacing="0" width="100%" class="sOrders">
-                                    <thead>
-                                        <tr>
-                                            <th width="60">Date</th><th>User</th><th width="60">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="date">Nov 6</span><span class="time">12:35</span></td>
-                                            <td><a href="#">Aqvatarius</a></td>
-                                            <td><span class="price">$1366.12</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Nov 8</span><span class="time">18:42</span></td>
-                                            <td><a href="#">Olga</a></td>
-                                            <td><span class="price">$146.00</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Nov 15</span><span class="time">8:21</span></td>
-                                            <td><a href="#">Alex</a></td>
-                                            <td><span class="price">$879.24</span></td>
-                                        </tr>                                    
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="3" align="right"><button class="btn btn-default btn-sm">More...</button></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>                        
+                            <div class="scroll" style="height: 270px;">
 
-                            <h3>October 2012</h3>
-                            <div>
-                                <table cellpadding="0" cellspacing="0" width="100%" class="sOrders">
-                                    <thead>
-                                        <tr>
-                                            <th width="60">Date</th><th>User</th><th width="60">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="date">Oct 6</span><span class="time">12:35</span></td>
-                                            <td><a href="#">Aqvatarius</a></td>
-                                            <td><span class="price">$1366.12</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Oct 8</span><span class="time">18:42</span></td>
-                                            <td><a href="#">Olga</a></td>
-                                            <td><span class="price">$146.00</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Oct 15</span><span class="time">8:21</span></td>
-                                            <td><a href="#">Alex</a></td>
-                                            <td><span class="price">$879.24</span></td>
-                                        </tr>                                    
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="3" align="right"><button class="btn btn-default btn-sm">More...</button></td>
-                                        </tr>
-                                    </tfoot>                                
-                                </table>                           
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>                                
+                                </div>
+
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>                                
+                                </div>                            
+
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>                                
+                                </div>
+
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>                                
+                                </div>
+
+                                <div class="item">
+                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
+                                    <span class="date">02.11.2012 14:23</span>
+                                    <div class="controls">                                    
+                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
+                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>                                
+                                </div>                            
+
                             </div>
 
-                            <h3>September 2012</h3>
-                            <div>
-                                <table cellpadding="0" cellspacing="0" width="100%" class="sOrders">
-                                    <thead>
-                                        <tr>
-                                            <th width="60">Date</th><th>User</th><th width="60">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="date">Sep 6</span><span class="time">12:35</span></td>
-                                            <td><a href="#">Aqvatarius</a></td>
-                                            <td><span class="price">$1366.12</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Sep 8</span><span class="time">18:42</span></td>
-                                            <td><a href="#">Olga</a></td>
-                                            <td><span class="price">$146.00</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="date">Sep 15</span><span class="time">8:21</span></td>
-                                            <td><a href="#">Alex</a></td>
-                                            <td><span class="price">$879.24</span></td>
-                                        </tr>                                    
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="3" align="right"><button class="btn btn-default btn-sm">More...</button></td>
-                                        </tr>
-                                    </tfoot>                                
-                                </table>                              
-                            </div>                        
-
                         </div>
-                    </div>
+                    </div>  
 
                     <div class="col-md-4">
                         <div class="head clearfix">

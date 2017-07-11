@@ -91,9 +91,7 @@
     </div>
   </div>
 </div>
-<script type="application/javascript"   src="{{ URL::asset('web/js/locationpicker.jquery.js')}}"></script>
- <script type="application/javascript"   src="{{ URL::asset('web/js/editevent.js')}}"></script>
- <script type="application/javascript"   src="{{ URL::asset('web/js/addevent.js')}}"></script>
+
  <script type="application/javascript"   src="{{ URL::asset('web/js/build/js/intlTelInput.js')}}"></script> 
  <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckeditor.js')}}"></script>
  <script type="application/javascript"   src="{{ URL::asset('web/js/ckeditor/ckfinder.js')}}"></script>

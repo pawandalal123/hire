@@ -207,7 +207,7 @@
 </label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="Last Name" id="joingtime" name="joingtime" type="text" class="validate" value="">
+              <input placeholder="Joining time" id="joingtime" name="joingtime" type="text" class="validate" value="">
               <label>Joining time required
 
 </label>
@@ -218,7 +218,7 @@
               <select name="expyear">
 
                         <option value="">Year</option>
-                        @for($i=1;$i<=25; $i++)
+                        @for($i=1;$i<=60; $i++)
                         <option value="{{$i}}">{{$i}}</option>
                         @endfor
                       </select>
@@ -229,7 +229,7 @@
               <select name="expmonth">
 
                         <option value="">Month</option>
-                       @for($i=1;$i<=11; $i++)
+                       @for($i=1;$i<=12; $i++)
                         <option value="{{$i}}">{{$i}}</option>
                         @endfor
                       </select>
@@ -239,7 +239,7 @@
               <select name="salaryto">
 
                         <option value="">To</option>
-                        @for($i=1;$i<=25; $i+=.5)
+                        @for($i=1;$i<=80; $i+=.5)
                         <option value="{{$i}}">{{$i}} Lakhs</option>
                         @endfor
                       </select>
@@ -250,7 +250,7 @@
               <select name="salaryfrom">
 
                         <option value="">From</option>
-                       @for($i=1;$i<=30; $i+=.5)
+                       @for($i=1;$i<=90; $i+=.5)
                         <option value="{{$i}}">{{$i}} Lakhs</option>
                         @endfor
                       </select>
@@ -269,8 +269,8 @@
             <div class="input-field col s6">
               <textarea class="materialize-textarea" name="aboutcompnay" id="aboutcompnay"></textarea>
               <label for="aboutcompnay" class="active">About Company</label>
-               @if ($errors->has('dob')) 
-              <div class="error">{{ $errors->first('dob') }}</div> 
+               @if ($errors->has('aboutcompnay')) 
+              <div class="error">{{ $errors->first('aboutcompnay') }}</div> 
               @endif
             </div>
             <div class="input-field col s6">

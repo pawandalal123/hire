@@ -46,12 +46,12 @@ class CategoryRepository implements CategoryInterface
 
       public function rulesForCreate()
       {
-      return [
+        return [
                 'name' => 'required',
                
                 
             ];
-    }
+     }
 
     
      public function rulesForCreatMessage(){

@@ -41,11 +41,20 @@
                                  @endif
                             </div>  
                             <div class="row-form clearfix">
-                                <div class="col-md-3">Subcategory name:</div>
+                                <div class="col-md-3">state:</div>
                                 <div class="col-md-9">
                                 <input type="text" name="name" class="form-control validate[required]" placeholder="placeholder..." value="{{@$datatoedit->name}}" /></div>
                                 @if ($errors->has('name')) 
                                  <div style="color:red">{{ $errors->first('name') }}</div> 
+                                 @endif
+                            </div>  
+
+                            <div class="row-form clearfix">
+                                <div class="col-md-3">state:</div>
+                                <div class="col-md-9">
+                                <input type="text" name="point" class="form-control validate[required]" placeholder="placeholder..." value="{{@$datatoedit->point}}" /></div>
+                                @if ($errors->has('point')) 
+                                 <div style="color:red">{{ $errors->first('point') }}</div> 
                                  @endif
                             </div>                                                              
 
@@ -97,7 +106,7 @@
                                         <td>{{$datasubcat->category}}</td>
                                         <td>{{$datasubcat->created_at}}</td>
                                         <td>{{$status}}</td> 
-                                        <td><a href="{{URL::to('/admin/articles/subcategory/'.$datasubcat->id)}}">Edit</a>  
+                                        <td><a href="{{URL::to('/admin/credibiltycategory/factors/'.$datasubcat->id)}}">Edit</a>  
                                         <a href="{{URL::to('categorystatus/subcategory/'.$datasubcat->id)}}">{{$textdisplay}}</a></td>                                   
                                     </tr>
                                      {{--*/ $i++ /*--}}

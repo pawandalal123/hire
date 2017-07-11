@@ -111,6 +111,11 @@ class PostnewsRepository implements PostnewsInterface
           $articleList = $articleList->paginate($request->paginate);
 
         }
+        elseif($request->paginate=='all')
+        {
+           $articleList = $articleList->take(5);
+
+        }
         else
         {
           $articleList = $articleList->paginate($pageData);

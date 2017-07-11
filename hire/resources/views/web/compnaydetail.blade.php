@@ -54,6 +54,34 @@
         
       </div>
     </div>
+    @if(count($companyCreditArray)>0)
+    <div class="col s12 m12 l12">
+      <div class="job-detail card">
+       <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s12 job-detail search-page">
+            <h4>Company Credibility</h4>
+            <table>
+              <thead>
+                <th>Department Name</th>
+                <th>Points</th>
+              </thead>
+              <tbody>
+              @foreach($companyCreditArray as $departmanetname=>$values)
+                <tr>{{$departmanetname}}</tr>
+                <tr>{{$values}}</tr>
+                @endforeach
+              </tbody>
+            </table>
+           
+              
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    @endif
      @if(count($data)>0)
     <div class="col s12 m12 l12">
       <div class="job-detail card">

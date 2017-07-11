@@ -24,6 +24,7 @@
     
     <script type='text/javascript' src="{{ URL::asset('web/admin/js/plugins/validation/languages/jquery.validationEngine-en.js')}}" charset='utf-8'></script>
     <script type='text/javascript' src="{{ URL::asset('web/admin/js/plugins/validation/jquery.validationEngine.js')}}" charset='utf-8'></script>
+    <script type='text/javascript' src="{{ URL::asset('web/adminjs/plugins/scrollup/jquery.scrollUp.min.js')}}"></script>
     
     <script type='text/javascript' src="{{ URL::asset('web/admin/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js')}}"></script>
 
