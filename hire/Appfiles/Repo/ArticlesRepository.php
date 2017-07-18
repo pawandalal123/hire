@@ -117,13 +117,20 @@ class ArticlesRepository implements ArticlesInterface
         }
         if($request->paginate)
         {
-          $articleList = $articleList->paginate($request->paginate);
+          if($request->paginate=='all')
+          {
+            //dd();
+            $articleList = $articleList->take(5)->get();
+          }
+          else
+          {
+            $articleList = $articleList->paginate($request->paginate);
+
+          }
+          
 
         }
-        elseif($request->paginate=='all')
-        {
-          $articleList = $articleList->take(5);
-        }
+
         else
         {
           $articleList = $articleList->paginate($pageData);

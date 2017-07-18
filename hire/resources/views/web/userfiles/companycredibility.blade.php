@@ -87,7 +87,7 @@
              @endif
                   </div>
             <div class="input-field col s4">
-                 <select name="country" class="empdepartment"> 
+                 <select name="empdepartment" class="empdepartment"> 
                         <option value="" >Choose your option</option>
                         @if(count($getdepartmetlist)>0)
                         @foreach($getdepartmetlist as $getdepartmetlist)
@@ -96,11 +96,14 @@
                         @endif
                       </select>
               <label>Department</label>
+               @if ($errors->has('empdepartment')) 
+             <div class="alert alert-danger">{{ $errors->first('empdepartment') }}</div> 
+             @endif
             </div>
             @if(count($credibiltycatArray)>0)
             @foreach($credibiltycatArray as $key=>$values)
              <div class="input-field col s4">
-                 <select name="country" class="factorapont[]"> 
+                 <select name="factorapont[]" class="factorapont"> 
                         <option value="" >Choose your option</option>
                         @if(count($values['factorsvalues'])>0)
                         @foreach($values['factorsvalues'] as $factorskey=>$factor)

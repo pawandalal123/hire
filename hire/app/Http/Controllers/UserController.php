@@ -1662,13 +1662,13 @@ class UserController extends Controller
 
         //////////// compnay credibilyty///////////
         $companyCreditArray = array();
-        $checkdepartment = Departments::where(array('status'=>1,'company_id'=>$id))->lists('name','id');
+        $checkdepartment = Departments::where(array('status'=>1,'company_id'=>$id))->lists('name','id')->all();
         if(count($checkdepartment)>0)
         {
           $departmentId=array_keys($checkdepartment);
           $selectRaw = "department_id,sum(points) as totalpoint";
-          $groupBy = "department_id,company_id";
-          $getcredibilty = Employee_credibility::selectRaw($selectRaw)->join('credibility_factors','employee_credibilities.factor_id'='credibility_factors.ponits')->whereIn()->groupBy($groupBy)->get();
+          $groupBy = array('department_id','company_id');
+          $getcredibilty = Employee_credibility::selectRaw($selectRaw)->join('credibility_factors','employee_credibilities.factor_id','=','credibility_factors.points')->whereIn('department_id',$departmentId)->groupBy($groupBy)->get();
           if(count($getcredibilty)>0)
           {
             foreach($getcredibilty as $getcredibilty)
@@ -1808,6 +1808,7 @@ class UserController extends Controller
       ///////// save and update employedetails//////
       if(isset($request->saveemployee))
       {
+       // dd($request->all());
         $validator = $this->validateemployee($request->all());
         if ($validator->fails())
         {
@@ -1865,12 +1866,13 @@ class UserController extends Controller
         else
         {
           $insert = Employee_details::insertGetId($dataArry);
+          $factorapont = $request->factorapont;
           if(count($factorapont)>0)
             {
               foreach($factorapont as $factorapont)
               {
                 $dataarray = array('factor_id'=>$factorapont,
-                               'department_id'=>$request->departmentname,
+                               'department_id'=>$request->empdepartment,
                                'employee_id'=>$insert,
                                'company_id'=>$checkcompnay->id,
                                'created_by'=>$user->id,

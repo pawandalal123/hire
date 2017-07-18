@@ -105,14 +105,19 @@ class DiscussionRepository implements DiscussionsInterface
         }
         if($request->paginate)
         {
-          $discussionlist = $discussionlist->paginate($request->paginate);
+          if($request->paginate=='all')
+          {
+             $discussionlist = $discussionlist->take(5)->get();
+
+          }
+          else
+          {
+            $discussionlist = $discussionlist->paginate($request->paginate);
+
+          }
 
         }
-        elseif($request->paginate=='all')
-        {
-           $discussionlist = $discussionlist->take(5);
 
-        }
         else
         {
           $discussionlist = $discussionlist->paginate($pageData);

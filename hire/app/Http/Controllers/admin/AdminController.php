@@ -153,8 +153,8 @@ class AdminController extends Controller {
     $postData = $request->all();
     $request->paginate='all';
     $articlelist= $this->articles->articleslist($request);
-    $adiscussionlist= $this->discussion->discussionlist($request)
-    $getnewslist= $this->postnews->getnewslist($request);;
+    $adiscussionlist= $this->discussion->discussionlist($request);
+    $getnewslist= $this->postnews->getnewslist($request);
     
     return \View::make('admin.admindashboard');
    }
