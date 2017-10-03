@@ -83,9 +83,46 @@
                                 <li>
                                     <a href="#" class="isw-settings"></a>
                                     <ul class="dd-list">
-                                        <li><a href="#"><span class="isw-list"></span> Show all</a></li>
-                                        <li><a href="#"><span class="isw-edit"></span> Add new</a></li>
-                                        <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li>
+                                        <li><a href="{{URL::to('articlelist')}}"><span class="isw-list"></span> Show all</a></li>
+                                        <li><a href="{{URL::to('profile/articles')}}">><span class="isw-edit"></span> Add new</a></li>
+                                        <!-- <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li> -->
+                                    </ul>
+                                </li>
+                            </ul>                        
+                        </div>
+                        <div class="block news scrollBox">
+
+                            <div class="scroll" style="height: 270px;">
+                            @if(count($articlelist)>0)
+                            @foreach($articlelist as $articlelist)
+                                <div class="item">
+                                    <a href="{{URL::to('articledetail/'.$articlelist->article_url)}}">{{ucwords($articlelist->title)}}</a>
+                                    <p><?php echo substr($articlelist->description,0,300);?></p>
+                                    <span class="date">{{ucwords($articlelist->created_at)}}</span>
+                                     <div class="controls">                                    
+                                        <a href="{{URL::to('deletearticle/'.$articlelist->id)}}" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>  
+  <div class="col-md-4">
+                        <div class="head clearfix">
+                            <div class="isw-edit"></div>
+                            <h1>Latest Discussions</h1>
+                            <ul class="buttons">                            
+                                <li>
+                                    <a href="#" class="isw-text_document"></a>
+                                </li>                            
+                                <li>
+                                    <a href="#" class="isw-settings"></a>
+                                    <ul class="dd-list">
+                                        <li><a href="{{URL::to('discussionlist')}}"><span class="isw-list"></span> Show all</a></li>
+                                        <li><a href="{{URL::to('profile/discussions')}}"><span class="isw-edit"></span> Add new</a></li>
+                                        <!-- <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li> -->
                                     </ul>
                                 </li>
                             </ul>                        
@@ -94,71 +131,21 @@
 
                             <div class="scroll" style="height: 270px;">
 
+                               @if(count($discussionlist)>0)
+                                 @foreach($discussionlist as $discussionlist)
                                 <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
+                                    <a href="{{URL::to('discussiondetail/'.$discussionlist->discussion_url)}}">{{ucwords($discussionlist->title)}}</a>
+                                    <p><?php echo substr($discussionlist->description,0,300);?></p>
+                                    <span class="date">{{ucwords($discussionlist->created_at)}}</span>
                                     <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                        <a href="{{URL::to('deletediscussion/'.$discussionlist->id)}}" class="glyphicon glyphicon-trash tip" title="Remove"></a>
                                     </div>
                                 </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>                            
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>                            
-
+                                @endforeach
+                                @endif                        
                             </div>
-
                         </div>
-                    </div>  
-
+                    </div> 
                     <div class="col-md-4">
                         <div class="head clearfix">
                             <div class="isw-edit"></div>
@@ -167,217 +154,40 @@
                                 <li>
                                     <a href="#" class="isw-text_document"></a>
                                 </li>                            
-                                <li>
+                               <!--  <li>
                                     <a href="#" class="isw-settings"></a>
                                     <ul class="dd-list">
-                                        <li><a href="#"><span class="isw-list"></span> Show all</a></li>
+                                        <li><a href="{{URL::to('admin/newslist')}}"><span class="isw-list"></span> Show all</a></li>
                                         <li><a href="#"><span class="isw-edit"></span> Add new</a></li>
                                         <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
                             </ul>                        
                         </div>
                         <div class="block news scrollBox">
 
                             <div class="scroll" style="height: 270px;">
 
+                                @if(count($getnewslist)>0)
+                                 @foreach($getnewslist as $getnewslist)
                                 <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
+                                    <a href="{{URL::to('newsdetail/'.$getnewslist->news_url)}}">{{ucwords($getnewslist->title)}}</a>
+                                    <p><?php echo substr($getnewslist->description,0,300);?></p>
+                                    <span class="date">{{ucwords($getnewslist->created_at)}}</span>
                                     <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
+                                        
                                     </div>
                                 </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>                            
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p>Phasellus ut diam quis dolor mollis tristique. Suspendisse vestibulum convallis felis vitae facilisis. Praesent eu nisi vestibulum erat lacinia sollicitudin. Cras nec risus dolor, ut tristique neque. Donec mauris sapien, pellentesque at porta id, varius eu tellus.</p>
-                                    <span class="date">02.11.2012 14:23</span>
-                                    <div class="controls">                                    
-                                        <a href="#" class="glyphicon glyphicon-pencil tip" title="Edit"></a>
-                                        <a href="#" class="glyphicon glyphicon-trash tip" title="Remove"></a>
-                                    </div>                                
-                                </div>                            
+                                @endforeach
+                                @endif                            
 
                             </div>
 
                         </div>
-                    </div>                               
+                    </div>  
+                                                
 
-                    <div class="col-md-4">
-                        <div class="head clearfix">
-                            <div class="isw-cloud"></div>
-                            <h1>Registrations</h1>
-                            <ul class="buttons">        
-                                <li>
-                                    <a href="#" class="isw-users"></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="isw-settings"></a>
-                                    <ul class="dd-list">
-                                        <li><a href="#"><span class="isw-list"></span> Show all</a></li>
-                                        <li><a href="#"><span class="isw-mail"></span> Send mail</a></li>
-                                        <li><a href="#"><span class="isw-refresh"></span> Refresh</a></li>
-                                    </ul>
-                                </li>
-                                <li class="toggle"><a href="#"></a></li>
-                            </ul> 
-                        </div>
-                        <div class="block users scrollBox">
-
-                            <div class="scroll" style="height: 270px;">
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/aqvatarius_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Aqvatarius</a>                                                                    
-                                        <div class="controls">                                    
-                                            <a href="#" class="glyphicon glyphicon-ok"></a>
-                                            <a href="#" class="glyphicon glyphicon-remove"></a>
-                                        </div>                                                                    
-                                    </div>
-                                </div>
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/olga_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Olga</a>                                                                
-                                        <div class="controls">                                    
-                                            <a href="#" class="glyphicon glyphicon-ok"></a>
-                                            <a href="#" class="glyphicon glyphicon-remove"></a>
-                                        </div>                                                            
-                                    </div>
-                                </div>                        
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexey_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexey</a>    
-                                        <div class="controls">                                    
-                                            <a href="#" class="glyphicon glyphicon-ok"></a>
-                                            <a href="#" class="glyphicon glyphicon-remove"></a>
-                                        </div>                                                            
-                                    </div>
-                                </div>                              
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/dmitry_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Dmitry</a>                                    
-                                        <span>approved</span>
-                                    </div>
-                                </div>                         
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/helen_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Helen</a>                                                                        
-                                        <span>approved</span>
-                                    </div>                          
-                                </div>                                  
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexander_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexander</a>                                                                        
-                                        <span>approved</span>
-                                    </div>
-                                </div>                        
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/aqvatarius_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Aqvatarius</a>                                                                    
-                                        <span>approved</span>
-                                    </div>
-                                </div>
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/olga_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Olga</a>                                                                
-                                        <span>approved</span>
-                                    </div>
-                                </div>                        
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexey_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexey</a>
-                                        <span>approved</span>
-                                    </div>
-                                </div>                              
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/dmitry_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Dmitry</a>                                    
-                                        <span>approved</span>
-                                    </div>
-                                </div>                         
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/helen_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Helen</a>                                                                        
-                                        <span>approved</span>
-                                    </div>
-                                </div>                                  
-
-                                <div class="item clearfix">
-                                    <div class="image"><a href="#"><img src="img/users/alexander_s.jpg" width="32"/></a></div>
-                                    <div class="info">
-                                        <a href="#" class="name">Alexander</a>                                                                        
-                                        <span>approved</span>
-                                    </div>
-                                </div>                        
-
-                            </div>
-
-                        </div>
-                    </div>                
+                              
 
                 </div>
 

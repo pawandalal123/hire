@@ -17,9 +17,9 @@
                 {{ucwords($checkcompnay->compnay_name)}}
               </div>
               <div class="card-content">
-                <p>{{$checkcompnay->industry}}<br>
+                <p><b>Industry:</b> {{$checkcompnay->industry}}<br>
                   {{$checkcompnay->address}}<br>
-                   @if($checkcompnay->state) {{$checkcompnay->state.', '}} @endif {{$checkcompnay->country}}
+                  <b>Location:</b>  @if($checkcompnay->state) {{$checkcompnay->state.', '}} @endif {{$checkcompnay->country}}
                 </p>
                 <span>Created at: {{date(' M j, D, Y',strtotime($checkcompnay->created_at))}} </span> 
               </div>
@@ -27,7 +27,11 @@
           </div>
       </div>
       <div class="col s12 m6 l7 job-view-btn">
-        <a class="waves-effect btn connect" onclick="saveaction({{$checkcompnay->id}},'company')">Connect</a>
+       @if($loginrequired=='yes')
+       <a class="waves-effect btn connect connect{{$checkcompnay->id}}"  onclick="loginbox()">Connect</a>
+       @else
+        <a class="waves-effect btn connect connect{{$checkcompnay->id}}" onclick="saveaction({{$checkcompnay->id}},'company')">@if($isfollow=='yes') Unconnect @else Connect @endif</a>
+        @endif
         <!-- <a class="waves-effect waves-light btn">See all 406 employees </a> -->
       </div>
     </div>
@@ -51,7 +55,6 @@
           </div>
         </div>
       </div>
-        
       </div>
     </div>
     @if(count($companyCreditArray)>0)
@@ -74,8 +77,6 @@
                 @endforeach
               </tbody>
             </table>
-           
-              
           </div>
         </div>
       </div>
@@ -101,11 +102,9 @@
                     <span class="title"><strong>{{$valjob['jobtitle']}}</strong></span>
                     @if($valjob['skill']) <p><strong>Key Skills:</strong>{{$valjob['skill']}}</p> @endif
                     @if($valjob['job_quality']) <p><strong>Supprting Skills:</strong> {{$valjob['job_quality']}}</p>@endif
-                    <p>New Delhi, Posted on {{ date(' M j, D, Y',strtotime($valjob['created_at']))}}<br>
-                     @if($valjob['job_description']) {{ substr($valjob['job_description'],0,150)}}.. @endif
-                    </p>
+                    <p>@if($valjob['job_description'])<p><strong>Job Description :</strong>  {{ substr($valjob['job_description'],0,150)}}</p>.. @endif</p>
                     </a><a href="{{URL::to('jobdetail/'.$key)}}">
-                    <img src="{{URL::to('web/images/eye.png')}}" alt=""> 8</a>
+                    <img src="{{URL::to('web/images/eye.png')}}" alt=""> 8</a><p style="padding: 5px 15px; display:inline-block;vertical-align:middle;">New Delhi, Posted on {{ date(' M j, D, Y',strtotime($valjob['created_at']))}}</p>
                      @if($valjob['loginrequired']=='yes')
                      <button class="waves-effect waves-light btn connect" onclick="loginbox()">Apply</button>
                      @else
@@ -159,6 +158,7 @@
       </div>
     </div>
     @endif
+  </div>
   </div>
 </div>
 <script type="text/javascript">

@@ -69,7 +69,7 @@ class AuthController extends Controller
      {
         if($user = $this->socialite->with($provider)->user())
         {
-dd('pawan');
+//dd('pawan');
            $this->finduser($user ,$provider );
            return redirect($this->loginPath());
         }
@@ -137,6 +137,7 @@ dd('pawan');
         ]);
         $path = $_SERVER['HTTP_HOST'];
         //check user exit or not//
+        $errormessage='These credentials do not match our records.';
         $checkemail =  User::where('email', '=', $request->email)->first();
         if($checkemail)
         {
@@ -189,7 +190,7 @@ dd('pawan');
         return redirect($this->loginPath())
                 ->withInput($request->only($this->loginUsername(), 'remember'))
                 ->withErrors([
-                    $this->loginUsername() => $this->getFailedLoginMessage(),
+                    $this->loginUsername() => $errormessage,
                 ]);
     
     }

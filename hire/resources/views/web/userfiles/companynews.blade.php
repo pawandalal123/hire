@@ -36,8 +36,8 @@
               <h5>{{ucwords($postnews->title)}}</h5>
               <p><?php echo substr($postnews->description,0,260);?>..</p>
               <a href="{{URL::to('makenews?editid='.$postnews->id)}}" class="waves-effect waves-light btn"><i class="material-icons dp48"><i class="material-icons dp48">mode_edit</i></i></a> 
-              <a href="{{URL::to('deletearticle/'.$postnews->id)}}" class="waves-effect waves-light btn del"><i class="material-icons dp48"><i class="material-icons dp48">delete</i></i></a> 
-              <a href="{{URL::to('articledetail/'.$postnews->article_url)}}" class="waves-effect waves-light btn">Read Article</a>
+              <a href="{{URL::to('deletcompenews/'.$postnews->id)}}" class="waves-effect waves-light btn del"><i class="material-icons dp48"><i class="material-icons dp48">delete</i></i></a> 
+              <a href="{{URL::to('newsdetail/'.$postnews->article_url)}}" class="waves-effect waves-light btn">Read Article</a>
             </div>
              @endforeach()
             <?php echo $postnewslist->render();?>

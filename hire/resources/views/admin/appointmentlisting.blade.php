@@ -6,74 +6,66 @@
 
                 <ul class="breadcrumb">
                     <li><a href="#">Admin</a> <span class="divider">></span></li>                
-                    <li class="active">Digital Locker</li>
+                    <li class="active">Appointment</li>
                 </ul>
             </div>
             <div class="workplace">
                 <div class="page-header">
-                    <h1>Digital Locker Management</h1>
+                    <h1>Appointment Management</h1>
                 </div>
                       <div class="row">
                    @if(Session::has('message'))
                     <div class="alert alert-dismissible alert-{{ Session::get('alert-class', 'alert-info') }} mt10    ">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     {{ Session::get('message') }}
-                    {{ Session::forget('message') }}
                     </div>
-
-                    @endif
+                   
+                  @endif
                     <div class="col-md-12">                    
                         <div class="head clearfix">
                             <div class="isw-grid"></div>
-                            <h1>List</h1>      
+                            <h1>Appointment List</h1>      
                         </div>
                         <div class="block-fluid">
-                        @if(count($docArray)>0)
+                        @if(count($allappointment)>0)
                   <table class="table table-bordered">
                     <thead>
                         <tr class="active">
                         <th>
                         Id</th>
-                        <th>Uplode by</th>
-                        <th>Documnet type</th>
-                        <th>extension</th>
+                        <th>Job title</th>
+                        <th>Job owner</th>
+                     
+                        <th>Appointment date</th>
                         <th>Created at</th>
-                        <th>Current status</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
-
-            	      
-                       {{--*/ $i=1 /*--}}
-                        @foreach($docArray as $key=>$docval)
-                           {{--*/ $status='active' /*--}}
-                         @if($docval['status']==0)
-                           {{--*/ $status='deactive' /*--}}
-                         @endif
-                         <tr>
-                           <td>{{$i}}</td>
-                           <td>{{$docval['uplode_by']}}</td>
-                           <td>{{$docval['doctype']}}</td>
-                           <td>{{$docval['docextension']}}</td>
-                           <td>{{$docval['created_at']}}</td>
-                           <td>{{$docval['status']}}</td>
-
-                         </tr>
+            	       {{--*/ $i=1 /*--}}
+                        @foreach($allappointment as $allappointment)
+                          
+	                      <tr>
+          	                        <td>{{$i}}</td>                     
+          						    <td>{{$allappointment['jobtitle']}}</td>
+          						    <td>{{$allappointment['job_owner']}}</td>
+                            <td>{{$allappointment['appointment_date']}}</td>
+                            <td>{{$allappointment['created_at']}}</td>
+                            
+	                      </tr>
                           {{--*/ $i++ /*--}}
-                         @endforeach()
-            
+                          @endforeach()
 	                                            
                     </tbody>
                   </table>
                   <div class="text-center">
-               <?php echo $getdocumentList->render(); ?>
+                <?php echo $getlist->render(); ?>
                 </div>
-                    @else
+                  @else
                 <div class="text-center">
                   NO record found..
                 </div>
                 @endif
-                
                 </div>
               </div>
             </div>

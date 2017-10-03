@@ -55,7 +55,7 @@ class ArticlesRepository implements ArticlesInterface
     }
     public function getallpaginate($condition, $columns = array('*'))
     {
-        return Articles::select($columns)->where($condition)->paginate(10);
+        return Articles::select($columns)->where($condition)->paginate(5);
     }
      public function deletearticle($id) {
         return Articles::destroy($id);
@@ -86,11 +86,7 @@ class ArticlesRepository implements ArticlesInterface
           $articleList = $articleList->whereRaw("user_id = '".$request->userid."'");
 
         }
-        // if($request->keyword)
-        // {
-        //   $articleList = $articleList->whereRaw("(category like '%".str_replace('-',' ',$request->keyword)."%' or ( title like '%".str_replace('-',' ',$request->keyword)."%' or subcategory like '%".str_replace('-',' ',$request->keyword)."%' ))");
-
-        // }
+   
         if($request->keywords)
         {
           $articleList = $articleList->whereRaw("(category like '%".str_replace('-',' ',$request->keywords)."%' or ( title like '%".str_replace('-',' ',$request->keywords)."%' or subcategory like '%".str_replace('-',' ',$request->keywords)."%' ))");
@@ -207,7 +203,7 @@ class ArticlesRepository implements ArticlesInterface
     else
     {
         $article = $this->create($dataArray);
-        $message='Create';
+        $message='Your article has now been posted , check your profile to manage all your articles';
     }
     
     if($article)

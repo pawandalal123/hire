@@ -33,7 +33,7 @@ class UsersRepository implements UsersInterface
         return User::orderBy('id','DESC')->get($columns);
     }
 
-public function allpaging($columns = array('*'),$paging=100) {
+public function allpaging($columns = array('*'),$paging=10) {
        // dd('in here trait');
         return User::orderBy('id','DESC')->paginate($paging);
     }
@@ -56,16 +56,11 @@ public function getpeoplelist($request,$columns = array('*'))
         $completeformData = Input::all();
         @extract($completeformData);
         $userlist = User::select($columns);
-        $wherecondition = array('status'=>1);
-
         $pageData =10;
-        
-        $userlist = $userlist->where($wherecondition);
         if($request->isdefault)
         {
           $userlist = $userlist->join('jobprefrences', 'users.id', '=', 'jobprefrences.user_id');
           $userlist = $userlist->whereRaw("profile_title != ''");
-
         }
        
         if(Input::has('userid'))
@@ -73,10 +68,28 @@ public function getpeoplelist($request,$columns = array('*'))
           $userlist = $userlist->whereRaw("users.id = '".$request->userid."'");
 
         }
+        if(Input::has('type'))
+        {
+          $status=1;
+          if($request->type==2)
+          {
+            $status=0;
+          }
+          $userlist = $userlist->whereRaw("status = '".$status."'");
+        }
+        elseif(isset($request->fromadmin))
+        {
+
+        }
+        else
+        {
+           $wherecondition = array('status'=>1);
+           $userlist = $userlist->where($wherecondition);
+        }
     
         if($request->keywords)
         {
-          $userlist = $userlist->whereRaw("( name like '%".str_replace('-',' ',$request->keywords)."%' or middle_name like '%".str_replace('-',' ',$request->keywords)."%' or last_name like '%".str_replace('-',' ',$request->keywords)."%' )");
+          $userlist = $userlist->whereRaw("( name like '%".str_replace('-',' ',$request->keywords)."%' or middle_name like '%".str_replace('-',' ',$request->keywords)."%' or last_name like '%".str_replace('-',' ',$request->keywords)."%' or email like '%".str_replace('-',' ',$request->keywords)."%' or mobile like '%".str_replace('-',' ',$request->keywords)."%' )");
 
         }
         if($request->sort)

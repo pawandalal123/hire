@@ -1,10 +1,10 @@
 <div class="top-header">
   <div class="container">
    <div class="row">
-   <div class="col s12 m6 6 header-search">
-   <a href="{{URL::to('/')}}" class="brand-logo"><img src="{{URL::to('web/images/Logo_2.png')}}" alt="" style="width: 180px; height: 45px;"></a>
+  <div class="col s12 m8 l6 6 header-search">
+   <a href="{{URL::to('/')}}" class="brand-logo"><img src="{{URL::to('web/images/Logo-Web-updated.png')}}" alt=""></a>
    </div>
-  <div class="col s12 m4 header-search">  
+  <div class="col s12 m4 l4 header-search">  
       <nav>
         <div class="nav-wrapper">
            <form name="searchForm" action="" onsubmit="return CheckDataSearch(document.searchForm);" method="get" id="hdr_frm" autocomplete="off">
@@ -49,10 +49,12 @@
 </div>
 </div>
 
+<a href="#" class="mobile_menu">menu<span></span></a>
+
 <nav class="main-nav">
   <div class="nav-wrapper container">
     
-    <ul id="nav-mobile" class="hide-on-med-and-down">
+    <ul id="nav-mobile" class="">
          <li><a href="{{URL::to('/')}}">Home</a></li>
           @if (Auth::check())
           <?php 
@@ -79,6 +81,14 @@
     </ul>
   </div>
 </nav>
+
+<script type="text/javascript">
+	$('.mobile_menu').click(function(e) {
+        e.preventDefault();
+		$('nav.main-nav').slideToggle();
+    });
+</script>
+
 <script type="text/javascript">
   function CheckDataSearch(Form,searcfrom)
     {     

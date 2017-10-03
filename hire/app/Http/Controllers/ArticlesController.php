@@ -8,8 +8,10 @@ Use DB;
 use Validator;
 use Auth;
 use URL;
-use View;
+//use View;
 use App\Model\Common;
+use App\Model\View;
+
 use App\Model\Comments;
 use App\Model\Post_news;
 use Appfiles\Repo\UsersInterface;
@@ -151,7 +153,11 @@ class ArticlesController extends Controller
                     },$userArray);
                 }
                 // dd($commentArray);
-                return \View::make('web.articledetail',compact('articledetail','login','articlaCatlist','getsimilararticle','commentArray'));
+
+                /////////views count////////////
+                $selectRaw = "count(id) as totalview";
+                $getviewcount = View::selectRaw($selectRaw)->where(array('type'=>'article'))->get();
+                return \View::make('web.articledetail',compact('articledetail','login','articlaCatlist','getsimilararticle','commentArray','getviewcount'));
 
             }
             else

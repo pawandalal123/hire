@@ -3,18 +3,18 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="row">
             <div class="input-field col s4">
-              <input placeholder="First Name"  name="first_name" id="first_name" type="text" class="validate" value="{{@$user->name}}">
+              <input  name="first_name" id="first_name" type="text" class="validate" value="{{@$user->name}}">
               <label for="first_name" class="active">First Name</label>
                @if ($errors->has('first_name')) 
                      <div class="error">{{ $errors->first('first_name') }}</div> 
                      @endif
             </div>
             <div class="input-field col s4">
-              <input placeholder="Middle Name" name="middle_name" id="first_name" type="text" class="validate" value="{{@$user->middle_name}}">
+              <input  name="middle_name" id="first_name" type="text" class="validate" value="{{@$user->middle_name}}">
               <label for="first_name" class="active">Middle Name</label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="Last Name" id="first_name" name="last_name" type="text" class="validate" value="{{@$user->last_name}}">
+              <input  id="first_name" name="last_name" type="text" class="validate" value="{{@$user->last_name}}">
               <label for="first_name" class="active">Last Name</label>
 
             </div>
@@ -38,7 +38,7 @@
               @endif
             </div>
             <div class="input-field col s4">
-              <input placeholder="Mobile Number" id="mobile" name="mobile" type="text" required="required" value="{{@$user->mobile}}">
+              <input  id="mobile" name="mobile" type="text" required="required" value="{{@$user->mobile}}">
               <label for="mobile">Mobile Number</label>
               @if ($errors->has('mobile')) 
               <div class="error">{{ $errors->first('mobile') }}</div> 
@@ -47,11 +47,11 @@
           </div>
                <div class="row">
            <div class="input-field col s4">
-              <input placeholder="Father Name"  id="father_name" name="fathername" type="text" class="validate" value="{{@$getuserdetails->father_name}}">
+              <input  id="father_name" name="fathername" type="text" class="validate" value="{{@$getuserdetails->father_name}}">
               <label for="first_name" class="active">Father Name </label>
             </div>
             <div class="input-field col s4">
-              <input placeholder="Mother Name" id="mother_name" name="mothername" type="text" class="validate" value="{{@$getuserdetails->mother_name}}">
+              <input  id="mother_name" name="mothername" type="text" class="validate" value="{{@$getuserdetails->mother_name}}">
               <label for="first_name" class="active">Mother Name</label>
             </div>
        
@@ -96,8 +96,12 @@
             </div>
             <div class="input-field col s4 citychangediv">
               <select name="city" class="citychange">
-                        <option value="" disabled selected>Choose your option</option>
-                       
+                        <option value="">Choose your option</option>
+                         @if(count($citylist)>0)
+                        @foreach($citylist as $citylist)
+                        <option value="{{$citylist->id}}" id="{{$citylist->id}}" @if($citylist->id==$user->city) selected @endif>{{$citylist->city}}</option>
+                        @endforeach
+                        @endif
                       </select>
               <label>City</label>
             </div>
@@ -105,16 +109,19 @@
           <div class="row">
        
             <div class="input-field col s4">
-              <input placeholder="Address" id="address" name="address" type="text" class="validate" value="{{@$user->address}}">
+              <input  id="address" name="address" type="text" class="validate" value="{{@$user->address}}">
               <label for="first_name" class="active">Address</label>
             </div>
               <div class="input-field col s4">
-              <input placeholder="Pincode" id="pincode" name="pincode" type="text" class="validate" value="{{@$user->pincode}}">
+              <input  id="pincode" name="pincode" type="text" class="validate" value="{{@$user->pincode}}">
               <label for="first_name" class="active">Pincode </label>
+               @if ($errors->has('pincode')) 
+              <div class="error">{{ $errors->first('pincode') }}</div> 
+              @endif
             </div>
             @if($user->looking_for_job)
             <div class="input-field col s4">
-              <input placeholder="Profile Title" id="pincode" name="profile_title" type="text" class="validate" value="{{@$user->profile_title}}">
+              <input  id="profiletitle" name="profile_title" type="text" class="validate" value="{{@$user->profile_title}}">
               <label for="first_name" class="active">Profile Title </label>
             </div>
             @endif

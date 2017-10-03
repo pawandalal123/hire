@@ -1,5 +1,5 @@
 
-            <div class="col s9">
+            <div class="col s12 m8 l9 ">
             @if(count($data)>0)
               <ul class="collection">
                   @foreach($datalistArray as $people)
@@ -18,7 +18,8 @@
                   <a href="{{URL::to('userdetail/'.$people['id'])}}">
                   @endif
                     <img src="{{$imagepath}}" alt="" class="circle responsive-img">
-                    <span class="title">{{ucwords($people['name'])}}</span>
+                    <span class="title">{{ucwords($people['name'])}}<br/>
+                    <span class="title">{{ucwords($people['profile_title'])}}</span></span>
                     <p>@if($people['city'])  {{ucwords($people['city'])}}  @endif
                       @if($people['state']) , {{ucwords($people['state'])}} @endif
                       @if($people['country']) , {{ucwords($people['country'])}} @endif
@@ -34,7 +35,7 @@
               </ul>
                <?php echo $data->appends(Input::except('page'))->render();?>
                 @else
-                <div class="text-center">No article found......</div> 
+                <div class="text-center">No record found......</div> 
                @endif
             </div>
          

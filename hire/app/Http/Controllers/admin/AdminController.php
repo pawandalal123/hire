@@ -20,6 +20,7 @@ Use App\Model\Discussion_invite;
 use Appfiles\Repo\DocumentsInterface;
 use Appfiles\Repo\DocumentstypeInterface;
 use Appfiles\Repo\PostnewsInterface;
+use App\Model\Reportincorrect;
 use App\Model\Courselist;
 use App\Model\Comments;
 use App\Model\Company_detail;
@@ -30,6 +31,7 @@ use App\Model\Apply_for_job;
 
 use App\Model\Credibility_category;
 use App\Model\Credibility_factors;
+use App\Model\Appointments;
 
 use Redirect;
 use Validator;
@@ -153,10 +155,10 @@ class AdminController extends Controller {
     $postData = $request->all();
     $request->paginate='all';
     $articlelist= $this->articles->articleslist($request);
-    $adiscussionlist= $this->discussion->discussionlist($request);
+    $discussionlist= $this->discussion->discussionlist($request);
     $getnewslist= $this->postnews->getnewslist($request);
     
-    return \View::make('admin.admindashboard');
+    return \View::make('admin.admindashboard',compact('articlelist','discussionlist','getnewslist'));
    }
   }
 
@@ -589,6 +591,17 @@ class AdminController extends Controller {
 
   public function articlelist(Request $request)
   {
+    $checkstatus = $this->checkpermission();
+    if($checkstatus['status']=='login')////////if login require
+    {
+      return redirect('auth/login');
+    }
+    else if($checkstatus['status']=='notfound')////////page not belong to user
+    {
+      return redirect('error404/');
+    }
+    elseif($checkstatus['status']=='success')
+    {
     $articlesList = array();
     $userArray = array();
     $userids='';
@@ -628,6 +641,7 @@ class AdminController extends Controller {
     }
  
     return  \View::make('admin.articlelisting',compact('articlesList','getarticles'));
+  }
 
   }
     ////////// enable and disable articles//////////
@@ -829,7 +843,7 @@ class AdminController extends Controller {
     }
 
   }
-  public function deletediscussion(Request $request)
+  public function deletediscussion(Request $request,$id)
   {
     $checksdiscussion= $this->discussion->getBy(array('id'=>$id));
     if($checksdiscussion)
@@ -866,7 +880,7 @@ class AdminController extends Controller {
       $discussionList = array();
       $userArray = array();
       $userids='';
-      $invitationlist = Discussion_invite::where(array('created_by'=>$checkstatus['loginid']))->paginate(15);
+      $invitationlist = Discussion_invite::where(array())->paginate(15);
       if(count($invitationlist)>0)
       {
         foreach($invitationlist as $invitation)
@@ -998,6 +1012,8 @@ class AdminController extends Controller {
     }
 
   }
+
+  /////////deleet comment //////////////
   public function deletecomment(Request $request,$id)
   {
     if($id)
@@ -1247,6 +1263,8 @@ class AdminController extends Controller {
             Session::flash('alert-class', 'success'); 
             Session::flash('alert-title', 'Success');
 
+            return redirect('admin/mediumlist');
+
         }
       }
 
@@ -1411,8 +1429,8 @@ class AdminController extends Controller {
      // dd($datasubcourse);
       return \View::make('includes.admin.subcoureselist',compact('couselitarray','datasubcourse','datatoedit'));
     
+    }
   }
-}
 
   public function industrylist(Request $request,$editid=false)
   {
@@ -1867,7 +1885,7 @@ class AdminController extends Controller {
     return redirect('/admin')->withCookie($deleteuserLoginid);;
   }
  
-  public function manageuser()
+  public function manageuser(Request $request)
   {   
     $user = Auth::user();
 
@@ -1898,47 +1916,49 @@ class AdminController extends Controller {
         }
         $stateArray = $this->state->getList(array(),'state','id');
         $cityArray = $this->city->getListraw(array(),'city','id');
-      $userarray = array();
-      $column = array('name','email','mobile','login_type','country','state','city','created_at','type','user_type','status','about','is_register','id');
-      $dataUser = $this->usersInterface->allpaging($column); 
-      $counter=1;
-      if(count($dataUser)>0)
-      {
-        foreach($dataUser as $datalist)
+        $userarray = array();
+        $column = array('name','email','mobile','login_type','country','state','city','created_at','type','user_type','status','about','is_register','id');
+        $request->fromadmin=1;
+        $dataUser = $this->usersInterface->getpeoplelist($request,$column); 
+        $counter=1;
+        if(count($dataUser)>0)
         {
-          $country='';
-          if(array_key_exists($datalist->country, $countryArray))
+          foreach($dataUser as $datalist)
           {
-            $country=$countryArray[$datalist->country];
+            $country='';
+            if(array_key_exists($datalist->country, $countryArray))
+            {
+              $country=$countryArray[$datalist->country];
 
+            }
+
+            ////////// check state///
+            $state='';
+            if(array_key_exists($datalist->state, $stateArray))
+            {
+              $state=$stateArray[$datalist->state];
+
+            }
+            ////////// check city///
+            $city='';
+            if(array_key_exists($datalist->city, $cityArray))
+            {
+              $city=$cityArray[$datalist->city];
+
+            }
+            
+            $userarray[$datalist->id] = array('email'=>$datalist->email,
+                                              'name'=>$datalist->name,
+                                              'login_type'=>$datalist->login_type,
+                                              'created_at'=>$datalist->created_at,
+                                              'mobile'=>$datalist->mobile,
+                                              'country'=>$country,
+                                              'state'=>$state,
+                                              'status'=>$datalist->status,
+                                              'city'=>$city);
           }
 
-          ////////// check state///
-          $state='';
-          if(array_key_exists($datalist->state, $stateArray))
-          {
-            $state=$stateArray[$datalist->state];
-
-          }
-          ////////// check city///
-          $city='';
-          if(array_key_exists($datalist->city, $cityArray))
-          {
-            $city=$cityArray[$datalist->city];
-
-          }
-          
-          $userarray[$datalist->id] = array('email'=>$datalist->email,
-                                            'name'=>$datalist->name,
-                                            'login_type'=>$datalist->login_type,
-                                            'created_at'=>$datalist->created_at,
-                                            'mobile'=>$datalist->mobile,
-                                            'country'=>$country,
-                                            'state'=>$state,
-                                            'city'=>$city);
         }
-
-      }
       return \View::make('admin.manageuser',compact('dataUser','counter','userarray'));
     }
     else
@@ -2472,7 +2492,7 @@ class AdminController extends Controller {
         $data = array('name'=>$request->name,
                         'category_id'=>$request->category,
                         'status'=>1,
-                        'point'=>$request->point,
+                        'points'=>$request->point,
                         'created_at'=>date('Y-m-d H:i:s'),
                         'created_by'=>$checkstatus['loginid']);
          
@@ -2506,7 +2526,7 @@ class AdminController extends Controller {
       if($type=='factors')
       {
         $dataCat = Credibility_category::where(array('status'=>1),array('id','name'))->get();
-        $datasubcat = Credibility_factors::where(array());
+        $datasubcat = Credibility_factors::where(array())->get();
         if($id)
         {
           $datatoedit = $this->subcat->getBy(array('id'=>$id))->first();
@@ -2529,8 +2549,88 @@ class AdminController extends Controller {
           }
         }
       }
+
+      //dd($datasubcat);
       return \View::make('admin.credibility_master',compact('dataCat','datasubcat','type','datatoedit'));
    }
+  }
+
+
+  public function allappointment(Request $request)
+  {
+    $dataCat = array();
+    $datasubcat = array();
+    $datatoedit='';
+    $checkstatus = $this->checkpermission();
+    if($checkstatus['status']=='login')////////if login require
+    {
+      return redirect('auth/login');
+    }
+    else if($checkstatus['status']=='notfound')////////page not belong to user
+    {
+      return redirect('error404/');
+    }
+    elseif($checkstatus['status']=='success')
+    {
+     
+      //dd($datasubcat);
+      $allappointment=[];
+      $getlist = Appointments::where(array())->paginate(15);
+          if(count($getlist)>0)
+          {
+            foreach($getlist as $getlistdata)
+            {
+                $userList[]=$getlistdata->appointment_for;
+                $allappointment[$getlistdata->id] = array('jobtitle'=>$getlistdata->job_title,
+                'job_owner'=>$getlistdata->job_owner,
+                'appointment_date'=>$getlistdata->appointment_date,
+                'appointment_mode'=>$getlistdata->appointment_mode,
+                'jobtitle'=>$getlistdata->job_title,
+                'created_at'=>$getlistdata->created_at);
+            }
+            $userList = array_unique($userList);
+
+          }
+      return \View::make('admin.appointmentlisting',compact('allappointment','getlist'));
+   }
+  }
+
+  ////////// fucntion for display all report incorrect list/////
+  public function reportincorrect(Request $request)
+  {
+    $checkstatus = $this->checkpermission();
+    if($checkstatus['status']=='login')////////if login require
+    {
+      return redirect('auth/login');
+    }
+    else if($checkstatus['status']=='notfound')////////page not belong to user
+    {
+      return redirect('error404/');
+    }
+    elseif($checkstatus['status']=='success')
+    {
+      
+      $reportincorrectlist = array();
+      $userArray = array();
+      $userids='';
+      $allreportlist = Reportincorrect::where(array())->paginate(15);
+      if(count($allreportlist)>0)
+      {
+        foreach($allreportlist as $reportincorrect)
+        {
+          $reportincorrectlist[$reportincorrect->id]= array('email'=>$reportincorrect->email,
+                                                        'mobile'=>$reportincorrect->mobile,
+                                                        'message'=>$reportincorrect->message,
+                                                        'type'=>$reportincorrect->type,
+                                                        'reportfor'=>$reportincorrect->report_for,
+                                                        'created_at'=>$reportincorrect->created_at);
+
+        }
+       
+        
+      }
+      return  \View::make('admin.reportincorrectlisting',compact('reportincorrectlist','allreportlist'));
+    }
   }
   
 }

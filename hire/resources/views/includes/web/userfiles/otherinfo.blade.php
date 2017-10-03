@@ -1,7 +1,7 @@
  <h6>Other Information</h6>
  <form method="post" enctype="multipart/form-data">
   <div class="row">
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="expyear">
           <option value="" >Year</option>
            @for($i=1; $i<=20; $i++)
@@ -10,7 +10,7 @@
         </select>
         <label>Total experience</label>
       </div>
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="expmonth">
           <option value="" >Month</option>
            @for($i=1; $i<=12; $i++)
@@ -21,35 +21,35 @@
       </div>
 
 
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="annaulaysalary">
           <option value="" >Lakhs</option>
-           @for($i=1; $i<=15; $i++)
+           @for($i=1; $i<=95; $i++)
           <option value="{{$i}}" @if(@$jobprefrence->annually_lakh==$i) selected @endif> {{$i}} lakh</option>
           @endfor
         </select>
-        <label>Annual Sallary</label>
+        <label>Annual Salary</label>
       </div>
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="annaulaysalaryth">
           <option value="" >Thousand</option>
-          @for($i=10; $i<=90; $i+=10)
+          @for($i=10; $i<=99; $i+=10)
           <option value="{{$i}}" @if(@$jobprefrence->annually_thousand==$i) selected @endif> {{$i}} thousand</option>
           @endfor
         </select>
         <label></label>
       </div>
 
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="expectedsalary">
           <option value="" >Lakhs</option>
-          @for($i=1; $i<=15; $i++)
+          @for($i=1; $i<=99; $i++)
           <option value="{{$i}}" @if(@$jobprefrence->expected_lakh==$i) selected @endif> {{$i}} lakh</option>
           @endfor
         </select>
-        <label>Expected Sallary</label>
+        <label>Expected Salary</label>
       </div>
-      <div class="input-field col s2">
+      <div class="input-field col l2 m3 s6">
         <select class="initialized" name="expectedsalaryth">
           <option value="" >Thousand</option>
           @for($i=10; $i<=90; $i+=10)
@@ -81,13 +81,13 @@
           </div> -->
     
             <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12 space_bottom">
               <input name="emp_type" type="radio" id="fulltime" value="1" @if(@$jobprefrence->job_type==1) checked @endif><label for="fulltime">Full Time</label> 
               <input name="emp_type" type="radio" id="parttime" value="2" @if(@$jobprefrence->job_type==2) checked @endif><label for="parttime">Part Time</label>
               <!-- <input name="emp_type" type="radio" id="test1"><label for="test1">Correspondence</label> -->
               <label for="emp_type" class="active">Type Of Employment</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
             <select class="initialized" name="industry">
                 <option value="" >Choose your option</option>
                 @if(count($indusrtylist)>0)
@@ -101,7 +101,7 @@
               <div class="error">{{ $errors->first('industry') }}</div> 
               @endif
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
              <select class="initialized" name="jobcategory">
                 <option value="" >Choose your option</option>
                @if(count($functionalarea)>0)
@@ -117,7 +117,7 @@
             </div>
           </div>
            <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col l6 m6 s12">
               
 
               <input id="bb8d0281-a637-a980-09eb-1a1e8f3d0983" class="input" placeholder="skills" type="text" name="skills" value="{{@$jobprefrence->skills}}">
@@ -126,14 +126,14 @@
               <div class="error">{{ $errors->first('skills') }}</div> 
               @endif
             </div>
-             <div class="input-field col s6">
+             <div class="input-field col l6 m6 s12">
              
               <input id="bb8d0281-a637-a980-09eb-1a1e8f3d0983" class="input" placeholder="" name="extra_skills" value="{{@$jobprefrence->extra_skills}}">
               <label for="bb8d0281-a637-a980-09eb-1a1e8f3d0983" class="active">Supported Skills</label>
             </div>
              </div>
                <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col l4 m6 s12">
               <select class="initialized" name="noticetime">
                 <option value="" >Choose your option</option>
                  @for($i=10; $i<=90; $i+=10)
@@ -142,7 +142,7 @@
               </select>
               <label>Duration of Notice Period</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
              <select multiple="" class="initialized" name="langaugesknow[]">
                 <option value="" disabled="">Choose your option</option>
                 <option value="Hindi">Hindi</option>
@@ -150,7 +150,7 @@
                 <option value="Panjabi">Panjabi</option>
               </select><label> Languages known</label>
             </div>
-            <div class="col s4">
+            <div class="col l4 m6 s12">
               <div class="file-field input-field">
                 <div class="btn">
                   <span>File</span>

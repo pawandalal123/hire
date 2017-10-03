@@ -3,23 +3,26 @@
     <div class="row">
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">live_help</i>
-        <h4>Super-Fast &amp; Accurate Recruiting</h4>
-        <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
+        <h4><a href="{{URL::to('super-fast-&-accurate-recuruiting')}}">Super-Fast &amp; Accurate Recruiting</a></h4>
+        <p>When it comes to updating your resume and documents, the job seekers must look for full re-
+design and re-development website for recruitment.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">supervisor_account</i>
-        <h4>Corporate Connections</h4>
-        <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
+        <h4><a href="{{URL::to('corporate-connections')}}">Corporate Connections</a></h4>
+        <p>The recruitment firm and consultants can bring a significant level of expertise the task of
+discovering the best individuals for the vacancy place.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">person_pin</i>
-        <h4>Digital Locker</h4>
-        <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
+        <h4><a href="{{URL::to('avail-digital-locker')}}">Digital Locker</a></h4>
+        <p>Avail Digital Locker To Keep Safe Credential And Grab Dream Job.</p>
       </div>
       <div class="col s12 m3 l3 center-align border-box">
         <i class="material-icons dp48">surround_sound</i>
-        <h4>Improve Your Professional Skill</h4>
-        <p>Got a question? Look no further.Browse our FAQs or submit your query here.</p>
+        <h4><a href="{{URL::to('professional-skill')}}">Improve Your Professional Skill</a></h4>
+        <p>In general, the major motive of the recruitment firm is to create a job opportunity for the
+candidates who are seeking for a job.</p>
       </div>
     </div>
   </div>
@@ -36,24 +39,24 @@
         <h4>Quick Links</h4>
         <ul class="middle-content">
             <li><a class="underLineOnHover" href="{{URL::to('/contactus')}}">Help & Support </a></li>
-            <li><a class="underLineOnHover" href="">Terms of Sale</a></li>
-            <li><a class="underLineOnHover" href="">Terms of Use</a></li>
-            <li><a class="underLineOnHover" href="">Report Abuse &amp; Takedown Policy</a></li>
-            <li><a class="underLineOnHover" href="">CSR Policy</a></li>
-            <li><a class="underLineOnHover" href="">Privacy Policy</a></li>
-            <li><a class="underLineOnHover" href="">Terms of Sale</a></li>
-            <li><a class="underLineOnHover" href="">Terms of Use</a></li>
-            <li><a class="underLineOnHover" href="">Report Abuse &amp; Takedown Policy</a></li>
-            <li><a class="underLineOnHover" href="">CSR Policy</a></li>
+            <li><a class="underLineOnHover" href="#">Terms of Sale</a></li>
+            <li><a class="underLineOnHover" href="#">Terms of Use</a></li>
+            <li><a class="underLineOnHover" href="#">Report Abuse &amp; Takedown Policy</a></li>
+            <li><a class="underLineOnHover" href="#">CSR Policy</a></li>
+            <li><a class="underLineOnHover" href="{{URL::to('/privacy-policy')}}">Privacy Policy</a></li>
+            <li><a class="underLineOnHover" href="{{URL::to('/cookie-policy')}}">Cookie Policy</a></li>
+            <li><a class="underLineOnHover" href="#">Terms of Use</a></li>
+            <li><a class="underLineOnHover" href="#">Report Abuse &amp; Takedown Policy</a></li>
+            <li><a class="underLineOnHover" href="#">CSR Policy</a></li>
         </ul>
       </div>
       <div class="col s12 m3 l3 left-align">
         <h4>Socail Media</h4>
         <div class="socail">
-          <a class="btn-floating btn-large waves-effect waves-light red" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer.php?u=http://hireme.slugcorner.com/', 'facebookShare', 'width=626,height=436'); return false;"><img src="{{URL::to('web/site/images/facebook-logo.png')}}"></a>
-          <a class="btn-floating btn-large waves-effect waves-light red" title="Tweet This" onclick="window.open('https://twitter.com/share?url=http://hireme.slugcorner.com&text=hireme', 'twitterShare', 'width=626,height=436'); return false;"><img src="{{URL::to('web/site/images/twitter.png')}}"></a>
-          <a class="btn-floating btn-large waves-effect waves-light red" title="Share on Google+" onclick="window.open('https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://hireme.slugcorner.com&text=hireme', 'googleShare', 'width=626,height=436'); return false;"><img src="{{URL::to('web/site/images/google-plus.png')}}"></a>
-          <a class="btn-floating btn-large waves-effect waves-light red" title="Share on linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=http://hireme.slugcorner.com&summary=hireme', 'linkedinShare', 'width=750,height=350'); return false;"><img src="{{URL::to('web/site/images/linkedin-logo.png')}}"></a>
+          <a class="btn-floating btn-large waves-effect waves-light red" title="Like us on Facebook "  href="https://www.facebook.com/Corporate-Place-1325822464161593/" target="_blank"><img src="{{URL::to('web/site/images/facebook-logo.png')}}"></a>
+          <a class="btn-floating btn-large waves-effect waves-light red" title="Tweet This" ><img src="{{URL::to('web/site/images/twitter.png')}}"></a>
+          <a class="btn-floating btn-large waves-effect waves-light red" title="Like us on  Google+" ><img src="{{URL::to('web/site/images/google-plus.png')}}"></a>
+          <a class="btn-floating btn-large waves-effect waves-light red" title="Like us on  linkedin" href="https://www.linkedin.com/company-beta/13345363/" target="_blank"><img src="{{URL::to('web/site/images/linkedin-logo.png')}}"></a>
         </div>
       </div>
     </div>

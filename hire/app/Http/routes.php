@@ -17,11 +17,20 @@ Route::any('/newsdetail/{articleurl}', 'ArticlesController@newsdetail');
 Route::any('/makedeletearticle/{id}', 'ArticlesController@deletearticle');
 Route::any('/discussions', 'DiscussionController@index');
 Route::any('/discussiondetail/{url}', 'DiscussionController@discussionshow');
+Route::any('/delete_discussion/{id}', 'DiscussionController@deletediscussion');
 Route::any('/digital-locker', 'DigitallockerController@index');
+
+Route::any('/deletejob/{id}', 'JobController@deletejob');
+
 
 ///////////////job listing
 Route::any('/joblisting', 'JobController@joblisting');
 Route::any('/userlisting', 'UserController@userlisting');
+Route::any('/setappointment/{jobid}/{userid}', 'JobController@setappointment');
+Route::any('/appointment', 'JobController@allappointment');
+
+Route::any('/editappointment/{id}', 'JobController@editappointment');
+
 
 Route::any('/postjob', 'JobController@postjob');
 Route::any('/joblist/{pagename?}', 'JobController@userjobslist');
@@ -29,7 +38,7 @@ Route::any('/applylist/{id}', 'JobController@applylist');
 Route::any('/makenews', 'UserController@makenews');
 Route::any('/companycredibility', 'UserController@companycredibility');
 
-Route::any('/deletenews/{id}', 'UserController@deletenews');
+Route::any('/deletcompenews/{id}', 'UserController@deletenews');
 Route::any('/jobdetail/{pagename?}', 'JobController@jobdetail');
 Route::any('/compnaydetail/{id}', 'UserController@compnaydetail');
 Route::any('/see-all-connections-page', 'UserController@allconnections');
@@ -46,10 +55,28 @@ Route::any('/userdetail/{id}', 'UserController@userdetail');
 //////////////////////////////////////
 Route::post('career/postjob', 'mainController@postjob');
 Route::get('/contactus', 'mainController@contactus');
+Route::get('/super-fast-&-accurate-recuruiting', 'mainController@superfast');
+Route::get('/corporate-connections', 'mainController@corporate');
+
+
+Route::get('/professional-skill', 'mainController@professionalskill');
+
+Route::get('/avail-digital-locker', 'mainController@availdigitallocker');
+
+Route::get('/cookie-policy', 'mainController@cookiepolicy');
+
+
+Route::get('/privacy-policy', 'mainController@cookiepolicy');
+
+Route::get('/avail-digital-locker', 'mainController@availdigitallocker');
+
 Route::get('faq', 'mainController@faq');
 Route::get('/','mainController@index');
 
 /////////////////////////////// ajax login////
+Route::post('/reportincorrectbox','ajaxRequestController@reportincorrect');
+Route::post('/savereportincorrect','ajaxRequestController@savefreportincorrectdata');
+
 Route::post('/subcatlistajax','ajaxRequestController@subcatlistajax');
 Route::any('/getuserlist','ajaxRequestController@getuserlist');
 Route::any('/getuniversity','ajaxRequestController@getuniversity');
@@ -106,6 +133,8 @@ Route::group(array('namespace'=>'admin'), function()
 			Route::any('/deletediscussion/{id}', 'AdminController@deletediscussion');
 			Route::any('/discussionstatus/{id}', 'AdminController@discussionstatus');
 			Route::any('/invitationlisting', 'AdminController@invitationlist');
+			Route::any('/reportincorrect', 'AdminController@reportincorrect');
+
             Route::any('/article-comment-list', 'AdminController@article_comment');
 			Route::any('/discussion-comment-list', 'AdminController@discussion_comment');
             Route::any('/deletecomment/{id}', 'AdminController@deletecomment');
@@ -117,6 +146,8 @@ Route::group(array('namespace'=>'admin'), function()
 			Route::any('/admin/mediumlist/{id?}', 'AdminController@mediumlist');
 			Route::any('/admin/courselist/{id?}', 'AdminController@coursetype');
 			Route::any('/admin/subcourselist/{id?}', 'AdminController@subcourselist');
+			Route::get('admin/changepassword', 'AdminController@changepassword');
+			Route::post('admin/postpassword', 'AdminController@postpassword');
 			Route::any('/changestatuscommon/{id}/{statusfor}', 'AdminController@changestatuscommon');
 			/////////////compnay master////////
 			Route::any('/admin/companylist', 'AdminController@companylist');
@@ -131,6 +162,7 @@ Route::group(array('namespace'=>'admin'), function()
 
 			/////// credibilty//////
 			Route::any('/admin/credibiltycategory/{type?}/{id?}', 'AdminController@credibiltycategory');
+			Route::any('/admin/allappointment', 'AdminController@allappointment');
 			// Route::any('/admin/credibiltyfactors', 'AdminController@credibiltyfactors');
     
 });

@@ -7,7 +7,9 @@
           <div class="article-box">
             <h5>{{ucwords($articledetail->title)}}</h5>
             <p> @if($articledetail->news_image)
-            <img src="{{URL::to('uplode/articles/'.$articledetail->news_image)}}" alt="" style="height: 144px;"> @endif {{$articledetail->description}} </p>
+            <img src="{{URL::to('uplode/articles/'.$articledetail->news_image)}}" alt="" style="height: 144px;">
+             @endif
+              <?php echo $articledetail->description;?></p>
             <div class="row">
               <div class="col s12 m6 l6"><div class="fixed-action-btn">
                 <a class="share-box">

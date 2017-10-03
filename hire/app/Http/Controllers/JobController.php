@@ -20,9 +20,12 @@ use App\Model\Jobdetail;
 use App\Model\Jobprefrences;
 
 use App\Model\State;
+use App\Model\City;
+
 use App\Model\User_followers;
 use App\Model\Apply_for_job;
 use App\Model\View;
+use App\Model\Appointments;
 Use DB;
 use Validator;
 use Auth;
@@ -275,9 +278,10 @@ class JobController extends Controller
     {
       $jobdetails='';
       $statelist = array();
+      $citylist = array();
       $currenttab='';
       $checkcompnay = Company_detail::where(array('user_id'=>$user->id))->first();
-        $CommonObj = new Common();
+      $CommonObj = new Common();
         ////////////save job///////////
         if(isset($request->savejob))
         {
@@ -323,6 +327,7 @@ class JobController extends Controller
             Session::flash('message','Job Post Successfully.'); 
             Session::flash('alert-class', 'success'); 
             Session::flash('alert-title', 'Success');
+
 
           }
           else
@@ -378,6 +383,7 @@ class JobController extends Controller
               Session::flash('message','Job Edit Successfully.'); 
               Session::flash('alert-class', 'success'); 
               Session::flash('alert-title', 'Success');
+              return redirect('/postjob?editid='.$request->editid);
 
             }
             else
@@ -395,6 +401,11 @@ class JobController extends Controller
             if($jobdetails->country)
             {
               $statelist = State::where(array('country_id'=>$jobdetails->country))->get();
+              if($checkcompnay->state)
+              {
+                $citylist = City::where(array('state'=>$checkcompnay->state))->get();
+
+              }
             }
           }
           else
@@ -403,11 +414,10 @@ class JobController extends Controller
           }
           
         }
-        
         $countryList = $this->country->getallBy(array('status'=>1),array('id','country'));
         $functionalarea = Functionalarea::where(array('status'=>1))->get();
         $industry = Industry::where(array('status'=>1))->get();
-        return view('web/postjob',compact('countryList','functionalarea','industry','jobdetails','currenttab','statelist'));
+        return view('web/postjob',compact('countryList','functionalarea','industry','jobdetails','currenttab','statelist','citylist'));
     }
   }
 
@@ -520,7 +530,7 @@ class JobController extends Controller
   }
 
   /////////////delete job function///////////
-  public function deletejob(Request $request)
+  public function deletejob(Request $request,$id)
   {
     if(Auth::check())
     {
@@ -532,7 +542,7 @@ class JobController extends Controller
         Session::flash('message','Delete Successfully.'); 
         Session::flash('alert-class', 'success'); 
         Session::flash('alert-title', 'Success');
-        return redirect('/admin/newslist');
+        return redirect('/joblist');
 
       }
       else
@@ -707,6 +717,237 @@ class JobController extends Controller
     {
       return redirect('error404');
 
+    }
+    
+  }
+  //////////////// make appointment//////////
+
+  public function setappointment(Request $request,$jobid,$userid)
+  {
+    //////// first check login//////
+    if(Auth::check())
+    {
+       $user = Auth::user();
+       $checkcompnay = Company_detail::where(array('user_id'=>$user->id))->first();
+       //////// first check job//////////
+       $checkjob = Jobdetail::where(array('id'=>$jobid,'compnay_id'=>$checkcompnay->id))->first();
+       if($checkjob)
+       {
+           ////////check apply for job//////
+           $checkappy= Apply_for_job::where(array('job_id'=>$jobid,'apply_by_id'=>$userid,'type'=>1))->first();
+           if($checkappy)
+           {
+             if(isset($request->saveappointment)) /////////// on form submit
+             {
+                /////////check validation///////
+                $validator = $this->validateappointment($request->all());
+                if ($validator->fails())
+                {
+                  //dd($validator);
+                    $this->throwValidationException(
+                        $request, $validator
+                    );
+                }
+                 //dd('here');
+                $dataArray = array('job_id'=>$jobid,
+                                   'job_title'=>$request->jobtitle,
+                                   'job_owner'=>$request->jobowner,
+                                   'job_owner_contact'=>$request->ownernumber,
+                                   'appointment_round'=>$request->appintround,
+                                   'appointment_mode'=>$request->appointmode,
+                                   'officeaddress'=>@$request->officeaddress,
+                                   'appointment_for'=>$userid,
+                                   'appointment_date'=>$request->appointdate,
+                                   'appointment_time'=>$request->appointime,
+                                   'created_by'=>$user->id,
+                                   'created_at'=>date('Y-m-d H:i:s'),
+                                   'company_id'=>$checkcompnay->id);
+                //dd('here');
+                if($request->editappintment)
+                {
+                  $message='Update';
+                  $setappointent = Appointments::where(array('id'=>$request->editappintment))->update($dataArray);
+
+                }
+                else
+                {
+                  $message='Create';
+                  $setappointent = Appointments::insertGetId($dataArray);
+                }
+                
+                if($setappointent)
+                {
+                  Session::flash('message',$message.' successfully'); 
+                  Session::flash('alert-class', 'danger'); 
+                  Session::flash('alert-title', 'error');
+                  //return redirect('/companyprofile');
+                }
+                else
+                {
+                  Session::flash('message','Some technical problem.'); 
+                  Session::flash('alert-class', 'danger'); 
+                  Session::flash('alert-title', 'error');
+
+                }
+             }
+           }
+          return view('web.userfiles.setappointment',compact('checkjob'));
+       }
+       else
+       {
+          return redirect('error404');
+       }
+       
+
+    }
+    else
+    {
+      return redirect('error404');
+    }
+    
+  }
+
+   public function editappointment(Request $request,$id)
+  {
+    //////// first check login//////
+    if(Auth::check())
+    {
+       $user = Auth::user();
+       $checkcompnay = Company_detail::where(array('user_id'=>$user->id))->first();
+       //////// first check job//////////
+       $checkappointment = Appointments::where(array('id'=>$id,'company_id'=>$checkcompnay->id))->first();
+       if($checkappointment)
+       {
+        $checkjob = Jobdetail::where(array('id'=>$checkappointment->job_id))->first();
+             if(isset($request->editappointment)) /////////// on form submit
+             {
+                /////////check validation///////
+                $validator = $this->validateappointment($request->all());
+                if ($validator->fails())
+                {
+                    $this->throwValidationException(
+                        $request, $validator
+                    );
+                }
+                 //dd('here');
+                $dataArray = array('appointment_round'=>$request->appintround,
+                                   'appointment_mode'=>$request->appointmode,
+                                   'appointment_date'=>$request->appointdate,
+                                   'appointment_time'=>$request->appointime,
+                                   'officeaddress'=>@$request->officeaddress,
+                                   'updated_by'=>$user->id,
+                                   );
+                //dd('here');
+            
+                  $message='Update';
+                  $setappointent = Appointments::where(array('id'=>$id))->update($dataArray);
+
+                
+                if($setappointent)
+                {
+                  Session::flash('message',$message.' successfully'); 
+                  Session::flash('alert-class', 'danger'); 
+                  Session::flash('alert-title', 'error');
+                  //return redirect('/companyprofile');
+                }
+                else
+                {
+                  Session::flash('message','Some technical problem.'); 
+                  Session::flash('alert-class', 'danger'); 
+                  Session::flash('alert-title', 'error');
+
+                }
+             }
+          return view('web.userfiles.editappointment',compact('checkappointment','checkjob'));
+       }
+       else
+       {
+          return redirect('error404');
+       }
+       
+
+    }
+    else
+    {
+      return redirect('error404');
+    }
+    
+  }
+
+  //////////appointment list function
+  public function allappointment(Request $request)
+  {
+    //////// first check login//////
+    if(Auth::check())
+    {
+      $allappointment = array();
+      $userList=array();
+       $user = Auth::user();
+       $checkcompnay = Company_detail::where(array('user_id'=>$user->id))->first();
+       //////// first check job//////////
+       if($checkcompnay)
+       {
+           ////////check all appointment for job//////
+          $getlist = Appointments::where(array('company_id'=>$checkcompnay->id))->paginate(15);
+          if(count($getlist)>0)
+          {
+            foreach($getlist as $getlistdata)
+            {
+                $userList[]=$getlistdata->appointment_for;
+                switch ($getlistdata->appointment_mode) {
+                  case '2':
+                    $mode='Video Calling';
+                    break;
+                    case '3':
+                     $mode='Office Visit';
+                    break;
+                    case '4':
+                     $mode='Office Address';
+                    break;
+
+                  
+                  default:
+                    $mode='Voice Calling';
+                    break;
+                }
+
+                switch ($getlistdata->appointment_round) {
+                  case '2':
+                   $round ='HR First Round';
+                    break;
+                    case '3':
+                    $round ='Techinichal Round';
+                    break;
+                  
+                  default:
+                   $round ='Normal Understanding';
+                    break;
+                }
+                $allappointment[$getlistdata->id] = array('jobtitle'=>$getlistdata->job_title,
+                                                          'job_owner'=>$getlistdata->job_owner,
+                                                          'contact_number'=>$getlistdata->job_owner_contact,
+                                                          'appointment_date'=>$getlistdata->appointment_date,
+                                                          'appointment_time'=>$getlistdata->appointment_time,
+                                                          'appointment_mode'=>$mode,
+                                                          'appointment_round'=>$round,
+                                                          'jobtitle'=>$getlistdata->job_title);
+            }
+            $userList = array_unique($userList);
+
+          }
+          //dd($allappointment);
+          return view('web.userfiles.allappointment',compact('allappointment','getlist'));
+       }
+       else
+       {
+          return redirect('error404');
+       }
+       
+
+    }
+    else
+    {
+      return redirect('error404');
     }
     
   }

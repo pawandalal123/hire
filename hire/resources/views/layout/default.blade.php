@@ -40,6 +40,7 @@
 <script type="text/javascript" src="{{ URL::asset('web/site/js/materialize.js')}}"></script>
 <!-- <script type="text/javascript" src="{{ URL::asset('web/site/js/bootstrap.min.js')}}"></script> -->
 <script type="text/javascript" src="{{ URL::asset('web/site/js/custom.js')}}"></script>
+<script type="text/javascript" src="http://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.time.js"></script>
 <script type="text/javascript">
 
  $('.datepickerdob').pickadate({
@@ -54,6 +55,14 @@
     selectYears: 100 ,// Creates a dropdown of 15 years to control year
     format: 'yyyy-mm-dd'
   });
+  $('.timepicker').pickatime({
+  // Escape any “rule” characters with an exclamation mark (!).
+  // format: 'T!ime selected: h:i a',
+  // formatLabel: '<b>h</b>:i <!i>a</!i>',
+  formatSubmit: 'HH:i',
+  hiddenPrefix: 'prefix__',
+  hiddenSuffix: '__suffix'
+})
    $(document).ready(function() {
     $('select').material_select();
   });

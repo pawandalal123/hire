@@ -4,16 +4,19 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m12 l12">
-          <h1>See All Connections</h1>
+        <h1>See All Connections</h1>
       </div>
     </div>
   </div>
 </section>
-
 <div class="container user-profile">
   <div class="row">
-    <div class="col s12 m12 l12">
-    @if(count($dataArray)>0)
+    @include('includes.web.userleftbar')
+    <div class="col s12 m8 l9">
+      <div class="col s12 m12 l12 middle-sec card user-profile">
+
+        
+       @if(count($dataArray)>0)
     @foreach($dataArray as $userArray)
         <div class="col s6 m3 l3">
           <div class="card horizontal">
@@ -35,48 +38,8 @@
           @else
           <div class="text-center">No record found..</div>
           @endif
-          
-
         </div>
     </div>
   </div>
-
-  
-
-<script type="application/javascript"   src="{{URL::to('web/js/jquery.validate.min.js')}}"></script>
-<script type="text/javascript">
-
-jQuery.validator.addMethod("checkurl", function(value, element)
-{
-// now check if valid url
-return /^(www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/.test(value);
-}, "Please enter a valid URL."
-);
-
-
-  $("#contactUsForm").validate({
-      rules: {
-                        "email": {                            
-                            email: true
-                        },
-  
-              "mobile": {                            
-              minlength: 10,
-                            number:true
-              }
-                    },
-                    messages: {
-                        "email": {                           
-                            email: "Please enter valid email address"
-                        },
-         
-            "mobile": {       minlength:"Please enter valid mobile number"  ,
-                              // maxlength:"Please enter valid mobile number",
-                              number:"Please enter only numbers"                  
-                            
-                        }
-                    }
-                
-    });
-</script>
+</div>
 @stop

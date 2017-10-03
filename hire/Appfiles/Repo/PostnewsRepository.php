@@ -66,7 +66,7 @@ class PostnewsRepository implements PostnewsInterface
         $completeformData = Input::all();
         @extract($completeformData);
         $articleList = Post_news::select($columns);
-        $pageData =1;
+        $pageData =6;
         $wherecondition = array('status'=>1);
          
         $articleList = $articleList->where($wherecondition);

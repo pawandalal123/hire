@@ -37,7 +37,9 @@ $requestsegment = Request::segment(1);
               </div>
               <div class="card-content">
                 <!-- <p>Web Designer</p> -->
-                <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i>
+                <!-- <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i>-->
+			<a href="{{URL::to('editprofile')}}" class="waves-effect waves-light btn">edit profile</a>
+
               </div>
             </div>
           </div>
@@ -57,6 +59,9 @@ $requestsegment = Request::segment(1);
           <a class="waves-effect waves-light btn @if($requestsegment=='articles') active @endif" href="{{URL::to('profile/articles')}}">Write an Article</a>
            <a href="{{URL::to('/digital-locker')}}" class="waves-effect waves-light btn @if($requestsegment=='digital-locker') active @endif">Digital Locker</a>
           <a class="waves-effect waves-light btn @if($requestsegment=='discussions') active @endif" href="{{URL::to('profile/discussions')}}">Start Discussion Forum</a>
+          <a class="waves-effect waves-light btn @if($requestsegment=='see-all-connections-page') active @endif" href="{{URL::to('see-all-connections-page')}}">See all connections</a>
+              <a class="waves-effect waves-light btn @if($requestsegment=='all-appointment') active @endif" href="{{URL::to('profile/all-appointment')}}">See all appointments</a>
+              <a class="waves-effect waves-light btn @if($requestsegment=='all-saves') active @endif" href="{{URL::to('profile/all-saves')}}">Jobs Applied/Bookmarked</a>
           <a class="waves-effect waves-light btn">Invite to Join Discussion Forum</a>
           <a class="waves-effect waves-light btn" href="javascript:void(0)" onclick="connectmailbox()">Connect Via Mail</a>
      <!--      <a class="waves-effect waves-light btn">Invite Friend on Social Media</a>

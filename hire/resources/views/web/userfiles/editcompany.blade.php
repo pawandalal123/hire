@@ -26,15 +26,15 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="row">
             <div class="input-field col s4">
-              <input placeholder="First Name"  name="companyname" id="first_name" type="text"  value="{{@$checkcompnay->compnay_name}}" required="required"> 
-              <label for="first_name" class="active">Compnay Name</label>
+              <input   name="companyname" id="first_name" type="text"  value="{{@$checkcompnay->compnay_name}}" required="required"> 
+              <label for="first_name" class="active">Company Name</label>
                @if ($errors->has('companyname')) 
                      <div class="error">{{ $errors->first('companyname') }}</div> 
                      @endif
             </div>
             
             <div class="input-field col s4">
-              <input placeholder="Last Name" id="first_name" name="contact" type="text" class="validate" value="{{@$checkcompnay->contact}}">
+              <input  id="first_name" name="contact" type="text" class="validate" value="{{@$checkcompnay->contact}}">
               <label for="first_name" class="active">Contact NUmber</label>
               @if ($errors->has('contact')) 
                      <div class="error">{{ $errors->first('contact') }}</div> 
@@ -42,8 +42,8 @@
 
             </div>
             <div class="input-field col s4">
-              <input placeholder="Middle Name" name="website" id="website" type="text" class="validate" value="{{@$checkcompnay->company_website}}">
-              <label for="first_name" class="active">Compnay website</label>
+              <input name="website" id="website" type="text" class="validate" value="{{@$checkcompnay->company_website}}">
+              <label for="first_name" class="active">Company website</label>
             </div>
           </div>
    
@@ -74,6 +74,11 @@
             <div class="input-field col citychangediv">
               <select name="city" class="citychange">
                         <option value="" disabled selected>Choose your option</option>
+                        @if(count($citylist)>0)
+                        @foreach($citylist as $citylist)
+                        <option value="{{$citylist->id}}" id="{{$citylist->id}}" @if($citylist->id==$checkcompnay->city) selected @endif>{{$citylist->city}}</option>
+                        @endforeach
+                        @endif
                         
                       </select>
               <label>City</label>
@@ -82,11 +87,11 @@
           <div class="row">
        
             <div class="input-field col s4">
-              <input placeholder="Address" id="address" name="address" type="text" class="validate" value="{{@$checkcompnay->address}}">
+              <input  id="address" name="address" type="text" class="validate" value="{{@$checkcompnay->address}}">
               <label for="first_name" class="active">Address</label>
             </div>
               <div class="input-field col s4">
-              <input placeholder="Pincode" id="pincode" name="pincode" type="text" class="validate" value="{{@$checkcompnay->pincode}}">
+              <input  id="pincode" name="pincode" type="text" class="validate" value="{{@$checkcompnay->pincode}}">
               <label for="first_name" class="active">Pincode </label>
             </div>
              <div class="input-field col s4">
@@ -110,7 +115,7 @@
           <div class="row">
            <div class="input-field col s8">
              
-              <textarea placeholder="About Compnay"  id="about" name="about" type="text" class="materialize-textarea validate">{{@$checkcompnay->about_company}}</textarea>
+              <textarea   id="about" name="about" type="text" class="materialize-textarea validate">{{@$checkcompnay->about_company}}</textarea>
               <label for="first_name" class="active">About company</label>
             </div>
           

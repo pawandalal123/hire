@@ -13,7 +13,7 @@
                 <button class="btn btn-login btn-block btn-lg" onClick="checkuserlogin();">Login</button>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox"> Remember me</label>
+                  <!--<label><input type="checkbox"> Remember me</label>-->
                   <a href="{{URL::to('password/email')}}" class="pull-right">Forgot password ?</a>
                 </div>
              

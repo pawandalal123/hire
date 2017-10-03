@@ -32,7 +32,7 @@
             <select class="initialized" class="subcourse" name="ugspec">
                 <option value="" >Choose your option</option>
                 @foreach($Subcourselist as $Subcourselist)
-               <option value="{{$Subcourselist->id}}" @if($Subcourselist->id==$usereducationArry[1]['course_name'])  selected @endif>{{$Subcourselist->sub_course_name}}</option>
+               <option value="{{$Subcourselist->id}}" @if($Subcourselist->id==$usereducationArry[1]['course_spec'])  selected @endif>{{$Subcourselist->sub_course_name}}</option>
                @endforeach
               </select>
               <label>Specialization</label>
@@ -40,6 +40,9 @@
             <div class="input-field col s4">
               <input placeholder="University/college" name="ugcollage" id="universirty_college" type="text" class="validate" value="{{@$usereducationArry[1]['educate_from']}}">
               <label for="universirty_college" class="active">University/college</label>
+               @if ($errors->has('ugcollage')) 
+                     <div class="error">{{ $errors->first('ugcollage') }}</div> 
+                     @endif
             </div>
                  
           </div>
@@ -63,6 +66,9 @@
              <div class="input-field col s4">
               <input placeholder="Marks" name="ugmarks" id="first_name" type="text" class="validate" value="{{@$usereducationArry[1]['marks']}}">
               <label for="first_name" class="active">Marks</label>
+              @if ($errors->has('ugmarks')) 
+                     <div class="error">{{ $errors->first('ugmarks') }}</div> 
+                     @endif
             </div>
           </div>
           </div>
@@ -72,7 +78,7 @@
            <h6>Fill your Graduation detail</h6>
             <div class="row">
             <div class="input-field col s4">
-             <select class="initialized" name="ugcourse">
+             <select class="initialized coursechange" name="ugcourse">
                 <option value=""  selected="">Choose your option</option>
                @foreach($courselist as $courselist)
                @if($courselist->course_for==1)
@@ -82,7 +88,7 @@
               </select>
               <label>Qualification</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s4 coursechnagediv">
             <select class="initialized" name="ugspec">
                 <option value="" >Choose your option</option>
                 @foreach($Subcourselist as $Subcourselist)
@@ -94,6 +100,9 @@
             <div class="input-field col s4">
               <input placeholder="University/college" name="ugcollage" id="universirty_college" type="text" class="validate">
               <label for="universirty_college" class="active">University/college</label>
+              @if ($errors->has('ugcollage')) 
+                     <div class="error">{{ $errors->first('ugcollage') }}</div> 
+                     @endif
             </div>
                  
           </div>
@@ -117,6 +126,9 @@
              <div class="input-field col s4">
               <input placeholder="Marks" name="ugmarks" id="first_name" type="text" class="validate">
               <label for="first_name" class="active">Marks</label>
+              @if ($errors->has('ugmarks')) 
+                     <div class="error">{{ $errors->first('ugmarks') }}</div> 
+                     @endif
             </div>
           </div>
           </div>
@@ -150,6 +162,9 @@
             <div class="input-field col s4">
               <input placeholder="University/college" name="pgcollege" id="universirty_college" type="text" class="validate" value="{{@$usereducationArry[2]['educate_from']}}">
               <label for="universirty_college" class="active">University/college</label>
+              @if ($errors->has('pgcollege')) 
+                     <div class="error">{{ $errors->first('pgcollege') }}</div> 
+                     @endif
             </div>
            
           </div>
@@ -173,6 +188,9 @@
             <div class="input-field col s4">
               <input placeholder="Marks" name="pgmarks" id="first_name" type="text" class="validate" value="{{@$usereducationArry[2]['marks']}}">
               <label for="first_name" class="active">Marks</label>
+              @if ($errors->has('pgmarks')) 
+                     <div class="error">{{ $errors->first('pgmarks') }}</div> 
+                     @endif
             </div>
           </div>
           </div>
@@ -203,6 +221,9 @@
             <div class="input-field col s4">
               <input placeholder="University/college" name="pgcollege" id="universirty_college" type="text" class="validate">
               <label for="universirty_college" class="active">University/college</label>
+              @if ($errors->has('universirty_college')) 
+                     <div class="error">{{ $errors->first('universirty_college') }}</div> 
+                     @endif
             </div>
            
           </div>
@@ -226,6 +247,9 @@
             <div class="input-field col s4">
               <input placeholder="Marks" name="pgmarks" id="first_name" type="text" class="validate">
               <label for="first_name" class="active">Marks</label>
+              @if ($errors->has('pgmarks')) 
+                     <div class="error">{{ $errors->first('pgmarks') }}</div> 
+                     @endif
             </div>
           </div>
           </div>
@@ -247,6 +271,9 @@
                 <option value=""  selected="">Class XII Board:</option>
                @foreach($xschoolboardlist as $xschoolboardlist)
                <option value="{{$xschoolboardlist->id}}" @if($xschoolboardlist->id==$usereducationArry[3]['borad'])  selected @endif>{{$xschoolboardlist->board_name}}</option>
+                @if ($errors->has('xiiboard')) 
+                     <div class="error">{{ $errors->first('xiiboard') }}</div> 
+                     @endif
                @endforeach()
               </select>
               <label>Qualification</label>
@@ -259,6 +286,10 @@
                @endfor()
               </select>
               <label>Passing Year</label>
+               <label>Marks</label>
+              @if ($errors->has('xiipassingyear')) 
+                     <div class="error">{{ $errors->first('xiipassingyear') }}</div> 
+                     @endif
             </div>
             <div class="input-field col s4">
              <select class="initialized" name="xiimedium">
@@ -274,6 +305,9 @@
             <div class="input-field col s4">
              <input placeholder="Marks" name="xiimarks" id="first_name" type="text" class="validate" value="{{@$usereducationArry[3]['marks']}}">
               <label>Marks</label>
+              @if ($errors->has('xiimarks')) 
+                     <div class="error">{{ $errors->first('xiimarks') }}</div> 
+                     @endif
             </div>
          
           </div>
@@ -291,6 +325,10 @@
                @endforeach()
               </select>
               <label>Qualification</label>
+              @if($errors->has('xiiboard')) 
+                     <div class="error">{{ $errors->first('xiiboard') }}</div> 
+                     @endif
+              
             </div>
                <div class="input-field col s4">
             <select class="initialized" name="xiipassingyear">
@@ -300,6 +338,10 @@
                @endfor()
               </select>
               <label>Passing Year</label>
+              @if ($errors->has('xiipassingyear')) 
+                     <div class="error">{{ $errors->first('xiipassingyear') }}</div> 
+                     @endif
+              
             </div>
             <div class="input-field col s4">
              <select class="initialized" name="xiimedium">
@@ -315,6 +357,9 @@
             <div class="input-field col s4">
              <input placeholder="Marks" name="xiimarks" id="first_name" type="text" class="validate">
               <label>Marks</label>
+               @if ($errors->has('xiimarks')) 
+                     <div class="error">{{ $errors->first('xiimarks') }}</div> 
+                     @endif
             </div>
          
           </div>
@@ -336,6 +381,9 @@
                @endforeach()
               </select>
               <label>Qualification</label>
+               @if ($errors->has('xboard')) 
+                     <div class="error">{{ $errors->first('xboard') }}</div> 
+                     @endif
             </div>
                <div class="input-field col s4">
             <select class="initialized" name="xpassingyear">
@@ -345,6 +393,9 @@
                @endfor()
               </select>
               <label>Passing Yesr</label>
+               @if ($errors->has('xpassingyear')) 
+                     <div class="error">{{ $errors->first('xpassingyear') }}</div> 
+                     @endif
             </div>
             <div class="input-field col s4">
              <select class="initialized" name="xmedium">
@@ -360,6 +411,9 @@
             <div class="input-field col s4">
              <input placeholder="Marks" name="xmarks" id="first_name" type="text" class="validate" value="{{@$usereducationArry[4]['marks']}}">
               <label>Marks</label>
+               @if ($errors->has('xmarks')) 
+                     <div class="error">{{ $errors->first('xmarks') }}</div> 
+                     @endif
             </div>
          
           </div>
@@ -376,6 +430,9 @@
                @endforeach()
               </select>
               <label>Qualification</label>
+              @if ($errors->has('xboard')) 
+                     <div class="error">{{ $errors->first('xboard') }}</div> 
+                     @endif
             </div>
                <div class="input-field col s4">
             <select class="initialized" name="xpassingyear">
@@ -385,6 +442,9 @@
                @endfor()
               </select>
               <label>Passing Yesr</label>
+              @if ($errors->has('xpassingyear')) 
+                     <div class="error">{{ $errors->first('xpassingyear') }}</div> 
+                     @endif
             </div>
             <div class="input-field col s4">
              <select class="initialized" name="xmedium">
@@ -400,6 +460,9 @@
             <div class="input-field col s4">
              <input placeholder="Marks" name="xmarks" id="first_name" type="text" class="validate" >
               <label>Marks</label>
+              @if ($errors->has('xmarks')) 
+                     <div class="error">{{ $errors->first('xmarks') }}</div> 
+                     @endif
             </div>
          
           </div>

@@ -16,7 +16,7 @@ print_r($parsed);
 <section class="user-listing">
   <div class="container user-profile search-page">
   <div class="row">
-  <form name="searchFormweb" action="" onsubmit="return CheckDataSearch(document.searchFormweb);" method="get" id="hdr_frm" autocomplete="off">
+  <form name="searchFormweb" action="" onsubmit="return CheckDataSearchweb(document.searchFormweb);" method="get" id="hdr_frm" autocomplete="off">
   <div class="col s12 m10 l10"><input name="keyword" placeholder="Search.." id="search"   value="{{@$_GET['keywords']}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search ..'"></div>
   <div class="col s12 m2 l2"><button class="waves-effect waves-light btn search-btn">Search</button></div>
     
@@ -220,6 +220,7 @@ print_r($parsed);
                               </ul>
              
         </section>
+<input type="hidden" name="pagename" value="{{$pagename}}">
 
           @if($pagename=='news')
           @include('includes.partials.discussionsearch')
@@ -424,6 +425,7 @@ function makesearch(searchfor)
     
       else 
       {
+        var pagename = $('input[name=pagename]').val();
          var url = SITE_URL+'search/'+serachKeyword;
          window.location =url;
           return false;

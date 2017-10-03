@@ -13,6 +13,9 @@ use App\Model\Apply_for_job;
 use App\Model\Jobdetail;
 use App\Model\Subcourselist;
 use App\Model\Schoolboard;
+use App\Model\Reportincorrect;
+use App\Model\Appointments;
+
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -143,6 +146,25 @@ class AjaxRequestController extends Controller
       }
   }
 
+  //////////////save reportincorrectdata////
+  public function savefreportincorrectdata(Request $request)
+  {
+      if($request->ajax())
+      {
+          $reportdata = Input::all();
+          @extract($eventFormData);
+          $Reportincorrect = new Reportincorrect();
+          $Reportincorrect->email =$request->email;
+          $Reportincorrect->mobile =$request->mobile;
+          $Reportincorrect->message =$request->message;
+          $Reportincorrect->report_for =$request->report_for;
+          $Reportincorrect->type =$request->type;
+          $Reportincorrect->created_at =date('Y-m-d H:i:s');
+          $Reportincorrect->save();
+          echo 1;
+      }
+  }
+
   
   //////////statelist countrybased/////
   public function statelist(Request $request)
@@ -259,7 +281,7 @@ class AjaxRequestController extends Controller
         }
       }
 
-    $html.='</select>';
+    $html.='</select><label>Specialization</label>';
     return $html;
 
   }
@@ -273,10 +295,10 @@ class AjaxRequestController extends Controller
       {
           $userlogin = Auth::user();
           $data=array();
-          if($request->actionfor=='company' || $request->actionfor=='user' || $request->actionfor=='people' || $request->actionfor=='connection')
+          if($request->actionfor=='company' || $request->actionfor=='user' || $request->actionfor=='people' || $request->actionfor=='connection' || $request->actionfor=='jobdetail')
           {
             $type=1;
-            if($request->actionfor=='company')
+            if($request->actionfor=='company' || $request->actionfor=='jobdetail')
             {
                $type =2;
 
@@ -362,6 +384,19 @@ class AjaxRequestController extends Controller
             }
 
           }
+
+          elseif($request->actionfor=='acceptappointment' || $request->actionfor=='declineppointment')
+          {
+            $status=1;
+            $data['success'] = array('status'=>'Accepted');
+            if($request->actionfor=='declineppointment')
+            {
+              $status=2;
+              $data['success'] = array('status'=>'Decline');
+            }
+            Appointments::where(array('id'=>$request->id))->udate(array('status'=>$status));
+
+          }
       }
       else
       {
@@ -395,14 +430,17 @@ class AjaxRequestController extends Controller
             if($user->profile_status==1)
             {
               $status=0;
+              $text='Your profile has now been deactivated and you will not be able to apply for any relevant jobs . You can start posting/reading discussions on our portal to explore regarding your skill set';
 
             }
             else
             {
-              $status=0;
+              $status=1;
+               $text='Your profile has now been activated , you can start applying for relevant jobs now and aim for coming under Recommended user for Top Recruiters';
             }
             $update = $this->usersInterface->updateuser(array('profile_status'=>$status),array('id'=>$user->id));
             $return['status']='success';
+            $return['message']=$text;
 
           }
           else
@@ -432,6 +470,45 @@ class AjaxRequestController extends Controller
 
        }
        return response()->json($datauniversity);
+    }
+
+    public function reportincorrect(Request $request)
+    {
+      $mail='';
+      if(Auth::check())
+      {
+          $userlogin = Auth::user();
+          $mail=$userlogin->email;
+      }
+      ?>
+      <div class="modal-body">
+         
+        
+              <!-- <h3 class="centerline mt30"><span>or login/signup with email</span></h3> -->
+              
+                <div class="input-field">
+                <input placeholder="Email" name="user_email" id="user_email" type="text"  value="<?php echo $mail;?>">
+                <label for="compclient" class="active">Email
+               </label>
+                </div>
+                <div class="input-field">
+                  <input type="text" class="form-control" name='mobile' id='mobile' placeholder='Mobile'>
+                  <label for="compclient" class="active">Mobile
+               </label>
+                </div>
+                 <div class="form-group">
+                  <textarea class="form-control" id="message" name="message"></textarea>
+                  <label for="compclient" class="active">Comment
+               </label>
+                </div>
+                <div>
+                <button class="btn btn-login btn-block btn-lg" onClick="savefreportincorrectdata('<?php echo $request->report_id?>','<?php echo $request->report_type?>');">Report</button>
+                </div>
+             
+             
+            </div>
+      <?php 
+
     }
  
 }

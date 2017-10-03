@@ -1,3 +1,7 @@
+@if(!empty($errors) && count($errors)>0)
+
+ {{--*/ $currenttab='edittab' /*--}}
+@endif
 <div class="col s12 m4 l6">
       <div class="col s12 m12 l12 middle-sec card user-profile">
         <div class="row">
@@ -15,13 +19,15 @@
         @endif
           <div id="test1" class="col s12 tab-content" @if($currenttab!='')  style="display: none;" @endif>
           @if(count($duscussionlist)>0)
-          @foreach($duscussionlist as $duscussion)
+          @foreach($datalistArray as $key=>$article)
             <div class="article-box">
-              <h5>{{ucwords($duscussion->title)}}</h5>
-              <p><?php echo substr($duscussion->description,0,260);?>..</p>
-              <a href="{{URL::to('profile/discussions?editid='.$duscussion->id)}}" class="waves-effect waves-light btn"><i class="material-icons dp48"><i class="material-icons dp48">mode_edit</i></i></a> 
-              <a href="{{URL::to('deletediscussion/'.$duscussion->id)}}" class="waves-effect waves-light btn del"><i class="material-icons dp48"><i class="material-icons dp48">delete</i></i></a> 
-              <a href="{{URL::to('articledetail/'.$duscussion->discussion_url)}}" class="waves-effect waves-light btn">Read Article</a>
+              <h5>{{ucwords($article['title'])}}</h5>
+              <p>{{ date(' M j, D, Y',strtotime($article['created_at']))}}, <a href="#" style="color: #7c7ee2!important; float: none; background-color:#ffffff"><img src="{{URL::to('web/images/eye.png')}}" style="float: none; margin-right: 10px;" alt="" >{{$article['view_count']}}</a> <br /><?php echo substr($article['description'],0,260);?>..</p>
+
+              <a href="{{URL::to('profile/discussions?editid='.$key)}}" class="waves-effect waves-light btn"><i class="material-icons dp48"><i class="material-icons dp48">mode_edit</i></i></a> 
+              <a href="{{URL::to('delete_discussion/'.$key)}}" class="waves-effect waves-light btn del"><i class="material-icons dp48"><i class="material-icons dp48">delete</i></i></a> 
+              <a href="{{URL::to('discussiondetail/'.$article['article_url'])}}" class="waves-effect waves-light btn">Read</a>
+              <a href="{{URL::to('discussiondetail/'.$article['article_url'])}}" class="waves-effect waves-light btn">Comment {{$article['totalcount']}}</a>
             </div>
              @endforeach()
             <?php echo $duscussionlist->render();?>
@@ -31,7 +37,7 @@
            </div>
           <div id="test2" class="col s12 tab-content" @if($currenttab=='')  style="display: none;" @endif>
             <form  action='' method="post">
-<input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="input-field">
               <input name="title" type="text" class="validate" value="{{@$duscussiondetail->title}}">
               <label>Discussion Heading</label>
@@ -81,7 +87,11 @@
 
        <script type="text/javascript">
 
-
+CKEDITOR.on( 'instanceReady', function( ev ) {
+    $('iframe.cke_wysiwyg_frame', ev.editor.container.$).contents().on('click', function() {
+        ev.editor.focus();
+    });
+}); 
 var editor = CKEDITOR.replace( 'description', {
     filebrowserBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html',
     filebrowserImageBrowseUrl : '{!! url() !!}/web/js/ckfinder/ckfinder.html?type=Images',

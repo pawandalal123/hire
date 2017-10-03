@@ -87,6 +87,11 @@
             <div class="input-field col s4 citychangediv">
               <select name="city" class="citychange">
                         <option value="" disabled selected>Choose your option</option>
+                        @if(count($citylist)>0)
+                        @foreach($citylist as $citylist)
+                        <option value="{{$citylist->id}}" id="{{$citylist->id}}" @if($citylist->id==$jobdetails->city) selected @endif>{{$citylist->city}}</option>
+                        @endforeach
+                        @endif
                        
                       </select>
               <label>City</label>
@@ -133,7 +138,7 @@
              <select name="functionalarea">
                         <option value="" disabled selected>Choose your option</option>
                        @foreach($functionalarea as $functionalarea)
-                        <option value="{{$functionalarea->id}}" @if($industry->id==$jobdetails->functional_area) selected @endif>{{$functionalarea->name}}</option>
+                        <option value="{{$functionalarea->id}}" @if($functionalarea->id==$jobdetails->functional_area) selected @endif>{{$functionalarea->name}}</option>
                         @endforeach()
                       </select>
               <label>Functional Area/Department Name

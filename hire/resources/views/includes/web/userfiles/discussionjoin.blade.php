@@ -66,6 +66,7 @@
              <th style="color: #000">Name</th>
              <th style="color: #000">Email</th>
              <th style="color: #000">Send on</th>
+             <th style="color: #000">View</th>
            </thead>
            {{--*/ $i=1 /*--}}
            @foreach($invitationlist as $invitationlist)
@@ -74,6 +75,7 @@
              <td>{{$invitationlist->name}}</td>
              <td>{{$invitationlist->email}}</td>
              <td>{{$invitationlist->created_at}}</td>
+             <td><a href="{{URL::to('discussiondetail/'.$invitationlist->discussion_url)}}" class="share-box">View</a></td>
            </tr>
            {{--*/ $i++ /*--}}
            @endforeach()

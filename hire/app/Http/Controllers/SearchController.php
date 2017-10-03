@@ -172,7 +172,7 @@ class SearchController extends Controller
             }
         
             /////process article list///
-             $commentedid=array();
+            $commentedid=array();
             $articleArrary = array();
             if(count($data)>0)
             {
@@ -322,6 +322,7 @@ class SearchController extends Controller
                     $datalistArray[$userdata->id] = array('id'=>$userdata->id,
                                                           'name'=>$userdata->name ?  $userdata->name : $email[0],
                                                           'profile_image'=>$userdata->profile_image,
+                                                          'profile_title'=>$userdata->profile_title,
                                                           'city'=>$cityname,
                                                           'state'=>$state,
                                                           'country'=>$country,

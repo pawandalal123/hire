@@ -21,12 +21,13 @@ if(array_key_exists('functional', $parsed))
   $functionArray = explode('-', $parsed['functional']);
 }
 ?>
+<input type="hidden" name="pagename" value="{{$pagename}}">
 <script type="text/javascript" src="{{ URL::asset('web/site/js/bootstrap.min.js')}}"></script>
 <section class="user-listing">
   <div class="container user-profile search-page">
   <div class="row">
 
-        <form name="searchFormweb" action="" onsubmit="return CheckDataSearch(document.searchFormweb);" method="get" id="hdr_frm" autocomplete="off">
+        <form name="searchFormweb" action="" onsubmit="return CheckDataSearchweb(document.searchFormweb);" method="get" id="hdr_frm" autocomplete="off">
   <div class="col s12 m10 l10"><input name="keyword" placeholder="Search.." id="search"   value="{{@$_GET['keywords']}}" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search ..'"></div>
   <div class="col s12 m2 l2"><button class="waves-effect waves-light btn search-btn">Search</button></div>
     
@@ -266,10 +267,7 @@ if(array_key_exists('functional', $parsed))
                   <a class="waves-effect waves-light btn search-btn" href="{{URL::to('profile/articles')}}" style="display: inline-block; color: #fff;">write Article</a>
                   </div>
                   </div>
-                    @else
-                     <div class="sidebar col l12">
-                    @include('includes.partials.loginbox')
-                    </div>
+                    
                     @endif
                   @endif
                   @if($pagename=='discussion')
@@ -280,8 +278,7 @@ if(array_key_exists('functional', $parsed))
                   <a class="waves-effect waves-light btn search-btn" href="{{URL::to('profile/discussions')}}" style="display: inline-block; color: #fff;">Start Discussion</a>
                   </div>
                   </div>
-                  @else
-                  @include('includes.partials.loginbox')
+                  
                   @endif
                   @endif
                       
@@ -523,7 +520,13 @@ function makesearch(searchfor)
     
       else 
       {
-         var url = SITE_URL+'search/'+serachKeyword;
+        var pagename = $('input[name=pagename]').val();
+        if(pagename=='')
+        {
+          pagename='people';
+
+        }
+         var url = SITE_URL+'search/'+pagename+'?keywords='+serachKeyword;
          window.location =url;
           return false;
    

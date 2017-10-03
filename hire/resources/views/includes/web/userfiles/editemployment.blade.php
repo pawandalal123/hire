@@ -1,16 +1,16 @@
 @if($editempdata!='' & isset($_GET['edit']))
-<form method="post"  id="employment">
+<form method="post"  id="employment" novalidate="novalidate">
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <div class="employment">
           <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Current Designation" name="Designation" type="text" class="validate" required="required" value="{{@$editempdata->designation}}">
               <label for="Designation" class="active">Designation</label>
               @if ($errors->has('Designation')) 
                      <div class="error">{{ $errors->first('Designation') }}</div> 
                      @endif
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Company Name" id="company" name="company" type="text" class="validate" required="required" value="{{@$editempdata->company_name}}">
               <label for="first_name" class="active">Company</label>
               @if ($errors->has('company')) 
@@ -19,13 +19,13 @@
             </div>
           </div>
              <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Company Website" value="{{@$editempdata->company_website}}" name="website" id="website" type="text" class="required">
               <label for="website" class="active">Company Website</label>
             </div>
-            <div class="input-field col s4">
-              <input placeholder="Name Company Website" value="{{@$editempdata->company_name_website}}" name="company_name_website" id="company_name_website" type="text" class="required" required="required">
-              <label for="company_name_website" class="active">Name Company Website</label>
+            <div class="input-field col l4 m6 s12">
+              <input placeholder="Department/Functional area" value="{{@$editempdata->company_name_website}}" name="company_name_website" id="company_name_website" type="text" class="required" required="required">
+              <label for="company_name_website" class="active">Department/Functional area</label>
             </div>
           </div>
          
@@ -85,28 +85,28 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <div class="employment">
           <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Current Designation" name="Designation[]" type="text" class="validate" required="required">
               <label for="Designation" class="active">Designation</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Company Name" id="company" name="company[]" type="text" class="validate" required="required">
               <label for="first_name" class="active">Company</label>
             </div>
           </div>
              <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6 s12">
               <input placeholder="Company Website" name="website[]" id="first_name" type="text" class="required">
               <label for="first_name" class="active">Company Website</label>
             </div>
-            <div class="input-field col s4">
-              <input placeholder="Name Company Website" name="company_name_website[]" id="company_name_website" type="text" class="required" required="required">
-              <label for="first_name" class="active">Name Company Website</label>
+            <div class="input-field col l4 m6 s12">
+              <input placeholder="Department/Functional area" name="company_name_website[]" id="company_name_website" type="text" class="required" required="required">
+              <label for="first_name" class="active">Department/Functional area</label>
             </div>
           </div>
          
-          <div class="row">
-            <div class="input-field col s2">
+          <div class="row mob_full">
+            <div class="input-field col l2 m3 s4">
               <select class="initialized" name="year[]">
                 <option value="" disabled="" selected="">Year</option>
                @for ($i = 1990; $i <= date('Y'); $i++)
@@ -115,7 +115,7 @@
               </select>
               <label>Working Since</label>
             </div>
-            <div class="input-field col s2">
+            <div class="input-field col l2 m3 s4">
              <select class="initialized" name="month[]">
                 <option value="" disabled="" selected="">Month</option>
                 @for ($month = 1; $month <= 12; $month++)
@@ -124,7 +124,7 @@
               </select>
               <label></label>
             </div>
-            <div class="input-field col s2">
+            <div class="input-field col l2 m3 s4">
               <div class="to">To</div>
               <select class="float-left initialized" name="till[]">
                 <option value="0" selected="">Present</option>
@@ -136,7 +136,7 @@
           </div>
       
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col m6 s12">
              <input  type="text" class="input" placeholder="" name="job_profile[]">
               <label >Job Profile</label>
             </div>
@@ -144,7 +144,7 @@
           </div>
 
           <div class="col s12">
-          <span class="add waves-effect waves-light btn addmoreemp">Add More Job Experience</span>
+          <span class="space1 add waves-effect waves-light btn addmoreemp">Add More Job Experience</span>
           </div>
           <span id="spin">
             
@@ -158,12 +158,13 @@
 <input type="hidden" name="countervalue" value="1">
 <script type="application/javascript"   src="{{URL::to('web/js/jquery.validate.min.js')}}"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
     $('select').material_select();
 $(document).on('click','.addmoreemp',function()
 {
   var counter = $('input[name=countervalue]').val();
-  var html = '       <div class="employment">          <div class="row">            <div class="input-field col s4">              <input placeholder="Current Designation" name="Designation[]" type="text" class="required" required="required">              <label for="Designation" class="active">Designation</label>            </div>            <div class="input-field col s4">              <input placeholder="Company Name" id="company'+counter+'" name="company[]" type="text" class="validate" required="required"><label for="first_name" class="active">Company</label>            </div>          </div>             <div class="row">            <div class="input-field col s4"><input placeholder="Company Website" name="website[]" id="first_name'+counter+'" type="text" class="required">              <label for="first_name" class="active">Company Website</label>            </div>            <div class="input-field col s4">              <input placeholder="Name Company Website" name="company_name_website[]" id="company_name_website'+counter+'" type="text" class="required">              <label for="first_name" class="active">Name Company Website</label>            </div>          </div>          <div class="row">            <div class="input-field col s2">              <select class="selectbox selectboxnew'+counter+' initialized" name="year[]">                <option value="" disabled="" selected="">Year</option>';
+  var html = '       <div class="employment">          <div class="row">            <div class="input-field col s4">              <input placeholder="Current Designation" id="Designation'+counter+'" name="Designation[]" type="text" class="validate" required="required">              <label for="Designation" class="active">Designation</label>            </div>            <div class="input-field col s4">              <input placeholder="Company Name" id="company'+counter+'" name="company[]" type="text" class="validate" required="required"><label for="first_name" class="active">Company</label>            </div>          </div>             <div class="row">            <div class="input-field col s4"><input placeholder="Company Website" name="website[]" id="first_name'+counter+'" type="text" class="validate">              <label for="first_name" class="active">Company Website</label>            </div>            <div class="input-field col s4">              <input placeholder="Department/Functional area" name="company_name_website[]" id="company_name_website'+counter+'" type="text" class="validate">              <label for="first_name" class="active">Department/Functional area</label>            </div>          </div>          <div class="row">            <div class="input-field col s2">              <select class="selectbox selectboxnew'+counter+' initialized" name="year[]">                <option value="" disabled="" selected="">Year</option>';
 
                @for ($i = 1990; $i <= date('Y'); $i++)
                html+='<option value="{{$i}}">{{$i}}</option>';
@@ -188,8 +189,8 @@ $(document).on('click','.addmoreemp',function()
 
   $("#employment").validate({
       rules: {
-          Designation: "required",
-          company: "required",
+          "Designation[]": "required",
+          "company[]": "required",
           "website": {                            
                             url: true
                         },

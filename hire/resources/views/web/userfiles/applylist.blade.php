@@ -93,7 +93,10 @@
                   <td>
                   {{$allylistArray['date']}}
                   </td>
-                  <td><a href="{{URL::to('userdetail/'.$allylistArray['userid'])}}" target="_blank">View Profile</a></td>
+                  <td>
+                  <a href="{{URL::to('setappointment/'.$allylistArray['jobid'].'/'.$allylistArray['userid'])}}" target="_blank">Set appointment</a>
+                  <a href="{{URL::to('userdetail/'.$allylistArray['userid'])}}" target="_blank">View Profile</a>
+                  </td>
                 </tr>
                 {{--*/ $i++ /*--}}
                 @endforeach

@@ -261,6 +261,33 @@ class mainController extends Controller
         return view('web/staticpage/contactus');
     }
 
+    public function superfast(Request $request)
+    {
+        return view('web/staticpage/superfast');
+    }
+    public function corporate(Request $request)
+    {
+        return view('web/staticpage/corporateconnections');
+    }
+     public function professionalskill(Request $request)
+    {
+        return view('web/staticpage/professionalskill');
+    }
+     public function availdigitallocker(Request $request)
+    {
+        return view('web/staticpage/availdigitallocker');
+    }
+
+    public function cookiepolicy(Request $request)
+    {
+        return view('web/staticpage/cookiepolicy');
+    }
+
+    public function privacy(Request $request)
+    {
+        return view('web/staticpage/privacypolicy');
+    }
+
 
 
 

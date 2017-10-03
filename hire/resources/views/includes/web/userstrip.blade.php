@@ -23,7 +23,7 @@
 ?>
 <section class="top-blue-sec">
   <div class="container">
-    <div class="row">
+    	<div class="row">
       <div class="col s12 m4 l3">
           <div class="card horizontal">
             <div class="card-image">

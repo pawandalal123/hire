@@ -33,9 +33,11 @@ use App\Model\User_followers;
 use App\Model\Projectlist;
 use App\Model\Apply_for_job;
 use App\Model\View;
+use App\Model\Comments;
 use App\Model\State;
 use App\Model\City;
 use App\Model\Departments;
+use App\Model\Appointments;
 use App\Model\Credibility_category;
 use App\Model\Credibility_factors;
 use App\Model\Employee_details;
@@ -93,6 +95,7 @@ class UserController extends Controller
         if(isset($request->submitdiscussion))
         {
             $validator = $this->postdiscussion($request);
+            
         }
         //////////////invitation
         if(isset($request->sendinvite))
@@ -121,16 +124,74 @@ class UserController extends Controller
         }
         
         $articlelist=array();////// article array
+        $articleArrary = array();
+        $datalistArray = array();
         $articledetail='';
         $currenttab='';///// which tab active
         $catlist='';
         $subcatlist='';
         $duscussionlist = '';
         $invitationlist = array();
+        $commentArray=[];
         if($pagename=='articles')
         {
+          $viewcount=array();
+            $commentArray=array();
+            $selectRaw = "count(id) as totalview,view_id";
+            $getviewcount = View::selectRaw($selectRaw)->where(array('type'=>'article'))->groupBY('view_id')->get();
+            if(count($getviewcount)>0)
+            {
+              foreach($getviewcount as $getviewcount)
+              {
+                $viewcount[$getviewcount->view_id] = $getviewcount->totalview;
+
+              }
+
+            }
           $request->userid=$user->id;
           $articlelist= $this->articles->articleslist($request);
+           $commentedid=array();
+            
+            if(count($articlelist)>0)
+            {
+              foreach($articlelist as $articles)
+              {
+                $commentedid[]=$articles->id;
+                $viewc=0;
+                $totalcount=0;
+                if(array_key_exists($articles->id, $viewcount))
+                {
+                  $viewc = $viewcount[$articles->id];
+
+                }
+                $articleArrary[$articles->id] = array('title'=>$articles->title,
+                                                      'created_at'=>$articles->created_at,
+                                                      'description'=>$articles->description,
+                                                      'articles_image'=>$articles->articles_image,
+                                                      'article_url'=>$articles->article_url,
+                                                      'view_count'=>$viewc,
+                                                      'totalcount'=>$totalcount);
+
+              }
+              $commentedidList = implode(',', $commentedid);
+              $seleectRaw="count(id) as totalcomment,commented_id";
+              $getcomments = Comments::selectRaw($seleectRaw)->where(array('status'=>1,'type'=>1))->whereIn('commented_id',$commentedid)->groupBY('commented_id')->get();
+              foreach($getcomments as $getcomments)
+              {
+                $commentArray[$getcomments->commented_id]= $getcomments->totalcomment;
+
+              }
+              array_walk($articleArrary, function(&$value, $key, $sourceArray)
+            { 
+                 
+                if(array_key_exists($key, $sourceArray))
+                {
+                    $value['totalcount'] = $sourceArray[$key];
+                }
+
+            },$commentArray); 
+
+            }
           if($request->editid)
           {
             $articledetail= $this->articles->getBy(array('id'=>$request->editid));
@@ -145,18 +206,80 @@ class UserController extends Controller
           $request->userid=$user->id;
           $request->showall=1;
           $duscussionlist= $this->discussion->discussionlist($request);
-          if($request->editid)
+          $viewcount=array();
+          $selectRaw = "count(id) as totalview,view_id";
+          $getviewcount = View::selectRaw($selectRaw)->where(array('type'=>'discussion'))->groupBY('view_id')->get();
+          if(count($getviewcount)>0)
           {
-            $duscussiondetail= $this->discussion->getBy(array('id'=>$request->editid));
-            $currenttab='edittab';
+            foreach($getviewcount as $getviewcount)
+            {
+              $viewcount[$getviewcount->view_id] = $getviewcount->totalview;
+
+            }
           }
+            /////process article list///
+            $commentedid=array();
+            $articleArrary = array();
+            if(count($duscussionlist)>0)
+            {
+              foreach($duscussionlist as $articles)
+              {
+                $commentedid[]=$articles->id;
+                $viewc=0;
+                $totalcount=0;
+                if(array_key_exists($articles->id, $viewcount))
+                {
+                  $viewc = $viewcount[$articles->id];
+
+                }
+                $datalistArray[$articles->id] = array('title'=>$articles->title,
+                                                      'created_at'=>$articles->created_at,
+                                                      'description'=>$articles->description,
+                                                      'articles_image'=>'',
+                                                      'loginrequired'=>'yes',
+                                                      'article_url'=>$articles->discussion_url,
+                                                      'view_count'=>$viewc,
+                                                      'totalcount'=>$totalcount);
+                if(Auth::check())
+                {
+                  $datalistArray[$articles->id]['loginrequired']='no';
+
+                }
+
+              }
+
+              $commentedidList = implode(',', $commentedid);
+              $seleectRaw="count(id) as totalcomment,commented_id";
+              $getcomments = Comments::selectRaw($seleectRaw)->where(array('status'=>1,'type'=>2))->whereIn('commented_id',$commentedid)->groupBY('commented_id')->get();
+              foreach($getcomments as $getcomments)
+              {
+                $commentArray[$getcomments->commented_id]= $getcomments->totalcomment;
+
+              }
+              array_walk($datalistArray, function(&$value, $key, $sourceArray)
+              { 
+                 
+                if(array_key_exists($key, $sourceArray))
+                {
+                    $value['totalcount'] = $sourceArray[$key];
+                }
+
+               },$commentArray); 
+
+            }
+            if($request->editid)
+            {
+              $duscussiondetail= $this->discussion->getBy(array('id'=>$request->editid));
+              $currenttab='edittab';
+            }
            
         }
         ///////// if pagenmae invitediscussion/
         if($pagename=='invitediscussion')
         {
+          $selecteaw = 'name,email,discussion_invites.created_at as created_at,discussion_url';
           $duscussionlist= $this->discussion->getallBy(array('status'=>1,'user_id'=>$user->id),array('id','title'));
-          $invitationlist = Discussion_invite::where(array('created_by'=>$user->id))->get(array('name','email','created_at'));
+          $invitationlist = Discussion_invite::selectRaw($selecteaw)->join('discussions', 'discussions.id', '=', 'discussion_invites.discussion_id')->where(array('discussion_invites.created_by'=>$user->id))->get();
 
         }
         $employmentdetails='';
@@ -224,12 +347,24 @@ class UserController extends Controller
           {
             foreach($getlist as $getlist)
             {
+              $workto='';
+              $workfrom='';
+              if($getlist->worked_to!='0000-00-00')
+              {
+                $workto=$getlist->worked_to;
+
+              }
+              if($getlist->worked_from!='0000-00-00')
+              {
+                $workfrom=$getlist->worked_from;
+
+              }
               $projectlistarray[$getlist->id] = array('project_name'=>$getlist->project_name,
                 'id'=>$getlist->id,
                                                       'project_nature'=>$getlist->project_nature,
                                                       'project_skill'=>$getlist->project_skill,
-                                                      'worked_to'=>$getlist->worked_to,
-                                                      'worked_from'=>$getlist->worked_from);
+                                                      'worked_to'=>$workto,
+                                                      'worked_from'=>$workfrom);
 
             }
 
@@ -340,14 +475,74 @@ class UserController extends Controller
 
           }
 
+        }
+        $allappointment=array();
+        $getappoitmentlist='';
+        if($pagename=='all-appointment')
+        {
+          $getappoitmentlist = Appointments::where(array('appointment_for'=>$user->id))->paginate(15);
+          if(count($getappoitmentlist)>0)
+          {
+            foreach($getappoitmentlist as $getlistdata)
+            {
+                $userList[]=$getlistdata->appointment_for;
+                switch ($getlistdata->appointment_mode) {
+                  case '2':
+                    $mode='Video Calling';
+                    break;
+                    case '3':
+                     $mode='Office Visit';
+                    break;
+                    case '4':
+                     $mode='Office Address';
+                    break;
 
-       
+                  
+                  default:
+                    $mode='Voice Calling';
+                    break;
+                }
 
+                switch ($getlistdata->appointment_round) {
+                  case '2':
+                   $round ='HR First Round';
+                    break;
+                    case '3':
+                    $round ='Techinichal Round';
+                    break;
+                  
+                  default:
+                   $round ='Normal Understanding';
+                    break;
+                }
+                $status='Accept';
+                if($getlistdata->status==1)
+                {
+                  $status='Accepted';
+                }
+                if($getlistdata->status==2)
+                {
+                  $status='Decline';
+
+                }
+                $allappointment[$getlistdata->id] = array('jobtitle'=>$getlistdata->job_title,
+                                                          'job_owner'=>$getlistdata->job_owner,
+                                                          'contact_number'=>$getlistdata->job_owner_contact,
+                                                          'appointment_date'=>$getlistdata->appointment_date,
+                                                          'appointment_mode'=>$mode,
+                                                          'appointment_round'=>$round,
+                                                          'status'=>$status,
+                                                          'Currentstatus'=>$getlistdata->status,
+                                                          'jobtitle'=>$getlistdata->job_title);
+            }
+            $userList = array_unique($userList);
+
+          }
         }
 
         // dd($usereducationArry);
 
-        return view('web/userfiles/userhomepage',compact('pagename','articlelist','articledetail','currenttab','catlist','subcatlist','duscussiondetail','duscussionlist','invitationlist','user','employmentdetails','jobprefrence','usereducationArry','projectlistarray','userdetails','allbooklistArray','allylistArray','getapplyList','getbookList'));
+        return view('web/userfiles/userhomepage',compact('pagename','articleArrary','articlelist','articledetail','currenttab','catlist','subcatlist','duscussiondetail','duscussionlist','datalistArray','invitationlist','user','employmentdetails','jobprefrence','usereducationArry','projectlistarray','userdetails','allbooklistArray','allylistArray','getapplyList','getbookList','allappointment','getappoitmentlist'));
     }
   }
 
@@ -416,7 +611,8 @@ class UserController extends Controller
         if($request->company!='')
         {
           $success=0;
-          foreach($request->company as $key=>$val)
+          $compnay = array_filter($request->company);
+          foreach($compnay as $key=>$val)
           {
             $insertArray = array('company_name'=>$val,
                                  'company_website'=>'',
@@ -528,6 +724,25 @@ class UserController extends Controller
           $status=0;
           if($request->ugcourse!='')
           {
+             $messsages = [
+                'course_name.required'=>'Please select course',
+                'ugmarks.required'=>'Please enter marks',
+                'ugcollage.required'=>'Please enter Graduation University/college'];
+               
+
+                $rules = [
+                    'course_name'=>'required|not_in:0',
+                    'ugmarks'=>'required|integer',
+                    'ugcollage'=>'required'
+
+        ];
+        $validator = Validator::make($request->all(), $rules,$messsages);
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
             $graducateArray = array('type'=>1,
                                     'course_name'=>$request->ugcourse,
                                     'course_spec'=>$request->ugspec,
@@ -554,6 +769,25 @@ class UserController extends Controller
           }
           if($request->postcourse!='')
           {
+              $messsages = [
+                'postcourse.required'=>'Please select course',
+                'pgmarks.required'=>'Please enter marks',
+                'pgcollege.required'=>'Please enter Post Graduation University/college'];
+               
+
+                $rules = [
+                    'postcourse'=>'required|not_in:0',
+                    'pgmarks'=>'required|integer',
+                    'pgcollege'=>'required'
+
+        ];
+        $validator = Validator::make($request->all(), $rules,$messsages);
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
             $postgraducateArray = array('type'=>2,
                                     'course_name'=>$request->postcourse,
                                     'course_spec'=>$request->pgspec,
@@ -580,6 +814,26 @@ class UserController extends Controller
           }
           if($request->xiiboard!='')
           {
+
+            $messsages = [
+                'xiipassingyear.required'=>'Please select course',
+                'xiimarks.required'=>'Please enter marks',
+                'xiiboard.required'=>'Please enter school'];
+               
+
+                $rules = [
+                    'xiipassingyear'=>'required|not_in:0',
+                    'xiimarks'=>'required|integer',
+                    'xiiboard'=>'required|not_in:0'
+
+        ];
+        $validator = Validator::make($request->all(), $rules,$messsages);
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
             $xiiArray = array('type'=>3,
                              'borad'=>$request->xiiboard,
                              'course_spec'=>$request->xiimedium,
@@ -604,6 +858,26 @@ class UserController extends Controller
           }
           if($request->xboard!='')
           {
+
+            $messsages = [
+                'xpassingyear.required'=>'Please select course',
+                'xmarks.required'=>'Please enter marks',
+                'xboard.required'=>'Please enter school'];
+               
+
+                $rules = [
+                    'xpassingyear'=>'required|not_in:0',
+                    'xmarks'=>'required|integer',
+                    'xboard'=>'required|not_in:0'
+
+        ];
+        $validator = Validator::make($request->all(), $rules,$messsages);
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
             $xArray = array('type'=>4,
                             'borad'=>$request->xboard,
                             'course_spec'=>$request->xmedium,
@@ -837,7 +1111,7 @@ class UserController extends Controller
       $companywork='';
       $companyworklist='';
       $Subcourselist=array();
-        $postSubcourselist=array();
+      $postSubcourselist=array();
       //////////////////////////// edit education details of user///////////
       if($pagename=='education')
       {
@@ -944,18 +1218,24 @@ class UserController extends Controller
       $jobprefrence = Jobprefrences::where(array('user_id'=>$user->id))->first();
       $educationdata = Eductiondetails::where(array('user_id'=>$user->id))->get();
       $statelist = array();
+      $citylist = array();
       
       
         if($user->country)
         {
           $statelist = State::where(array('country_id'=>$user->country))->get();
+          if($user->state)
+          {
+            $citylist = City::where(array('state'=>$user->state))->get();
+
+          }
 
         }
      // }
       
       // dd($editempdata);
 
-      return view('web/userfiles/editprofile',compact('pagename','countryList','getuserdetails','user','courselist','schoolboardlist','schoolmedium','jobprefrence','educationdata','Subcourselist','usereducationArry','functionalarea','indusrtylist','companywork','companyworklist','statelist','editempdata','postSubcourselist'));
+      return view('web/userfiles/editprofile',compact('pagename','countryList','getuserdetails','user','courselist','schoolboardlist','schoolmedium','jobprefrence','educationdata','Subcourselist','usereducationArry','functionalarea','indusrtylist','companywork','companyworklist','statelist','editempdata','postSubcourselist','citylist'));
     }
 
   }
@@ -1201,9 +1481,12 @@ class UserController extends Controller
     }
 
    
-    return view('web/userfiles/allconnection',compact('dataArray'));
+    return view('web/userfiles/allconnection',compact('dataArray','user'));
 
   }
+
+
+
    //////////// function for company profile /////////////
   public function companyprofile(Request $request,$editid=false)
   {
@@ -1355,9 +1638,9 @@ class UserController extends Controller
         if($updatedetails)
         {
           Session::flash('message','Update successfully'); 
-          Session::flash('alert-class', 'danger'); 
+          Session::flash('alert-class', 'success'); 
           Session::flash('alert-title', 'error');
-          //return redirect('/companyprofile');
+          return redirect('/editcompany');
 
         }
         else
@@ -1370,14 +1653,23 @@ class UserController extends Controller
 
       }
       $statelist = array();
+      $citylist = array();
       $countryList = $this->country->getallBy(array('status'=>1),array('id','country'));
       if($checkcompnay->country)
       {
         $statelist = State::where(array('country_id'=>$checkcompnay->country))->get();
+        if($checkcompnay->state)
+        {
+          $citylist = City::where(array('state'=>$checkcompnay->state))->get();
 
+        }
       }
+         
+      
+      
+        
       $indusrtylist = Industry::where(array())->get(array('id','name'));
-      return view('web.userfiles.editcompany',compact('countryList','checkcompnay','statelist','indusrtylist'));
+      return view('web.userfiles.editcompany',compact('countryList','checkcompnay','statelist','indusrtylist','citylist'));
 
     }
     else
@@ -1434,7 +1726,7 @@ class UserController extends Controller
           $user = Auth::user();
           if($id)
           {
-              $check = $this->postjob->getBy(array('id'=>$id));
+              $check = $this->postnews->getBy(array('id'=>$id));
               if($check)
               {
                   if($user->id==$check->user_id)
@@ -1486,6 +1778,7 @@ class UserController extends Controller
         $userdata = $this->usersInterface->getBy(array('id'=>$id,'status'=>1));
         if($userdata)
         {
+          $userdetail = $this->userdetail->getBy(array('user_id'=>$id));
           $condition = "user_id = '".$id."' and status=1";
           $articlelist = $this->articles->getallByRaw($condition,array('id','title','description','article_url'),5);
           $discussion = $this->discussion->getallByRaw($condition,array('id','title','description','discussion_url','created_at'),5);
@@ -1548,7 +1841,7 @@ class UserController extends Controller
 
         }
 
-          return view('web/userfiles/userdetail',compact('userdata','articlelist','discussion','usereducationArry','employmentdetails','jobprefrence'));
+          return view('web/userfiles/userdetail',compact('userdata','articlelist','discussion','usereducationArry','employmentdetails','jobprefrence','userdetail'));
 
         }
         else
@@ -1629,6 +1922,7 @@ class UserController extends Controller
         $checkapply = array();
         $jobarary = array();
         $loginrequired='yes';
+        $isfollow='no';
         if(Auth::check())
         {
           $loginrequired='no';
@@ -1636,6 +1930,14 @@ class UserController extends Controller
           ///////////// check apply for job////
           $conditioncheck = array('job_id'=>$id,'apply_by_id'=>$user->id,'type'=>1);
           $checkapply = Apply_for_job::where($conditioncheck)->lists('job_id')->all();
+
+           $conditioncheck = array('action_id'=>$id,'followed_by_id'=>$user->id,'type'=>2);
+           $followcheck = User_followers::where($conditioncheck)->first();
+           if($followcheck)
+           {
+             $isfollow='yes';
+
+           }
         }
         ///// all jobs posted by compnay///////
         $data = Jobdetail::where(array('compnay_id'=>$id))->paginate(10);
@@ -1686,7 +1988,10 @@ class UserController extends Controller
           }
 
         }
-        return view('web/compnaydetail',compact('checkcompnay','data','newslist','jobarary','companyCreditArray'));
+
+        ///////////check connect/////
+        
+        return view('web/compnaydetail',compact('checkcompnay','data','newslist','jobarary','companyCreditArray','loginrequired','isfollow'));
       }
 
     }
@@ -1695,6 +2000,9 @@ class UserController extends Controller
       return redirect('error404');
     }
   }
+
+
+
 
 	/**
      * Remove the specified resource from storage.

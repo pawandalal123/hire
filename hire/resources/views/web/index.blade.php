@@ -70,7 +70,13 @@
           </div>
           <div id="test2" class="col s12 tab-content">
             <div id="create-a-Job" class="tab-content" style="">
+            @if($user->profile_status==1) 
              @include('includes.partials.jobboxlist')
+             @else
+             <div class="activeprofilebox">
+             For jobs listing please activayr your profile.
+             </div>
+             @endif
             </div>
           </div>
         </div>

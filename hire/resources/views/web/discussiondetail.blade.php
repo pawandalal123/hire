@@ -6,7 +6,7 @@
       <div class="row">
           <div class="article-box">
             <h5>{{ucwords($discussiondetail->title)}}</h5>
-            <p> {{$discussiondetail->description}} </p>
+            <p> <?php echo $discussiondetail->description?></p>
             <div class="row">
               <div class="col s12 m6 l6">
               <div class="fixed-action-btn">
@@ -30,12 +30,13 @@
           </div>
            @if(count($commentArray)>0)
           <ul class="collection">
-          @foreach($commentArray as $commentArray)
+          @foreach($commentArray as $key=>$commentArray)
             <li class="collection-item avatar">
               <img src="{{$commentArray['image']}}" alt="" class="circle responsive-img">
               <span class="title">{{$commentArray['name']}}</span>
               <p>{{date('d M Y',strtotime($commentArray['commnetdate']))}} <br>{{$commentArray['comment']}}
               </p>
+              <div class="reportincorrect" id="{{$key}}" onclick="reportincorrect('{{$key}}','article_comment')">Report</div>
             </li>
             @endforeach()
           </ul>

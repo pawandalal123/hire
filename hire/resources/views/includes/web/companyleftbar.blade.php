@@ -21,11 +21,11 @@ $requestsegment = Request::segment(1);
         </div>
             <a href="{{URL::to('companyprofile')}}" class="waves-effect waves-light btn @if($requestsegment=='companyprofile') active @endif">Company Info</a> 
             <a href="{{URL::to('postjob')}}" class="waves-effect waves-light btn @if($requestsegment=='postjob') active @endif">Post Job</a> 
-            <a href="{{URL::to('joblist')}}" class="waves-effect waves-light btn @if($requestsegment=='joblist') active @endif">All Jobs</a>
+            <a href="{{URL::to('joblist')}}" class="waves-effect waves-light btn @if($requestsegment=='joblist') active @endif">All jobs & Set Appointments</a>
             <a href="{{URL::to('makenews')}}" class="waves-effect waves-light btn @if($requestsegment=='makenews') active @endif">News</a>
             <a href="{{URL::to('createsubuser')}}" class="waves-effect waves-light btn @if($requestsegment=='createsubuser') active @endif">Make Subuser</a> 
             <a href="{{URL::to('companycredibility')}}" class="waves-effect waves-light btn">Credibilty</a> 
-            <a href="appointment.html" class="waves-effect waves-light btn">Appointment</a> 
+            <a href="{{URL::to('appointment')}}" class="waves-effect waves-light btn">Appointment List</a> 
         <!-- Modal Structure -->
         
       </div>

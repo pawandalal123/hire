@@ -3,7 +3,7 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <div class="projectskills">
          <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <select class="initialized" name="projectcmp">
                 <option value="" disabled="">Select Company</option>
                 @if(count($companywork)>0)
@@ -17,7 +17,7 @@
                      <div class="error">{{ $errors->first('company') }}</div> 
                      @endif
             </div>
-               <div class="input-field col s4">
+               <div class="input-field col l4 m6  s12">
               <select class="initialized" name="industry">
                 <option value="" disabled="" >Industry</option>
                 @if(count($indusrtylist)>0)
@@ -34,7 +34,7 @@
           </div>
             
           <div class="row">
-          <div class="input-field col s4">
+          <div class="input-field col l4 m6  s12">
               <input placeholder="Name Company Website" name="projectname" id="company_name_website" type="text" class="required" required="required" value="{{@$editempdata->project_name}}">
               <label for="first_name" class="active">Project Name</label>
                @if ($errors->has('company')) 
@@ -42,14 +42,14 @@
                      @endif
             </div>
           
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <input placeholder="Project location" name="projectloc" type="text" class="validate" required="required" id="projectloc" value="{{@$editempdata->project_location}}">
               <label for="projectloc" class="active">Project Location</label>
                @if ($errors->has('company')) 
                      <div class="error">{{ $errors->first('company') }}</div> 
                      @endif
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <input placeholder="Company Name" id="projectnature" name="projectnature" type="text" class="validate" required="required" value="{{@$editempdata->project_nature}}">
               <label for="projectnature" class="active">Project Nature</label>
                @if ($errors->has('company')) 
@@ -61,17 +61,30 @@
 
           </div>
              <div class="row">
-             <div class="input-field col s4">
+             <div class="input-field col l4 m6  s12">
               <input placeholder="Name Company Website" name="projectskill" id="company_name_website" type="text" class="required" required="required" value="{{@$editempdata->project_skill}}">
               <label for="company_name_website" class="active">Project Skill Set</label>
             </div>
-           
-             <div class="input-field col s4">
-              <input type="date" class="datepicker" name="workedfromproject" value="{{@$editempdata->worked_to}}" id="workedfromproject">
+           <?php
+           $workform = '';
+            $workto = '';
+           if($editempdata->worked_from!='0000-00-00')
+           {
+            $workform=$editempdata->worked_from;
+
+           } 
+           if($editempdata->worked_to!='0000-00-00')
+           {
+            $workto=$editempdata->worked_to;
+
+           } 
+           ?>
+             <div class="input-field col l4 m6  s12">
+              <input type="date" class="datepicker" name="workedfromproject" value="{{@$workform}}" id="workedfromproject">
               <label for="workedfromproject" class="active" >Company Worked From</label>
             </div>
-            <div class="input-field col s4">
-             <input type="date" class="datepicker" name="workedtoproject" value="{{@$editempdata->worked_from}}" id="workedtoproject">
+            <div class="input-field col l4 m6  s12">
+             <input type="date" class="datepicker" name="workedtoproject" value="{{@$workto}}" id="workedtoproject">
               <label for="workedtoproject" class="active">Company Worked To</label>
             </div>
            
@@ -96,7 +109,7 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <div class="projectskills">
          <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <select class="initialized" name="projectcmp[]">
                 <option value="" disabled="" selected="">Select Company</option>
                 @if(count($companywork)>0)
@@ -107,7 +120,7 @@
               </select>
               <label>Select Company</label>
             </div>
-              <div class="input-field col s4">
+              <div class="input-field col l4 m6  s12">
               <select class="initialized" name="industry[]">
                 <option value="" disabled="" selected="">Industry</option>
 
@@ -125,16 +138,16 @@
 
         
           <div class="row">
-          <div class="input-field col s4">
+          <div class="input-field col l4 m6  s12">
               <input placeholder="Name Company Website" name="projectname[]" id="company_name_website" type="text" class="required" required="required">
               <label for="first_name" class="active">Project Name</label>
             </div>
           
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <input placeholder="Current Designation" name="projectloc[]" type="text" class="validate" required="required">
               <label for="Designation" class="active">Project Location</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
               <input placeholder="Company Name" id="company" name="projectnature[]" type="text" class="validate" required="required">
               <label for="first_name" class="active">Project Nature</label>
          
@@ -143,16 +156,16 @@
 
           </div>
              <div class="row">
-             <div class="input-field col s4">
+             <div class="input-field col l4 m6  s12">
               <input placeholder="Name Company Website" name="projectskill[]" id="company_name_website" type="text" class="required" required="required">
               <label for="first_name" class="active">Project Skill Set</label>
             </div>
            
-             <div class="input-field col s4">
+             <div class="input-field col l4 m6  s12">
               <input type="date" class="datepicker" name="workedfromproject[]" value="">
               <label for="first_name" class="active">Company Worked From</label>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col l4 m6  s12">
              <input type="date" class="datepicker" name="workedtoproject[]" value="">
               <label for="first_name" class="active">Company Worked To</label>
             </div>
@@ -164,7 +177,7 @@
        
           </div>
 
-          <div class="col s12">
+          <div class="col s12 space1">
           <span class="add waves-effect waves-light btn addmoreemp">add more project</span>
           </div>
           <span id="spin">
@@ -181,7 +194,7 @@
 <script type="text/javascript">
 $(document).ready(function() 
 {
-  var industrylist = <?php echo json_encode($indusrtylist);?>
+  var industrylist = <?php echo json_encode($indusrtylist);?>;
     $('select').material_select();
     var companyworklist = {!!$companyworklist!!};
 $(document).on('click','.addmoreemp',function()
@@ -192,7 +205,7 @@ $(document).on('click','.addmoreemp',function()
   {
          html+='<option value="'+k+'">'+v+'</option>';  
      });
-              html+='</select></div>                     </div>          <div class="row"><div class="input-field col s4"><input placeholder="Name Company Website" name="projectname[]" id="company_name_website" type="text" class="required" required="required">              <label for="first_name" class="active">Project Name</label></div><div class="input-field col s4">              <input placeholder="Current Designation" name="projectloc[]" type="text" class="validate" required="required">              <label for="Designation" class="active">Project Location</label>            </div>            <div class="input-field col s4">              <input placeholder="Company Name" id="company" name="projectnature[]" type="text" class="validate" required="required">              <label for="first_name" class="active">Project Nature</label>            </div>                     </div>             <div class="row">            <div class="input-field col s4">              <input placeholder="Name Company Website" name="projectskill[]" id="company_name_website" type="text" class="required" required="required">              <label for="first_name" class="active">Project Skill Set</label>            </div> <div class="input-field col s4"><input type="date" class="datepicker" name="workedfromproject[]" value=""><label for="first_name" class="active">Company Worked From</label>            </div><div class="input-field col s4">             <input type="date" class="datepicker" name="workedtoproject[]" value="">              <label for="first_name" class="active">Company Worked To</label>            </div>          </div>';
+              html+='</select></div>                     </div>          <div class="row"><div class="input-field col l4 m6  s12"><input placeholder="Name Company Website" name="projectname[]" id="company_name_website" type="text" class="required" required="required">              <label for="first_name" class="active">Project Name</label></div><div class="input-field col l4 m6  s12">              <input placeholder="Current Designation" name="projectloc[]" type="text" class="validate" required="required">              <label for="Designation" class="active">Project Location</label>            </div>            <div class="input-field col l4 m6  s12">              <input placeholder="Company Name" id="company" name="projectnature[]" type="text" class="validate" required="required">              <label for="first_name" class="active">Project Nature</label>            </div>                     </div>             <div class="row">            <div class="input-field col l4 m6  s12">              <input placeholder="Name Company Website" name="projectskill[]" id="company_name_website" type="text" class="required" required="required">              <label for="first_name" class="active">Project Skill Set</label>            </div> <div class="input-field col l4 m6  s12"><input type="date" class="datepicker" name="workedfromproject[]" value=""><label for="first_name" class="active">Company Worked From</label>            </div><div class="input-field col l4 m6  s12">             <input type="date" class="datepicker" name="workedtoproject[]" value="">              <label for="first_name" class="active">Company Worked To</label>            </div>          </div>';
 
   var LastDiv = $(".projectskills:last");
   LastDiv.after(html);

@@ -92,7 +92,7 @@ class DiscussionRepository implements DiscussionsInterface
           $discussionlist = $discussionlist->whereRaw("event_id != '".$request->idnotin."'");
 
         }
-        if(Input::has('userid'))
+        if($request->userid)
         {
           $discussionlist = $discussionlist->whereRaw("user_id = '".$request->userid."'");
 
@@ -149,7 +149,7 @@ class DiscussionRepository implements DiscussionsInterface
         else
         {
             $create = $this->create($dataArray);
-            $message='Create';
+            $message='Your Discussion has now been posted , check your profile to manage all your Discussions';
         }
         if($create)
         {

@@ -20,16 +20,16 @@
                     @if($company['cityname']) {{$company['cityname']}} @endif</p>
                   </a>
                    @if($company['loginrequired']=='yes')
-                   <button class="waves-effect waves-light btn connect"  onclick="loginbox()"> Connect</button>
+                   <button class="waves-effect waves-light btn connect{{$key}}"  onclick="loginbox()"> Connect</button>
                    @else
-                  <button class="waves-effect waves-light btn connect" onclick="saveaction({{$key}},'company')">@if($company['is_connect']=='yes') Unconnect @else Connect @endif</button>
+                  <button class="waves-effect waves-light btn connect{{$key}}" onclick="saveaction({{$key}},'company')">@if($company['is_connect']=='yes') Unconnect @else Connect @endif</button>
                   @endif
                 </li>
                  @endforeach()
               </ul>
                <?php echo $data->appends(Input::except('page'))->render();?>
                 @else
-                <div class="text-center">No article found......</div> 
+                <div class="text-center">No record found......</div> 
                @endif
              
             </div>

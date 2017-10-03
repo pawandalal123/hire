@@ -1,3 +1,4 @@
+
 @extends('layout.default')
 @section('content')
 <section class="top-blue-sec">
@@ -54,9 +55,9 @@
         <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="loginbox()">Follow</a>
         @else
         @if($details['is_follow']=='no')
-        <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="saveaction({{$compnay->id}},'company')">Follow</a>
+        <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="saveaction({{$compnay->id}},'jobdetail')">Follow</a>
         @else
-        <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="saveaction({{$compnay->id}},'company')">Unfollow</a>
+        <a class="waves-effect waves-light btn userFollow" href="javascript:void(0)" onclick="saveaction({{$compnay->id}},'jobdetail')">Unfollow</a>
         @endif
         @endif
       </div>
@@ -70,9 +71,11 @@
        <div class="row">
         <div class="col s12">
           <div class="row">
-            <div class="col s8">
-            <h4>Job Description</h4>
-            <article>
+            <div class="col s12 m12 l12">
+                <h4>Job Description</h4>
+            </div>
+            <div class="col s12 m8 l8">
+            	<article>
             <p>Designation:{{$checkjob->designation}} </p>
               <p>SkillSet:{{$checkjob->skill}} </p>
               <p>Job Quality:{{ $checkjob->job_quality}}</p>
@@ -95,7 +98,7 @@
               <p><a class="readmore" href="#">Show more (+)</a></p> -->
             </article>
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <p>
                 <strong>Seniority Level</strong><br>
                 {{$details['emp_type']}}

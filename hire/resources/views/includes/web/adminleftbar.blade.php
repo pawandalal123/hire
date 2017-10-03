@@ -256,7 +256,35 @@
                         </li>  
                                                               
                     </ul>                
-                </li>                
+                </li>
+                 <li class="openable">
+                    <a href="#">
+                        <span class="isw-chat"></span><span class="text">All Appointment</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{URL::to('admin/allappointment')}}">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span class="text">Appointment Listing</span></a>
+                        </li> 
+                          
+
+                    </ul>                
+                </li>  
+                 <li class="openable">
+                    <a href="#">
+                        <span class="isw-chat"></span><span class="text">Report Incorrect</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{URL::to('reportincorrect')}}">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span class="text">All Listing</span></a>
+                        </li> 
+                          
+
+                    </ul>                
+                </li>                 
 
             </ul>
 

@@ -7,9 +7,10 @@
           <div class="article-box">
             <h5>{{ucwords($articledetail->title)}}</h5>
             <p> @if($articledetail->articles_image)
-            <img src="{{URL::to('uplode/articles/'.$articledetail->articles_image)}}" alt="" style="height: 144px;"> @endif {{$articledetail->description}} </p>
+            <img src="{{URL::to('uplode/articles/'.$articledetail->articles_image)}}" alt="" style="height: 144px;> @endif <?php echo $articledetail->description?> </p>
             <div class="row">
               <div class="col s12 m6 l6">
+              <a href="" class="share-box">view 0</a>
               <div class="fixed-action-btn">
                 <a class="share-box">
                   Share
@@ -20,6 +21,7 @@
                   <li><a onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url={{URL::to('articledetail/'.$articledetail->article_url)}}&summary={{$articledetail->title}}', 'linkedinShare', 'width=750,height=350'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/linkedin-logo.png')}}"></a></li>
                   <li><a onclick="window.open('https://twitter.com/share?url={{URL::to('articledetail/'.$articledetail->article_url)}}&text={{$articledetail->title}}', 'twitterShare', 'width=626,height=436'); return false;" class="btn-floating blue" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;"><img src="{{URL::to('web/images/twitter.png')}}"></a></li>
                 </ul>
+              
               </div>
               <!-- <a href="" class="share-box">Share</a> --></div>
               @if(count($commentArray)>0)
@@ -29,12 +31,13 @@
           </div>
           @if(count($commentArray)>0)
           <ul class="collection">
-          @foreach($commentArray as $commentArray)
+          @foreach($commentArray as $key=>$commentArray)
             <li class="collection-item avatar">
               <img src="{{$commentArray['image']}}" alt="" class="circle responsive-img">
               <span class="title">{{$commentArray['name']}}</span>
-              <p>{{date('d M Y',strtotime($commentArray['commnetdate']))}} <br>{{$commentArray['comment']}}
+              <p>{{date('d M Y',strtotime($commentArray['commnetdate']))}} ,<strong class="reportincorrect" id="{{$key}}" onclick="reportincorrect('{{$key}}','article_comment')">Report</strong><br>{{$commentArray['comment']}}
               </p>
+               <!-- <div class="reportincorrect" id="{{$key}}" onclick="reportincorrect('{{$key}}','article_comment')">Report</div> -->
             </li>
             @endforeach()
           </ul>

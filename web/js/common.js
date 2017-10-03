@@ -16,14 +16,11 @@
         /////////// get subcourse ;list//////
          $('.coursechange').change(function()
         {
-          var countryid = $(this).val();
-           if($(this).val() != 0 || $(this).val() !='')
+          var course_id = $(this).val();
+           
+          $.post(SITE_URL+'getsubcourselist',{'course_id':course_id},function(data,status)
           {
-           var countryid = $(this).find('option:selected').attr('id');
-          }
-          $.post(SITE_URL+'getsubcourselist',{'countryid':countryid},function(data,status)
-          {
-            $('.statechangediv').html(data);
+            $('.coursechnagediv').html(data);
             // $('.statechange').material_select('destroy');
             $('.subcourse').material_select();
       
@@ -37,12 +34,9 @@
         })
         $('.postchange').change(function()
         {
-          var countryid = $(this).val();
-           if($(this).val() != 0 || $(this).val() !='')
-          {
-           var countryid = $(this).find('option:selected').attr('id');
-          }
-          $.post(SITE_URL+'getsubcourselist',{'countryid':countryid,'type':''},function(data,status)
+          var course_id = $(this).val();
+        
+          $.post(SITE_URL+'getsubcourselist',{'course_id':course_id,'type':'postgraduaction'},function(data,status)
           {
             $('.postchangesubcourse').html(data);
             // $('.statechange').material_select('destroy');
@@ -129,7 +123,7 @@
             {
               if(data.status=='success')
               {
-                swal({ title: "Done", text: "Update Successfully", type: "success" });
+                swal({ title: "Done", text: data.message, type: "success" });
 
               }
               else
@@ -263,6 +257,68 @@
                 $('#modelcontent').html(data);
             });
     }
+
+    function reportincorrect(id,type)
+    {
+      var obj={};
+ 
+       
+      modelblock('Report Incorrect','<div id="modelcontent"></div>','small','small');
+        var _token = $('input[name=_token]').val();
+        $.post(SITE_URL+'reportincorrectbox',{'report_id':id,'report_type':type},function(data,status)
+            {
+                $('#modelcontent').html(data);
+            });
+    }
+
+    function savefreportincorrectdata(id,type)
+    {
+      
+       var report_for=id;
+       var type=type;
+       var email=$('input[name=user_email]').val();
+       var mobile=$('input[name=mobile]').val();
+       var message= $('textarea#message').val();
+       var emailRegex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/);
+       var valid = emailRegex.test(email);
+       if(email=='')
+        {
+           $('input[name=user_email]').parent().addClass("has-error");
+           $(this).parent().append('<div>* This Field is required</div>');
+        }
+        if(!valid)
+        {
+          $('input[name=user_email]').parent().addClass("has-error");
+          $(this).parent().append('<div>* Please enter valid email</div>');
+          return false;
+        }
+        if(message=='')
+        {
+          $('input[name=message]').parent().addClass("has-error");
+          $(this).parent().append('<div>* This Field is required</div>');
+        }
+      else
+      {
+         $.post(SITE_URL+'savereportincorrect',{'report_for':report_for,'type':type,'email':email,'mobile':mobile,'message':message},function(data,status)
+            {
+              setTimeout(function(){closemodel()},2000);
+                if(data==1)
+                {
+                   $('textarea[name=comment]').val('');
+                  swal({ title: "Done", text: "comment reported successfully.", type: "success" });
+
+                }
+                else
+                {
+                  swal({ title: "Error", text: "Please try later.", type: "error" });
+
+                }
+            });
+
+      }
+     
+
+    }
     function savecomment(id,detailfor)
     {
       var message = $('textarea[name=comment]').val();
@@ -359,7 +415,7 @@ function saveaction(id,actionfor)
              if(index=='success')
               {
                 // alert();
-                      if(actionfor=='user' || actionfor=='company')
+                      if(actionfor=='user')
                       {
                         // alert('safd');
                           if(element.status==0)
@@ -369,7 +425,37 @@ function saveaction(id,actionfor)
                           }
                           else if(element.status==1)
                           {
-                              $('.connect').text('Follow');
+                              $('.connect').text('Connect');
+                              swal({ title: "Done", text: "Unconnect successfully", type: "success" });
+                          }
+
+                      }
+                      else if(actionfor=='company')
+                      {
+                        // alert('safd');
+                          if(element.status==0)
+                          {
+                               $('.connect'+id).text('Unconnect');
+                              swal({ title: "Done", text: "Connect successfully", type: "success" });
+                          }
+                          else if(element.status==1)
+                          {
+                              $('.connect'+id).text('Connect');
+                              swal({ title: "Done", text: "Unconnect successfully", type: "success" });
+                          }
+
+                      }
+                      else if(actionfor=='jobdetail')
+                      {
+                        // alert('safd');
+                          if(element.status==0)
+                          {
+                               $('.userFollow').text('Unfollow');
+                              swal({ title: "Done", text: "Connect successfully", type: "success" });
+                          }
+                          else if(element.status==1)
+                          {
+                              $('.userFollow').text('Follow');
                               swal({ title: "Done", text: "Unconnect successfully", type: "success" });
                           }
 
@@ -383,7 +469,7 @@ function saveaction(id,actionfor)
                           }
                           else if(element.status==1)
                           {
-                              $('.connect'+id).text('Follow');
+                              $('.connect'+id).text('Connect');
                               swal({ title: "Done", text: "Unconnect successfully", type: "success" });
                           }
 
@@ -420,6 +506,12 @@ function saveaction(id,actionfor)
                               $('.savejob').hide();
                               swal({ title: "Done", text: "Save successfully", type: "success" });
                           }
+                      }
+                      else if(actionfor=='acceptappointment' || actionfor=='declineppointment')
+                      {
+                         
+                              $('.savejob').html(element.status);
+                              swal({ title: "Done", text: +element.status+ "uccessfully", type: "success" });
                       }
                       else
                       {

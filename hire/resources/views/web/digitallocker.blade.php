@@ -43,6 +43,7 @@
         <div class="alert alert-dismissible alert-{{ Session::get('alert-class', 'alert-info') }} mt10    ">
         <button type="button" class="close" data-dismiss="alert">×</button>
         {{ Session::get('message') }}
+        {{ Session::forget('message') }}
         </div>
 
         @endif

@@ -173,7 +173,7 @@ class DigitallockerController extends Controller
             // dd($sharelistArray);
             
            
-            return \View::make('web.digitallocker',compact('doctypelist','getdocumentList','sharelistArray','docArray','user'));
+          return \View::make('web.digitallocker',compact('doctypelist','getdocumentList','sharelistArray','docArray','user'));
 
         }
         else
@@ -194,13 +194,13 @@ public function sharedocument(Request $request)
           ?>
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
            <div class="input-field">
-                <!-- <label for='first_name' >Name</label> -->
-                <input type="text" class="form-control" name='name' id='name' placeholder='Name' value=''>
+                <label for='first_name' >Name</label>
+                <input type="text" class="form-control" name='name' id='name'  value=''>
               </div>
              
               <div class="input-field">
-                <!-- <label for='first_name' >Email</label> -->
-                <input type="text" class="form-control" name='email' id='email' placeholder='Email' value=''>
+                <label for='first_name' >Email</label>
+                <input type="text" class="form-control" name='email' id='email'  value=''>
               </div>           
                <div class="text-right">
               <a  class="btn btn-success" onClick="submitsharebox

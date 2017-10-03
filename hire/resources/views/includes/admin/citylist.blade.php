@@ -87,22 +87,7 @@
                   <div class="row">
 
                     <div class="col-md-12">                    
-                        <div class="head clearfix">
-                            <div class="isw-grid"></div>
-                            <h1>Simple table</h1>      
-                            <ul class="buttons">
-                                <li><a href="#" class="isw-download"></a></li>                                                        
-                                <li><a href="#" class="isw-attachment"></a></li>
-                                <li>
-                                    <a href="#" class="isw-settings"></a>
-                                    <ul class="dd-list">
-                                        <li><a href="#"><span class="isw-plus"></span> New document</a></li>
-                                        <li><a href="#"><span class="isw-edit"></span> Edit</a></li>
-                                        <li><a href="#"><span class="isw-delete"></span> Delete</a></li>
-                                    </ul>
-                                </li>
-                            </ul>                        
-                        </div>
+                        
                         <div class="block-fluid">
                             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                                 <thead>

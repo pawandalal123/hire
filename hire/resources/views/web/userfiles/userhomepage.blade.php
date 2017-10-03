@@ -22,6 +22,8 @@
     @include('includes.web.userfiles.editskills')
      @elseif($pagename=='all-saves')
     @include('includes.web.userfiles.allsaves')
+    @elseif($pagename=='all-appointment')
+    @include('includes.web.userfiles.userallappointments')
    @else
    @include('includes.web.userfiles.userhome')
    @endif
@@ -67,13 +69,7 @@
            <a href="{{URL::to('editprofile/education')}}"  class="waves-effect waves-light btn basicdetail-edit-right-side">Edit</a>
           @endif
         </div>
-        <div class="user-gray-box">
-          <h6>My Recent Feedback</h6>
-          <p>Morbi eget velit ultricies, volutpat nulla id</p>
-          <p>Morbi eget velit ultricies, volutpat nulla id</p>
-          <p>Morbi eget velit ultricies, volutpat nulla id</p>
-          <a href="#" class="waves-effect waves-light btn basicdetail-edit-right-side">Edit</a>
-        </div>
+      
       </div>
     </div>
   </div>

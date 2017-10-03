@@ -41,7 +41,7 @@
                                  @endif
                             </div>  
                             <div class="row-form clearfix">
-                                <div class="col-md-3">state:</div>
+                                <div class="col-md-3">sub category:</div>
                                 <div class="col-md-9">
                                 <input type="text" name="name" class="form-control validate[required]" placeholder="placeholder..." value="{{@$datatoedit->name}}" /></div>
                                 @if ($errors->has('name')) 
@@ -50,7 +50,7 @@
                             </div>  
 
                             <div class="row-form clearfix">
-                                <div class="col-md-3">state:</div>
+                                <div class="col-md-3">points:</div>
                                 <div class="col-md-9">
                                 <input type="text" name="point" class="form-control validate[required]" placeholder="placeholder..." value="{{@$datatoedit->point}}" /></div>
                                 @if ($errors->has('point')) 

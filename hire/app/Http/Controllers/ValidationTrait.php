@@ -80,8 +80,9 @@ trait ValidationTrait {
        
 
         $rules = [
-            'mobile'=>'required|numeric',
+            'mobile'=>'required|numeric|digits:10',
             'gender'=>'required',
+            'pincode'=>'integer',
             'first_name'=>'required|max:255',
             'dob' => 'date|date_format:Y-m-d',
             'profileimage' => 'mimes:jpeg,png,bmp,gif,jpg'
@@ -206,7 +207,7 @@ trait ValidationTrait {
 
     $rules = [
         'companyname'=>'required',
-        'contact' => 'required|numeric',
+        'contact' => 'required|numeric|digits:10',
         'companylogo' => 'mimes:jpeg,bmp,png,jpg',
         'industry'=>'required|numeric|not_in:0',
     ];
@@ -421,5 +422,28 @@ trait ValidationTrait {
         ];
         return Validator::make($data, $rules,$messsages);
      }
+
+     /////////////// set appointmnet validation///
+     protected function validateappointment(array $data)
+    {
+        // dd($data);
+        $messsages = [
+        'appintround.required'=>'Please seelct round',
+        'appointdate.required'=>'Please select date'];
+       
+
+    $rules = [
+        'appointdate'=>'required|date|date_format:Y-m-d',
+        'appintround'=>'required|numeric|not_in:0',
+    ];
+    if($data['appointmode']==3)
+    {
+        $rules['officeaddress'] = 'required';
+
+    }
+
+    return Validator::make($data, $rules,$messsages);
+       
+    }
     
 }

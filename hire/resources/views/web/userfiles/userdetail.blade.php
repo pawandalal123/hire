@@ -17,7 +17,7 @@
                 {{ucwords($userdata->name)}} {{ucwords($userdata->last_name)}}
               </div>
               <div class="card-content">
-                <p>Web Designer</p>
+               @if($userdata->profile_title) <p>{{ucwords($userdata->profile_title)}}</p> @endif
                 <!-- <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> <i class="material-icons dp48">star</i> -->
               </div>
             </div>
@@ -27,7 +27,7 @@
         
       </div>
       <div class="col s12 m3 l3 profile1">
-        <h6>Profile Status</h6>
+        <!-- <h6>Profile Status</h6> -->
     <!--     <div class="switch">
             <label>
               Deactivate
@@ -36,13 +36,14 @@
                Activate Profile
             </label>
           </div> -->
-          <div class="status-box">
+          <!-- <div class="status-box">
             Profile Status
             <label class="status-percent">70%</label>
             <div class="progress">
                 <div class="determinate" style="width: 70%"></div>
             </div>
-          </div>
+          </div> -->
+          
       </div>
     </div>
   </div>
@@ -60,9 +61,9 @@
               <li class="collection-item">Profile Title : {{ucwords($userdata->profile_title)}}</li>
               @endif
                 <li class="collection-item">Name : {{ucwords($userdata->name)}} {{$userdata->last_name}}</li>
-                <li class="collection-item">Gender : avinash@abc.com</li>
-                <li class="collection-item">Mother Name : 6598785465</li>
-                <li class="collection-item">Father Name : </li>
+                <li class="collection-item">Gender : @if(@$userdetail->gender==1) Male @else Female @endif</li>
+                <li class="collection-item">Mother Name : {{ucwords($userdetail->mother_name)}}</li>
+                <li class="collection-item">Father Name : {{ucwords($userdetail->father_name)}}</li>
                 <li class="collection-item">Address : {{ucwords($userdata->address)}}</li>
                 <li class="collection-item">Pincode : {{ucwords($userdata->pincode)}}</li>
               </ul>
