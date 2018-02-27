@@ -32,11 +32,6 @@ return [
 
 
 
-    'stripe' => [
-    // 'model'  => 'User',
-    'model'  => App\User::class,
-    'secret' => env('STRIPE_API_SECRET'),
-],
     'facebook' => [
         'client_id'     => env('FB_CLIENT_ID'),
         'client_secret' => env('FB_SECRET_KEY'),

@@ -148,17 +148,17 @@ return [
         App\Providers\RouteServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
        // Barryvdh\Debugbar\ServiceProvider::class,
-        Aws\Laravel\AwsServiceProvider::class,
+        // Aws\Laravel\AwsServiceProvider::class,
          'Maatwebsite\Excel\ExcelServiceProvider',
         Barryvdh\Debugbar\ServiceProvider::class,
         'Artesaos\SEOTools\Providers\SEOToolsServiceProvider',
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-       'Laravel\Cashier\CashierServiceProvider',
+       // 'Laravel\Cashier\CashierServiceProvider',
          // 'Shift31\LaravelElasticsearch\ElasticsearchServiceProvider',
          Yajra\Datatables\DatatablesServiceProvider::class,
-         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+         // Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
     ],
 
@@ -211,14 +211,14 @@ return [
         'Html'      => Illuminate\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
-         'AWS' => Aws\Laravel\AwsFacade::class,
+         
          'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         //'Debugbar' => Barryvdh\Debugbar\Facade::class,
        'SEOMeta'   => 'Artesaos\SEOTools\Facades\SEOMeta',
         'OpenGraph' => 'Artesaos\SEOTools\Facades\OpenGraph',
         'Twitter'   => 'Artesaos\SEOTools\Facades\TwitterCard',
         'SEO' => 'Artesaos\SEOTools\Facades\SEOTools',
-        'Moloquent'       => 'Jenssegers\Mongodb\Model',
+        
         'PDF' => Barryvdh\DomPDF\Facade::class,
          // 'Es' =>'Elasticsearch\Client',
          'Datatables'  => 'Yajra\Datatables\Facades\Datatables'
